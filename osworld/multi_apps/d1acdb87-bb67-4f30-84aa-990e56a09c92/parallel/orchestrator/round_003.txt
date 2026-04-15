@@ -1,0 +1,9 @@
+I have 4 out of 5 restaurants' data. The Niras search failed (MAX_STEPS). Let me retry Niras and then fill in the spreadsheet. I can see from the screenshot that the agent found "NIRAS (K11 MUS..." in the browser tab, suggesting it found the restaurant but couldn't save the file. Let me retry that search and then fill in all data.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Open Google Chrome and go to Google Maps (maps.google.com). Search for 'Niras Hong Kong restaurant'. Find the restaurant's address, phone number, and website from the Google Maps listing. Open a terminal and write the results to /tmp/restaurant_5.txt using this command format:\ncat > /tmp/restaurant_5.txt << 'EOF'\nName: Niras\nAddress: <address>\nPhone: <phone>\nWebsite: <website>\nEOF\nIf any field is not available, write 'N/A' for that field. Then verify with: cat /tmp/restaurant_5.txt"}
+  ],
+  "parallel": true
+}
