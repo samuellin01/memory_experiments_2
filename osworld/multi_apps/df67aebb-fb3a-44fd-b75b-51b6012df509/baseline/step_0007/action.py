@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('curl --tls-max 1.2 "https://dblp.org/search/publ/a'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('pi?q=Attention+is+All+you+Need&format=json&h=5" 2>'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('&1 | head -50\n'), shell=True, check=True)
+import time; time.sleep(0.05)

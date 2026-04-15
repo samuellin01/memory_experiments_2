@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('sleep 5 && curl -s "https://api.semanticscholar.or'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('g/graph/v1/paper/search?query=SParC+Cross-Domain+S'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('emantic+Parsing+Context&limit=3&fields=externalIds'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote(',title,venue" 2>/dev/null | python3 -m json.tool\n'), shell=True, check=True)
+import time; time.sleep(0.05)
