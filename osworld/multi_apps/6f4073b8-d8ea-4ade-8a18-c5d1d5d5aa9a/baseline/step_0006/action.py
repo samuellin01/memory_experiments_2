@@ -1,8 +1,0 @@
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('Atlanta\nLake Tahoe\nBanff\nBeijing\nMontreal\nSan Dieg'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('o\nLille\nMontreal\nSan Juan\nNew York City\nBarcelona\n'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('Toulon\nSydney\nLong Beach\nVancouver\nStockholm\nMontr'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('eal\nNew Orleans\nLong Beach\nVancouver\n'), shell=True, check=True)
-import time; time.sleep(0.05)
