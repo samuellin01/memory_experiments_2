@@ -1,0 +1,96 @@
+Context:
+Original task: I am an NLP researcher. Check out the best long paper awards of ACL from 2019 to 2022 and record the 'title', 'year', 'author list' and 'PDF link' into table best_awards_acl.xlsx on the desktop. Separate authors only by commas, use offical aclanthology urls not arxiv, and sort rows by years in descending orders.
+
+Progress so far:
+1. [DONE] In Google Chrome, go to https://aclanthology.org/volumes/2020.acl-main/ (ACL 2020 proceedings). Find the 'Best Long Paper' award winner. If not found there, search Google for 'ACL 2020 best long paper award site:aclanthology.org'. Record the title, all authors, and the PDF link (aclanthology.org URL). Write the results to /tmp/acl2020.txt in format: Title: ...
+Authors: ...
+PDF: ...
+Year: 2020
+   Result: The file has been created successfully with the correct content:
+
+```
+Title: Beyond Accuracy: Behavioral Testing of NLP Models with CheckList
+Authors: Marco Tulio Ribeiro, Tongshuang Wu, Carlos Guestrin, Sameer Singh
+PDF: https://aclanthology.org/2020.acl-main.442.pdf
+Year: 2020
+```
+
+DONE. I found the ACL 2020 Best Paper (Best Overall Paper) award winner and recorded the information to /tmp/acl2020.txt. The winning paper is "Beyond Accuracy: Behavioral Testing of NLP Models with CheckList" by Marco Tulio Ribeiro, Tongshuang Wu, Carlos Guestrin, and Sameer Singh. The PDF link is https://aclanthology.org/2020.acl-main.442.pdf. Note: ACL 2020 awarded a "Best Overall Paper" rather than specifically a "Best Long Paper" — this paper was the top award winner at ACL 2020.
+2. [DONE] In Google Chrome, go to https://aclanthology.org/volumes/2021.acl-long/ or search for 'ACL 2021 best long paper award site:aclanthology.org'. Find the 'Best Long Paper' award winner. Record the title, all authors, and the PDF link (aclanthology.org URL). Write the results to /tmp/acl2021.txt in format: Title: ...
+Authors: ...
+PDF: ...
+Year: 2021
+   Result: The file has been created successfully with the correct content:
+
+```
+Title: Vocabulary Learning via Optimal Transport for Neural Machine Translation
+Authors: Jingjing Xu, Hao Zhou, Chun Gan, Zaixiang Zheng, Lei Li
+PDF: https://aclanthology.org/2021.acl-long.571.pdf
+Year: 2021
+```
+
+DONE. I found the ACL 2021 Best Long Paper award winner and saved the information to `/tmp/acl2021.txt`. The paper is "Vocabulary Learning via Optimal Transport for Neural Machine Translation" by Jingjing Xu, Hao Zhou, Chun Gan, Zaixiang Zheng, and Lei Li. The PDF link is https://aclanthology.org/2021.acl-long.571.pdf. This was confirmed both from the ACL 2021 conference website (2021.aclweb.org/program/accept/) and the ACL Anthology page (which explicitly shows "Award: Best Paper").
+3. [DONE] In Google Chrome, go to https://aclanthology.org/volumes/P19-1/ (ACL 2019 proceedings). Find the 'Best Long Paper' award winner. Record the title, all authors, and the PDF link (aclanthology.org URL). Write the results to /tmp/acl2019.txt in format: Title: ...
+Authors: ...
+PDF: ...
+Year: 2019
+   Result: The file has been written correctly with all the required information:
+
+- **Title**: Bridging the Gap between Training and Inference for Neural Machine Translation
+- **Authors**: Wen Zhang, Yang Feng, Fandong Meng, Di You, Qun Liu
+- **PDF**: https://aclanthology.org/P19-1426.pdf
+- **Year**: 2019
+
+The file is saved at `/tmp/acl2019.txt`.
+
+DONE. I found the ACL 2019 Best Long Paper award winner from the ACL Anthology. The paper is "Bridging the Gap between Training and Inference for Neural Machine Translation" by Wen Zhang, Yang Feng, Fandong Meng, Di You, Qun Liu. The PDF link is https://aclanthology.org/P19-1426.pdf. All information has been written to /tmp/acl2019.txt in the requested format.
+4. [DONE] In Google Chrome, go to https://aclanthology.org/volumes/2022.acl-long/ or search for 'ACL 2022 best long paper award site:aclanthology.org'. Find the 'Best Long Paper' award winner. Record the title, all authors, and the PDF link (aclanthology.org URL). Write the results to /tmp/acl2022.txt in format: Title: ...
+Authors: ...
+PDF: ...
+Year: 2022
+   Result: The file has been successfully created and verified. The contents of `/tmp/acl2022.txt` are:
+
+```
+Title: Learned Incremental Representations for Parsing
+Authors: Nikita Kitaev, Thomas Lu, Dan Klein
+PDF: https://aclanthology.org/2022.acl-long.220.pdf
+Year: 2022
+```
+
+DONE. I found the ACL 2022 Best Long Paper Award winner from the official ACL 2022 conference website (2022.aclweb.org/best-paper-awards.html) and verified the paper details on ACL Anthology (aclanthology.org/2022.acl-long.220/). The results have been saved to `/tmp/acl2022.txt` with the title "Learned Incremental Representations for Parsing" by Nikita Kitaev, Thomas Lu, and Dan Klein, with the official ACL Anthology PDF link.
+
+Subtask:
+Open a terminal and run the following Python script to create the Excel file:
+
+python3 -c "
+import openpyxl
+
+wb = openpyxl.Workbook()
+ws = wb.active
+ws.title = 'best_awards_acl'
+
+# Headers
+ws['A1'] = 'title'
+ws['B1'] = 'year'
+ws['C1'] = 'author list'
+ws['D1'] = 'PDF link'
+
+# Data sorted by year descending (2022, 2021, 2020, 2019)
+data = [
+    ('Learned Incremental Representations for Parsing', 2022, 'Nikita Kitaev, Thomas Lu, Dan Klein', 'https://aclanthology.org/2022.acl-long.220.pdf'),
+    ('Vocabulary Learning via Optimal Transport for Neural Machine Translation', 2021, 'Jingjing Xu, Hao Zhou, Chun Gan, Zaixiang Zheng, Lei Li', 'https://aclanthology.org/2021.acl-long.571.pdf'),
+    ('Beyond Accuracy: Behavioral Testing of NLP Models with CheckList', 2020, 'Marco Tulio Ribeiro, Tongshuang Wu, Carlos Guestrin, Sameer Singh', 'https://aclanthology.org/2020.acl-main.442.pdf'),
+    ('Bridging the Gap between Training and Inference for Neural Machine Translation', 2019, 'Wen Zhang, Yang Feng, Fandong Meng, Di You, Qun Liu', 'https://aclanthology.org/P19-1426.pdf'),
+]
+
+for i, (title, year, authors, pdf) in enumerate(data, start=2):
+    ws.cell(row=i, column=1, value=title)
+    ws.cell(row=i, column=2, value=year)
+    ws.cell(row=i, column=3, value=authors)
+    ws.cell(row=i, column=4, value=pdf)
+
+wb.save('/home/user/Desktop/best_awards_acl.xlsx')
+print('File saved successfully')
+"
+
+Verify the file exists at /home/user/Desktop/best_awards_acl.xlsx by running: ls -la /home/user/Desktop/best_awards_acl.xlsx
