@@ -1,6 +1,0 @@
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('curl -s -L "https://web.archive.org/web/2024042212'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('1803if_/https://dblp.org/rec/conf/acl/YuZYTLLELPCJ'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('DPS19.bib" 2>/dev/null\n'), shell=True, check=True)
-import time; time.sleep(0.05)
