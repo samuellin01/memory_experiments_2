@@ -1,0 +1,9 @@
+
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Create a Python script at /tmp/grade_students.py with the following content and run it. The script should: 1) Kill all LibreOffice processes (subprocess.run(['pkill', '-f', 'soffice'])), 2) Wait 3 seconds, 3) Use openpyxl to load /home/user/exam/grades.xlsx, 4) For each of the 9 remaining students (rows 3-11), compare their answers with the answer key and write scores (10 for correct, 0 for incorrect) in columns C-L, and the total in column M, 5) Save the file.\n\nAnswer key: Q1=D, Q2=A, Q3=C, Q4=D, Q5=B, Q6=C, Q7=C, Q8=D, Q9=D, Q10=D\n\nStudent answers by spreadsheet row:\nRow 3 Richard Smith: D,A,C,D,C,A,C,B,D,D\nRow 4 Jennifer Rodriguez: D,A,C,D,C,A,C,B,D,D\nRow 5 Michael Gonzalez: A,A,C,D,B,C,C,B,D,D\nRow 6 Mary Williams: D,A,C,D,C,C,C,D,D,A\nRow 7 Joseph Thomas: D,A,C,A,B,D,B,D,A,D\nRow 8 James Martinez: D,B,C,D,B,B,C,C,D,A\nRow 9 Barbara Wilson: D,A,B,D,B,C,C,D,D,D\nRow 10 Karen Davis: A,A,B,D,C,C,C,A,D,C\nRow 11 David Brown: D,A,C,D,B,C,C,D,D,D\n\nScoring: Each question is worth 10 points. Write 10 if the student answer matches the key, 0 if not. Total Grade in column M is the sum.\n\nAfter saving, remove lock files: rm -f '/home/user/exam/.~lock.grades.xlsx#' '/home/user/exam/.~lock.ReferenceAnswers.docx#'\n\nThen open the file in LibreOffice Calc: run 'soffice --calc /home/user/exam/grades.xlsx' and verify the scores appear correctly in the spreadsheet."}
+  ],
+  "parallel": false
+}
