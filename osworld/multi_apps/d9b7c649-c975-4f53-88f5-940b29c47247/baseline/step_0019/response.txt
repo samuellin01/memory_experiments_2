@@ -1,0 +1,5 @@
+I can see the report is created. However, I notice the CC fields still show `None` for some entries. Looking at the verification output, I see that the CC column shows `None` for emails 1, 4, and 5 (which have no CC), and `<mail.service@intranet.hku.hk>` for emails 2 and 3. The `None` should be empty string. Let me check the issue - it seems the empty string `''` is being saved as `None` in openpyxl. Let me verify this by checking the actual CC values more carefully.
+
+Wait, looking at the output again, I see that the CC values in the verification are showing `None` which means the empty string `''` is being stored as `None` by openpyxl. That's actually fine - in Excel, an empty cell would show as `None` when read back. But let me also verify by checking the Thunderbird emails to make sure the CC data matches.
+
+Let me now verify the data against the Thunderbird emails by clicking on each of the 5 emails. But first, let me check the HKU Daily Notices (27 JAN 2024) and (28 JAN 2024) emails in Thunderbird to confirm the CC field.
