@@ -1,0 +1,10 @@
+I have the movie list from the Excel file. Now I need to get the IMDB Top 30 list. The previous attempt to scrape IMDB ran out of steps. Let me try a more direct approach - I'll use the well-known IMDB Top 250 list which is relatively stable, and also read the exact movie titles from the Excel file.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Read the file /tmp/my_movies.txt and write all 150 movie titles (just the titles, one per line, without numbering) to /tmp/my_movie_titles.txt"},
+    {"instruction": "Open a terminal and run a Python script to scrape the IMDB Top 30 movies. Use this approach: use the `requests` library with a proper User-Agent header to fetch https://www.imdb.com/chart/top/ and parse it. If that doesn't work because of JavaScript rendering, try an alternative: use `curl` with a proper user agent to fetch the page, or use the IMDB API. As a last resort, the well-known IMDB Top 30 as of early 2025 (before any 2024 changes) is commonly known. Write a Python script that extracts the top 30 movies with rank, title, year, and rating. Save results to /tmp/imdb_top30.txt with format: rank|title|year|rating (one movie per line). Try using: curl -s -A 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36' 'https://www.imdb.com/chart/top/' -o /tmp/imdb_raw.html first, then parse. If HTML parsing fails, try fetching https://www.imdb.com/chart/top/?ref_=nv_mv_250 with requests and BeautifulSoup, looking for JSON-LD data in script tags."}
+  ],
+  "parallel": true
+}
