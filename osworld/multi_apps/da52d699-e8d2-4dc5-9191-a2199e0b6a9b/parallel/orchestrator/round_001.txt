@@ -1,0 +1,44 @@
+I can see the spreadsheet with book records. Let me first understand the columns:
+- A: Title, B: Author, C: Genre, D: Start Date, E: End Date, F: Rating, G: Word Count (likely), H: Days to read (likely), I: Some calculated value (possibly words per day)
+
+Looking at the data, I need to find the total word count for each book from howlongtoread.com, then calculate words per day based on the reading period. The spreadsheet already seems to have some calculations. Let me first extract the exact data from the spreadsheet, then look up word counts on howlongtoread.com.
+
+Let me first get the full spreadsheet data clearly, then look up each book on the website.
+
+The books are:
+1. Fire and Blood - George R. R. Martin
+2. Song of Solomon - Toni Morrison
+3. The Lost Symbol - Dan Brown
+4. 2001: A Space Odyssey - Arthur C. Clarke
+5. American Gods - Neil Gaiman
+6. Out of the Silent Planet - C.S. Lewis
+7. The Andromeda Strain - Michael Crichton
+8. Brave New World - Aldous Huxley
+9. Silence - Shusaku Endo
+10. The Shining - Stephen King
+
+I need to look up word counts on howlongtoread.com for each book, then calculate words per day using the reading dates. Let me dispatch parallel tasks to look up the books on the website.
+
+First, let me calculate the days spent reading each book from the dates:
+1. Fire and Blood: 1/1/22 - 2/14/22 = 44 days
+2. Song of Solomon: 2/15/22 - 4/4/22 = 48 days
+3. The Lost Symbol: 4/5/22 - 6/10/22 = 66 days
+4. 2001: A Space Odyssey: 6/11/22 - 7/4/22 = 23 days
+5. American Gods: 7/5/22 - 8/24/22 = 50 days
+6. Out of the Silent Planet: 8/25/22 - 9/30/22 = 36 days
+7. The Andromeda Strain: 10/1/22 - 10/31/22 = 30 days
+8. Brave New World: 11/1/22 - 11/20/22 = 19 days (but column H shows 19)
+9. Silence: 11/21/22 - 12/24/22 = 33 days
+10. The Shining: 12/25/22 - 12/31/22 = 6 days
+
+Now I need to look up word counts from howlongtoread.com. Let me do this in parallel batches.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Open Google Chrome and go to https://howlongtoread.com/. Search for each of the following books one by one and record the word count for each. Write the results to /tmp/wordcounts_batch1.txt in the format 'BookTitle: WordCount'. Books to search:\n1. Fire and Blood by George R. R. Martin\n2. Song of Solomon by Toni Morrison\n3. The Lost Symbol by Dan Brown\n4. 2001: A Space Odyssey by Arthur C. Clarke"},
+    {"instruction": "Open Google Chrome and go to https://howlongtoread.com/. Search for each of the following books one by one and record the word count for each. Write the results to /tmp/wordcounts_batch2.txt in the format 'BookTitle: WordCount'. Books to search:\n1. American Gods by Neil Gaiman\n2. Out of the Silent Planet by C.S. Lewis\n3. The Andromeda Strain by Michael Crichton"},
+    {"instruction": "Open Google Chrome and go to https://howlongtoread.com/. Search for each of the following books one by one and record the word count for each. Write the results to /tmp/wordcounts_batch3.txt in the format 'BookTitle: WordCount'. Books to search:\n1. Brave New World by Aldous Huxley\n2. Silence by Shusaku Endo\n3. The Shining by Stephen King"}
+  ],
+  "parallel": true
+}
