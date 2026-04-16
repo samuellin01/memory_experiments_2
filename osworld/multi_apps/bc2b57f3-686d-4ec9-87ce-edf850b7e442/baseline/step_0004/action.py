@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('cd ~/Desktop && python3 -c "import docx; doc = doc'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("x.Document('reminder.docx'); [print(p.text) for p "), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('in doc.paragraphs]"\n'), shell=True, check=True)
+import time; time.sleep(0.05)

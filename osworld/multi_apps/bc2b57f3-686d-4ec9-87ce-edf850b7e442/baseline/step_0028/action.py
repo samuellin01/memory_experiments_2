@@ -1,0 +1,1 @@
+pyautogui.rightClick(871, 1044)
