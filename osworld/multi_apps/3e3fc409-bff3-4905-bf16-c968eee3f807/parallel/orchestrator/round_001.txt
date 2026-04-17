@@ -1,0 +1,17 @@
+I need to:
+1. First, read the full list of movies from the spreadsheet to know what the user has seen
+2. Get the IMDB Top 30 list
+3. Compare and create the 'unseen_movies' sheet
+
+Let me start by reading the spreadsheet data and fetching the IMDB Top 30 list in parallel.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Open the file /home/user/movies.xlsx in LibreOffice Calc (it should already be open). Scroll through the 'seen_movies' sheet and record ALL movie titles in the spreadsheet. Write them all to /tmp/seen_movies.txt, one title per line. Make sure to scroll all the way down to capture every single movie."},
+    {"instruction": "Open Google Chrome and go to the IMDB Top 250 page (https://www.imdb.com/chart/top/). Record the top 30 movies with their exact titles, release years, ratings, IMDB rankings (1-30), and descriptions. Write the results to /tmp/imdb_top30.txt in the format: rank|title|year|rating|description (one movie per line). Make sure to get exactly 30 movies."}
+  ],
+  "parallel": true
+}
+```
