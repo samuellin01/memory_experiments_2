@@ -1,0 +1,10 @@
+I have the answer key. Now I'm waiting for the spreadsheet data from display 0. Let me also use display 2 to read the spreadsheet data programmatically in case display 0 is struggling with the GUI approach.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this command to read the spreadsheet content:\n\npython3 -c \"\nimport openpyxl\nwb = openpyxl.load_workbook('/home/user/exam/grades.xlsx')\nfor sheet in wb.sheetnames:\n    print(f'Sheet: {sheet}')\n    ws = wb[sheet]\n    print(f'Dimensions: {ws.dimensions}')\n    print(f'Max row: {ws.max_row}, Max col: {ws.max_column}')\n    for row in ws.iter_rows(values_only=True):\n        print(list(row))\n\" 2>&1 | tee /tmp/spreadsheet_info.txt\n", "display": 2}
+  ]
+}
+```

@@ -1,0 +1,15 @@
+Excellent! Now I have all the information I need. I need to:
+1. Figure out which answer_sheet corresponds to which student (need to map answer_sheet0-9 to the student names/IDs)
+2. Extract answers from each student's answer sheet
+3. Grade them and fill in the spreadsheet
+
+I need to wait for display 3 to finish extracting student answers, but let me also figure out the mapping between answer sheets and students. The student IDs end in 000-009, and the answer sheets are numbered 0-9 - they likely correspond. Let me verify this and also start preparing the grading script.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this Python script to extract student names/IDs from each answer sheet and map them to the spreadsheet students:\n\npython3 << 'PYEOF'\nfrom docx import Document\nimport re\n\nfor i in range(10):\n    filepath = f'/home/user/exam/answer_sheet{i}.docx'\n    doc = Document(filepath)\n    all_text = '\\n'.join([p.text for p in doc.paragraphs])\n    # Print full text for analysis\n    print(f'=== answer_sheet{i}.docx ===')\n    print(all_text)\n    print()\nPYEOF", "display": 2}
+  ]
+}
+```

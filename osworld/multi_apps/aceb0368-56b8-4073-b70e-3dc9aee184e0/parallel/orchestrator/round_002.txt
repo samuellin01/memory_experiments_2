@@ -1,0 +1,11 @@
+Let me extract the answer key properly and also explore the exam files in parallel.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this single Python command to extract all answer keys from the reference document and save to /tmp/answer_key.txt:\n\npython3 -c \"\nimport re\nfrom docx import Document\ndoc = Document('/home/user/exam/ReferenceAnswers.docx')\ntext = '\\n'.join([p.text for p in doc.paragraphs])\nanswers = re.findall(r'【Answer】\\s*([A-D])', text)\nwith open('/tmp/answer_key.txt','w') as f:\n    for i,a in enumerate(answers,1):\n        f.write(f'Q{i}: {a}\\n')\nprint('Done. Answers found:', len(answers))\nfor i,a in enumerate(answers,1):\n    print(f'Q{i}: {a}')\n\"\n\nThen cat /tmp/answer_key.txt to verify the output.", "display": 2},
+    {"instruction": "List all files in /home/user/exam/ directory and any subdirectories to understand the full file structure. Also list any .xlsx or .ods or .csv files that might be the spreadsheet. Write the file listing to /tmp/file_list.txt", "display": 3}
+  ]
+}
+```

@@ -1,0 +1,10 @@
+Good, now I need to read the spreadsheet data programmatically. Let me use display 0 to do that while displays 2 and 3 finish their tasks.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Open a terminal and run this Python command to read the spreadsheet data:\n\npython3 -c \"\nimport openpyxl\nwb = openpyxl.load_workbook('/home/user/exam/grades.xlsx')\nfor sheet in wb.sheetnames:\n    print(f'Sheet: {sheet}')\n    ws = wb[sheet]\n    for row in ws.iter_rows(values_only=True):\n        print(row)\n\" > /tmp/spreadsheet_info.txt 2>&1\n\nThen run: cat /tmp/spreadsheet_info.txt\n\nThis will show all the spreadsheet content including headers, student names, answers, and scores.", "display": 0}
+  ]
+}
+```
