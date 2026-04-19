@@ -1,0 +1,12 @@
+I now have all four years of data. I can see from the screenshot that all files were saved successfully. Now I need to create the Excel file and place it on the desktop. Let me also verify the ACL 2022 data - the award listed is "Best Paper" not specifically "Best Long Paper". Let me check if ACL 2022 had a separate "Best Long Paper" category. But looking at the screenshot, the ACL 2022 proceedings page confirms this is from "Volume 1: Long Papers" and has the Best Paper award, so this is correct.
+
+Now let me create the Excel file with a Python script and then open it on the primary display.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, create a Python script and run it to generate the Excel file. Run the following:\n\npython3 << 'PYEOF'\nimport openpyxl\n\nwb = openpyxl.Workbook()\nws = wb.active\nws.title = 'best_awards_acl'\n\n# Headers\nws.append(['title', 'year', 'author list', 'PDF link'])\n\n# Data sorted by year descending (2022, 2021, 2020, 2019)\ndata = [\n    ('Learned Incremental Representations for Parsing', 2022, 'Nikita Kitaev, Thomas Lu, Dan Klein', 'https://aclanthology.org/2022.acl-long.220.pdf'),\n    ('Vocabulary Learning via Optimal Transport for Neural Machine Translation', 2021, 'Jingjing Xu, Hao Zhou, Chun Gan, Zaixiang Zheng, Lei Li', 'https://aclanthology.org/2021.acl-long.571.pdf'),\n    ('Beyond Accuracy: Behavioral Testing of NLP Models with CheckList', 2020, 'Marco Tulio Ribeiro, Tongshuang Wu, Carlos Guestrin, Sameer Singh', 'https://aclanthology.org/2020.acl-main.442.pdf'),\n    ('Bridging the Gap between Training and Inference for Neural Machine Translation', 2019, 'Wen Zhang, Yang Feng, Fandong Meng, Di You, Qun Liu', 'https://aclanthology.org/P19-1426.pdf'),\n]\n\nfor row in data:\n    ws.append(row)\n\nwb.save('/home/user/Desktop/best_awards_acl.xlsx')\nprint('File saved successfully!')\nPYEOF", "display": 2}
+  ]
+}
+```
