@@ -1,0 +1,60 @@
+Context:
+Original task: I am grading students' English exam papers, but the test consists only of multiple-choice questions. It's too exhausting to check each question one by one and record the detailed scores. Can you help me compare the remaining students' answers with the answer key and record the detailed scoring in the opened spreadsheet?
+
+Progress so far:
+1. [DONE] List all files in /home/user/ and its subdirectories (Desktop, Documents, Downloads, etc.) to find any spreadsheet files (.xlsx, .ods, .csv) and any student answer files. Run: find /home/user -maxdepth 3 -type f \( -name '*.xlsx' -o -name '*.ods' -o -name '*.csv' -o -name '*.docx' -o -name '*.doc' \) 2>/dev/null
+   Result: The find command has successfully located all relevant files. Here's a summary of what was found:
+
+**Location:** All files are in `/home/user/exam/`
+
+**Spreadsheet file:**
+- `/home/user/exam/grades.xlsx` — This is the spreadsheet for recording scores
+
+**Answer key:**
+- `/home/user/exam/ReferenceAnswers.docx` — This contains the correct answers
+
+**Student answer sheets (10 total):**
+- `/home/user/exam/answer_sheet0.docx`
+- `/home/user/exam/answer_sheet1.docx`
+- `/home/user/exam/answer_sheet2.docx`
+- `/home/user/exam/answer_sheet3.docx`
+- `/home/user/exam/answer_sheet4.docx`
+- `/home/user/exam/answer_sheet5.docx`
+- `/home/user/exam/answer_sheet6.docx`
+- `/home/user/exam/answer_sheet7.docx`
+- `/home/user/exam/answer_sheet8.docx`
+- `/home/user/exam/answer_sheet9.docx`
+
+DONE. Found all relevant files in `/home/user/exam/`: one spreadsheet (`grades.xlsx`) for recording scores, one answer key (`ReferenceAnswers.docx`), and 10 student answer sheet files (`answer_sheet0.docx` through `answer_sheet9.docx`).
+
+Subtask:
+Run this Python script to read the reference answers, all student answer sheets, and the current grades spreadsheet:
+
+python3 << 'EOF'
+import docx
+import openpyxl
+import re
+
+# Read reference answers
+print('=== REFERENCE ANSWERS ===')
+doc = docx.Document('/home/user/exam/ReferenceAnswers.docx')
+for p in doc.paragraphs:
+    print(repr(p.text))
+
+# Read each student answer sheet
+for i in range(10):
+    print(f'\n=== ANSWER SHEET {i} ===')
+    doc = docx.Document(f'/home/user/exam/answer_sheet{i}.docx')
+    for p in doc.paragraphs:
+        print(repr(p.text))
+
+# Read grades spreadsheet
+print('\n=== GRADES SPREADSHEET ===')
+wb = openpyxl.load_workbook('/home/user/exam/grades.xlsx')
+for sheet_name in wb.sheetnames:
+    ws = wb[sheet_name]
+    print(f'Sheet: {sheet_name}')
+    print(f'Dimensions: {ws.dimensions}')
+    for row in ws.iter_rows(min_row=1, max_row=min(ws.max_row, 30), values_only=False):
+        print([(cell.coordinate, cell.value) for cell in row])
+EOF

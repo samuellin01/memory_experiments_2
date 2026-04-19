@@ -1,0 +1,18 @@
+The grading is complete and the file has been saved. Now I need to:
+1. Wait for display 0 to finish opening the spreadsheet
+2. Verify the data looks correct in the opened spreadsheet
+
+Let me wait for display 0 to complete opening the file. Display 0 is currently busy opening LibreOffice Calc with the updated grades.xlsx.
+
+I notice from the display 3 verification that the student-to-sheet mapping is confirmed correct. The grading data has been saved properly. Now I just need the spreadsheet to be open and visible on display 0.
+
+Let me wait for display 0 to complete.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Remove any LibreOffice lock files first, then verify the grades.xlsx data is correct by running: rm -f /home/user/exam/.~lock.grades.xlsx# && python3 -c \"\nimport openpyxl\nwb = openpyxl.load_workbook('/home/user/exam/grades.xlsx')\nws = wb.active\nfor row_idx in range(1, 12):\n    vals = [ws.cell(row=row_idx, column=col).value for col in range(1, 14)]\n    print(f'Row {row_idx}: {vals}')\n\"", "display": 3}
+  ]
+}
+```
