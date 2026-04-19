@@ -1,0 +1,11 @@
+Good - I can see LibreOffice has crashed and there's a Document Recovery dialog. The backup approach on display 2 (Python openpyxl) should handle the file writing. But first I need to deal with the crashed LibreOffice state on display 0. Let me dismiss the recovery dialog and let the Python script on display 2 do the work. Then I'll reopen the file.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "There is a LibreOffice Document Recovery dialog on screen asking 'Are you sure you want to discard the LibreOffice document recovery data?' Click 'Yes' to discard the recovery data. Then close any remaining LibreOffice windows. After that, wait about 10 seconds for the Python script on another display to finish writing to grades.xlsx. Then open the file in LibreOffice Calc by running this command in a terminal (press Ctrl+Alt+T to open terminal): soffice --calc /home/user/exam/grades.xlsx", 
+      "display": 0
+    }
+  ]
+}

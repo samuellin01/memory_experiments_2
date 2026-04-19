@@ -1,0 +1,11 @@
+Now I know the file structure. Let me read all the documents programmatically and process the grading. I'll use the secondary displays to extract content from all docx files and compute scores.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run the following Python script to read all the exam documents and compute grades, then save the results to a text file. Run this command:\n\npython3 << 'EOF'\nimport subprocess\nimport zipfile\nimport xml.etree.ElementTree as ET\nimport re\n\ndef read_docx(filepath):\n    \"\"\"Read text from a docx file without python-docx library\"\"\"\n    with zipfile.ZipFile(filepath) as z:\n        with z.open('word/document.xml') as f:\n            tree = ET.parse(f)\n            root = tree.getroot()\n            ns = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}\n            texts = []\n            for p in root.iter('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}p'):\n                line = ''.join(node.text for node in p.iter('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t') if node.text)\n                if line.strip():\n                    texts.append(line.strip())\n            return texts\n\n# Read reference answers\nref_lines = read_docx('/home/user/exam/ReferenceAnswers.docx')\nprint('=== Reference Answers ===')\nfor line in ref_lines:\n    print(line)\n\nprint()\n\n# Read all answer sheets\nfor i in range(9):\n    filepath = f'/home/user/exam/answer_sheet{i}.docx'\n    try:\n        lines = read_docx(filepath)\n        print(f'=== answer_sheet{i}.docx ===')\n        for line in lines:\n            print(line)\n        print()\n    except Exception as e:\n        print(f'Error reading answer_sheet{i}.docx: {e}')\n\nEOF",
+      "display": 3
+    }
+  ]
+}

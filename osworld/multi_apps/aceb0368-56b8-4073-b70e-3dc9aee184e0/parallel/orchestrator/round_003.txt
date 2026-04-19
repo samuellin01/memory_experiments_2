@@ -1,0 +1,11 @@
+Good, I can see the spreadsheet structure clearly. Now I have display 2 free and display 3 is still running the document reading script. Let me wait for display 3 to finish, but I can also start reading the documents on display 2 in parallel to be safe.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Run this Python script in the terminal to read all docx files and output their contents:\n\npython3 -c \"\nimport docx\nimport os\n\n# Read reference answers\nprint('=== ReferenceAnswers.docx ===')\ndoc = docx.Document('/home/user/exam/ReferenceAnswers.docx')\nfor p in doc.paragraphs:\n    if p.text.strip():\n        print(p.text.strip())\n\n# Also check tables in reference answers\nfor table in doc.tables:\n    for row in table.rows:\n        print([cell.text for cell in row.cells])\n\nprint()\n\n# Read all answer sheets\nfor i in range(10):\n    filepath = f'/home/user/exam/answer_sheet{i}.docx'\n    if os.path.exists(filepath):\n        print(f'=== answer_sheet{i}.docx ===')\n        doc = docx.Document(filepath)\n        for p in doc.paragraphs:\n            if p.text.strip():\n                print(p.text.strip())\n        for table in doc.tables:\n            for row in table.rows:\n                print([cell.text for cell in row.cells])\n        print()\n\"",
+      "display": 2
+    }
+  ]
+}
