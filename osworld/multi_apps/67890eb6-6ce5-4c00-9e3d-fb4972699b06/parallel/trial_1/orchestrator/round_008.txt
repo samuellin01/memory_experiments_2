@@ -1,0 +1,13 @@
+I now have conflicting information for ACL 2022. From display 3 (ACL Anthology direct verification), the paper at `2022.acl-long.220` is "Learned Incremental Representations for Parsing" by Nikita Kitaev, Thomas Lu, Dan Klein. From display 2 (ACL Anthology volumes page), the title near the "Best Paper" badge was "Automated Crossword Solving". I need to resolve this conflict. The display 3 result directly fetched the metadata from the specific paper page, which is more reliable. But the display 2 found the title near the Best Paper badge on the volumes page. Let me check if these might be different papers - perhaps "Automated Crossword Solving" is a different paper and "Learned Incremental Representations for Parsing" is at ID 220. I need to verify which paper actually has the Best Paper badge.
+
+Let me now create the Excel file while also resolving the ACL 2022 discrepancy.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run this Python script to determine which paper at ACL 2022 has the 'Best Paper' badge on the ACL Anthology volumes page. We need to check if 'Learned Incremental Representations for Parsing' or 'Automated Crossword Solving' won the Best Paper award.\n\nRun:\npython3 << 'PYEOF'\nimport urllib.request, re\n\nurl = 'https://aclanthology.org/volumes/2022.acl-long/'\nreq = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})\nresponse = urllib.request.urlopen(req)\nhtml = response.read().decode('utf-8')\n\n# Find the Best Paper badge and get surrounding context (larger window)\nmatch = re.search(r'title=\"Best Paper\"', html)\nif match:\n    start = max(0, match.start() - 2000)\n    end = min(len(html), match.end() + 500)\n    context = html[start:end]\n    \n    # Find all paper titles in this context\n    titles = re.findall(r'<strong><a[^>]*>([^<]+)</a></strong>', context)\n    print('Titles near Best Paper badge:')\n    for t in titles:\n        print(f'  - {t}')\n    \n    # Find all href links to papers\n    links = re.findall(r'href=\"(/2022\\.acl-long\\.[^\"]+/)\"', context)\n    print('\\nPaper links near Best Paper badge:')\n    for l in links:\n        print(f'  - https://aclanthology.org{l}')\n    \n    print('\\n--- Raw context (last 1000 chars before badge) ---')\n    print(context[-1500:])\nelse:\n    print('Best Paper badge not found')\nPYEOF\n\nSave output to /tmp/acl_2022_resolve.txt",
+      "display": 3
+    }
+  ]
+}

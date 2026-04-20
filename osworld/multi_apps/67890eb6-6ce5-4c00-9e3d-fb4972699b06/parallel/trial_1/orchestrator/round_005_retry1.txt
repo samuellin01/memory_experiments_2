@@ -1,0 +1,9 @@
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run this command to search for ACL 2022 best long paper award. First try fetching the ACL Anthology volumes page for ACL 2022 and look for award markers:\n\npython3 -c \"\nimport urllib.request, re\nurl = 'https://aclanthology.org/volumes/2022.acl-long/'\nreq = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})\nresponse = urllib.request.urlopen(req)\nhtml = response.read().decode('utf-8')\nfor match in re.finditer(r'(?i)(award|best.paper|best.long)', html):\n    start = max(0, match.start() - 300)\n    end = min(len(html), match.end() + 300)\n    print('--- Context ---')\n    print(html[start:end])\n    print()\n\" > /tmp/acl_2022_python.txt 2>&1\n\nThen also try:\npython3 -c \"\nimport urllib.request, re\nurl = 'https://aclanthology.org/events/acl-2022/'\nreq = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})\nresponse = urllib.request.urlopen(req)\nhtml = response.read().decode('utf-8')\nfor match in re.finditer(r'(?i)(award|best.paper)', html):\n    start = max(0, match.start() - 300)\n    end = min(len(html), match.end() + 300)\n    print('--- Context ---')\n    print(html[start:end])\n    print()\n\" >> /tmp/acl_2022_python.txt 2>&1\n\ncat /tmp/acl_2022_python.txt\n\nSave the output to /tmp/acl_2022_python.txt",
+      "display": 2
+    }
+  ]
+}
