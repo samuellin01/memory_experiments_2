@@ -1,0 +1,9 @@
+Now I need to read the content of the ReferenceAnswers.docx and all student answer sheets. Let me extract the text from these files in parallel.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Extract text content from the following .docx files and save the output to /tmp/reference_answers.txt. Use python3 to read the docx files. Run:\npython3 -c \"\nimport subprocess\nimport zipfile\nimport xml.etree.ElementTree as ET\n\ndef read_docx(path):\n    with zipfile.ZipFile(path) as z:\n        with z.open('word/document.xml') as f:\n            tree = ET.parse(f)\n            root = tree.getroot()\n            ns = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}\n            texts = [node.text for node in root.iter('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t') if node.text]\n            return ' '.join(texts)\n\nprint('=== ReferenceAnswers ===')\nprint(read_docx('/home/user/exam/ReferenceAnswers.docx'))\nprint()\nfor i in range(10):\n    print(f'=== answer_sheet{i} ===')\n    print(read_docx(f'/home/user/exam/answer_sheet{i}.docx'))\n    print()\n\" > /tmp/all_answers.txt 2>&1\ncat /tmp/all_answers.txt", "display": 3},
+    {"instruction": "Extract text from the docx files using python3. For each file, read the XML content. Run this command:\ncd /home/user/exam && for f in ReferenceAnswers.docx answer_sheet0.docx answer_sheet1.docx answer_sheet2.docx answer_sheet3.docx answer_sheet4.docx answer_sheet5.docx answer_sheet6.docx answer_sheet7.docx answer_sheet8.docx answer_sheet9.docx; do echo \"=== $f ===\"; python3 -c \"import zipfile, xml.etree.ElementTree as ET; z=zipfile.ZipFile('$f'); tree=ET.parse(z.open('word/document.xml')); print(' '.join([n.text for n in tree.getroot().iter('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t') if n.text]))\"; echo; done", "display": 2}
+  ]
+}

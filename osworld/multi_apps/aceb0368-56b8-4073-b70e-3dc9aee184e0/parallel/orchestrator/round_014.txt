@@ -1,0 +1,11 @@
+I can see LibreOffice was launched but the window isn't visible yet - it's behind the terminal or still loading. The data is already correctly saved in the file. I need to bring the LibreOffice window to the foreground or kill any existing instances and relaunch cleanly.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "There should be a LibreOffice Calc process already running with grades.xlsx. First, kill any existing LibreOffice processes and wait a moment. Then close the terminal window. Then open the file fresh by double-clicking on it or using the file manager. Specifically:\n\n1. First kill all LibreOffice: run 'killall soffice.bin' in the terminal\n2. Wait 5 seconds\n3. Remove any lock file: rm -f /home/user/exam/.~lock.grades.xlsx#\n4. Close the terminal window\n5. Open the file by double-clicking on /home/user/exam/grades.xlsx using the file manager, OR run: setsid libreoffice --calc /home/user/exam/grades.xlsx &\n6. Wait for LibreOffice to fully load and show the spreadsheet with all the grading data\n7. Make sure the LibreOffice Calc window is visible and in the foreground showing the grades",
+      "display": 0
+    }
+  ]
+}

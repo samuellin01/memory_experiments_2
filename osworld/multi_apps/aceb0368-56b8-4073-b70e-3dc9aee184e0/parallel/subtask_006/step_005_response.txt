@@ -1,0 +1,5 @@
+
+
+Now I can see the issue! The text elements are split across multiple XML nodes. The `[Answer]` is split into separate elements: `' [ '`, `'Answer'`, `'] '`, followed by the answer letter like `'A'`, `'C'`, `'D'`, etc. So the regex wasn't matching because the brackets, "Answer" word, and the letter are in separate text nodes.
+
+I need to fix the approach - instead of using regex on the joined text, I need to look for the pattern in the list of text elements. Let me scroll up to see the ReferenceAnswers data too, and then write a corrected script.

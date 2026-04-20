@@ -1,0 +1,15 @@
+I need to understand the task better. There's a spreadsheet with student grades where:
+- Row 1 has headers: Student ID, Student Name, Q1-Q10, Total Grade
+- Row 2 (Linda Garcia) has scores filled in already (1,0,1,1,1,0,1,0,1,1 = 70)
+- Rows 3-11 (8 more students) need to be graded
+
+I need to find the answer key and student answer sheets to compare. Let me first explore the filesystem for exam-related files, and also check if there are more sheets in the spreadsheet.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the LibreOffice Calc spreadsheet that is open (grades.xlsx), check if there are other sheets besides Sheet1 by right-clicking on the Sheet1 tab at the bottom. Also scroll right to see if there are more columns beyond column M. Report everything you see.", "display": 0},
+    {"instruction": "Search the filesystem for any files related to exams, answer keys, or student answers. Check common locations like /home/user/, /home/user/Desktop/, /home/user/Documents/, /home/user/Downloads/. Run commands like: find /home/user -type f | head -50, and also look for files with extensions like .txt, .csv, .xlsx, .pdf. Report all files found.", "display": 2},
+    {"instruction": "Search the entire filesystem for files that might contain answer keys or student exam answers. Run: find / -maxdepth 4 -type f -name '*exam*' -o -name '*answer*' -o -name '*key*' -o -name '*grade*' -o -name '*test*' -o -name '*student*' 2>/dev/null | head -50. Also check: ls -la /home/user/ and ls -la /home/user/Desktop/ and ls -la /home/user/Documents/", "display": 3}
+  ]
+}
