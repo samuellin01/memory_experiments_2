@@ -1,0 +1,11 @@
+Now I know the file structure. Let me use the terminal to read all the docx files programmatically and then write the scores to the spreadsheet. I'll use display 3 to read the reference answers and all student answer sheets, then create a script to update the spreadsheet.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run a Python script to read the ReferenceAnswers.docx and all answer_sheet0.docx through answer_sheet9.docx files, compare them, and save the results. Run this:\n\npython3 << 'EOF'\nimport subprocess\nsubprocess.run(['pip', 'install', 'python-docx'], capture_output=True)\nfrom docx import Document\nimport json\n\n# Read reference answers\ndoc = Document('/home/user/exam/ReferenceAnswers.docx')\nprint('=== REFERENCE ANSWERS ===')\nfor p in doc.paragraphs:\n    print(repr(p.text))\n\nfor t in doc.tables:\n    for row in t.rows:\n        print([cell.text for cell in row.cells])\n\n# Read each answer sheet\nfor i in range(10):\n    path = f'/home/user/exam/answer_sheet{i}.docx'\n    doc = Document(path)\n    print(f'\\n=== ANSWER SHEET {i} ===')\n    for p in doc.paragraphs:\n        print(repr(p.text))\n    for t in doc.tables:\n        for row in t.rows:\n            print([cell.text for cell in row.cells])\nEOF",
+      "display": 3
+    }
+  ]
+}

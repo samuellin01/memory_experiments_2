@@ -1,0 +1,11 @@
+I can see from display 2's screenshot that the reference answers include: D, B, C, C, D, D, D, D (for questions visible). Let me wait for display 3 to finish reading all the files, and meanwhile I can see partial reference answers. Let me also start reading the answer sheets on display 2.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run this Python script to extract all reference answers and all student answers, then save the results to /tmp/all_answers.json:\n\npython3 << 'ENDSCRIPT'\nimport json, re\nfrom docx import Document\n\n# Extract reference answers\ndoc = Document('/home/user/exam/ReferenceAnswers.docx')\nref_answers = []\nfor p in doc.paragraphs:\n    text = p.text.strip()\n    m = re.search(r'[【\\[]Answer[】\\]]\\s*([A-D])', text)\n    if m:\n        ref_answers.append(m.group(1))\nprint(f'Reference answers ({len(ref_answers)}): {ref_answers}')\n\n# Extract student answers from each sheet\nall_students = {}\nfor i in range(10):\n    doc = Document(f'/home/user/exam/answer_sheet{i}.docx')\n    student_answers = []\n    student_name = ''\n    student_id = ''\n    for p in doc.paragraphs:\n        text = p.text.strip()\n        if 'Name' in text or 'name' in text:\n            student_name = text\n        if 'ID' in text or 'id' in text:\n            student_id = text\n    # Also check tables\n    for t in doc.tables:\n        for row in t.rows:\n            cells = [cell.text.strip() for cell in row.cells]\n            for cell_text in cells:\n                m = re.search(r'[【\\[]Answer[】\\]]\\s*([A-D])', cell_text)\n                if m:\n                    student_answers.append(m.group(1))\n    # Also check paragraphs for answers\n    for p in doc.paragraphs:\n        text = p.text.strip()\n        m = re.search(r'[【\\[]Answer[】\\]]\\s*([A-D])', text)\n        if m:\n            student_answers.append(m.group(1))\n    all_students[i] = {'name': student_name, 'id': student_id, 'answers': student_answers}\n    print(f'Sheet {i}: name={student_name}, id={student_id}, answers({len(student_answers)})={student_answers}')\n\nresult = {'reference': ref_answers, 'students': all_students}\nwith open('/tmp/all_answers.json', 'w') as f:\n    json.dump(result, f, indent=2)\nprint('Saved to /tmp/all_answers.json')\nENDSCRIPT",
+      "display": 2
+    }
+  ]
+}

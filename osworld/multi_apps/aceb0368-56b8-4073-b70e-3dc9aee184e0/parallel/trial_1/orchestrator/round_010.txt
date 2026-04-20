@@ -1,0 +1,21 @@
+The GUI approach failed - no data was entered. The display 0 agent couldn't even bring LibreOffice Calc to the foreground. I need a new strategy. Let me:
+
+1. First, close LibreOffice Calc on display 0 (and remove the lock file) so I can write with openpyxl
+2. Write the data programmatically with the CORRECT scores
+3. Then reopen the file in LibreOffice Calc on display 0
+
+Let me first use a secondary display to write the data, and on display 0 close any LibreOffice instances.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Close ALL open windows on the desktop. Close the file manager window, close any LibreOffice Calc or Writer windows, close any VS Code windows. You can close them by clicking the X button on each window, or by right-clicking on taskbar items and selecting Close. After all windows are closed, the desktop should be empty. Also, if there are any lock files, we need to ensure LibreOffice is fully closed so we can write to grades.xlsx programmatically.",
+      "display": 0
+    },
+    {
+      "instruction": "Run the following commands to remove any lock files and then write the correct grading data to grades.xlsx using openpyxl. Use the CORRECT verified scores:\n\nFirst wait 10 seconds for LibreOffice to close on the other display, then run:\n\nsleep 10 && rm -f /home/user/exam/.~lock.grades.xlsx# && python3 << 'EOF'\nfrom openpyxl import load_workbook\nwb = load_workbook('/home/user/exam/grades.xlsx')\nws = wb.active\n\n# CORRECT verified scores for all students (rows 3-11)\n# Row 2 (Linda Garcia) already has correct data\ndata = {\n    3: [1,1,0,1,1,0,1,0,1,1,70],      # Richard Smith\n    4: [1,1,1,1,0,0,1,0,1,1,70],      # Jennifer Rodriguez\n    5: [0,1,1,1,1,1,1,0,1,1,80],      # Michael Gonzalez (CORRECTED: H=1, J=0)\n    6: [1,1,1,1,0,1,1,1,1,0,80],      # Mary Williams\n    7: [1,1,1,0,1,0,0,1,0,1,60],      # Joseph Thomas\n    8: [1,0,1,1,1,0,1,0,1,0,60],      # James Martinez\n    9: [1,1,0,1,1,1,1,1,1,1,90],      # Barbara Wilson\n    10: [0,1,0,1,0,1,1,0,1,0,50],     # Karen Davis\n    11: [1,1,1,1,1,1,1,1,1,1,100],    # David Brown\n}\n\nfor row, vals in data.items():\n    for col_idx, val in enumerate(vals):\n        ws.cell(row=row, column=col_idx+3, value=val)\n\nwb.save('/home/user/exam/grades.xlsx')\nprint('Successfully wrote grades to grades.xlsx')\n\n# Verify by reading back\nwb2 = load_workbook('/home/user/exam/grades.xlsx')\nws2 = wb2.active\nfor row in range(1, 12):\n    vals = [ws2.cell(row=row, column=c).value for c in range(1, 14)]\n    print(vals)\nEOF",
+      "display": 2
+    }
+  ]
+}

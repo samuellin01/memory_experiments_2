@@ -1,0 +1,8 @@
+The cleanup is complete. I can see "Done cleaning up" in the terminal output. The commands executed were:
+
+1. `rm -f /home/user/exam/.~lock.grades.xlsx#` - Removed the lock file for grades.xlsx
+2. `rm -f /home/user/exam/.~lock.ReferenceAnswers.docx#` - Removed the lock file for ReferenceAnswers.docx
+3. `pkill -f soffice || true` - Killed any soffice processes
+4. `kill -f libreoffice || true` - This had a minor syntax issue (used `kill` instead of `pkill`) which gave "invalid signal specification" error, but that's fine since soffice was already killed (LibreOffice runs as soffice)
+
+Let me verify there are no remaining lock files or LibreOffice processes:
