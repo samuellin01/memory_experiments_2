@@ -1,8 +1,0 @@
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("python3 << 'PYEOF'\nimport openpyxl\nwb = openpyxl.l"), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("oad_workbook('/home/user/Desktop/GRF-p5y.xlsx')\nws"), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote(' = wb.active\nfor row in ws.iter_rows(values_only=T'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('rue):\n    print(row)\nPYEOF\n'), shell=True, check=True)
-import time; time.sleep(0.05)

@@ -1,6 +1,0 @@
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('cd ~/lecture_slides && for i in 1 2 3 4 5 6 7 8 9;'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote(' do wget "https://cdn.cs50.net/python/2022/x/lectu'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('res/$i/lecture$i.pdf"; done\n'), shell=True, check=True)
-import time; time.sleep(0.05)

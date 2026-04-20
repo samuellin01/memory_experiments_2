@@ -1,3 +1,0 @@
-Now I can see the format. The answers use `【Answer】` (Chinese brackets) with a space before the letter. I can see answer_sheet0 has answers: D, B, C, D, B, D, C, C, D, D. Wait, let me count - there are more than 10 lines. Let me look more carefully.
-
-The format is `'【Answer】 D'` - with the special Chinese brackets 【】. My regex in the previous script used `[\[【]Answer[\]】]` which should work, but the second script had the same regex and it didn't work. Let me check - ah, I see the issue. The repr shows `'\u3010Answer\u3011 D'` - the brackets are `【` and `】`. Let me fix the regex:

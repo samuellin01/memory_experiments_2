@@ -1,6 +1,0 @@
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('Level 8, Pacific Place, Supreme Court Road, Centra'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('l, Admiralty, Hong Kong\t+852 2820 8580\tshangri-la.'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('com\nCristal Room by Anne-Sophie Pic\t'), shell=True, check=True)
-import time; time.sleep(0.05)
