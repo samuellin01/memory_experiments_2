@@ -1,0 +1,21 @@
+Good progress! I now have word counts for 6 books from howlongtoread.com:
+1. Fire and Blood: 249,322
+2. Song of Solomon: 96,041
+3. The Lost Symbol: 151,532
+4. 2001: A Space Odyssey: 56,119
+5. American Gods: 202,591
+6. Out of the Silent Planet: 52,159
+
+Still need: The Andromeda Strain, Brave New World, Silence, The Shining.
+
+Let me continue on display 2 to get the remaining books, while the CDP script runs on display 3 and Selenium runs on display 0.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "The Chrome browser is showing search results for 'Out of the Silent Planet' on howlongtoread.com. I already have that book's word count. Now I need to look up 4 more books. Click on the search box, clear it, type 'The Andromeda Strain' and press Enter. Click the first result by Michael Crichton to see its word count. Then repeat for 'Brave New World' by Aldous Huxley, 'Silence Shusaku Endo', and 'The Shining Stephen King'. For each, note the word count. After getting as many as possible, IMMEDIATELY open a terminal (xterm from taskbar or right-click desktop) and write ALL results to /tmp/wordcounts_gui.txt with this command:\n\necho 'Fire and Blood: 249322\nSong of Solomon: 96041\nThe Lost Symbol: 151532\n2001 A Space Odyssey: 56119\nAmerican Gods: 202591\nOut of the Silent Planet: 52159\nThe Andromeda Strain: XXXX\nBrave New World: XXXX\nSilence: XXXX\nThe Shining: XXXX' > /tmp/wordcounts_gui.txt\n\nReplace XXXX with actual values found. PRIORITIZE writing the file - do it after getting just 1-2 more books if needed.",
+      "display": 2
+    }
+  ]
+}
