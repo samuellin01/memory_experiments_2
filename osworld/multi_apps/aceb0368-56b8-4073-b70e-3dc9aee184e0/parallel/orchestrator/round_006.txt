@@ -1,0 +1,19 @@
+Now I have crucial information from display 2's results:
+
+**Grades spreadsheet structure (A1:M22):**
+- Headers: Student ID, Student Name, Q1-Q10, Total Grade
+- Row 2 (Linda Garcia, 20230901000): Already graded with scores 1, 0, 1, 1, 1, 0, 1, 0, 1, 1 and Total Grade 70
+- Rows 3-11 (Students 20230901001-20230901009): Need grading (all None)
+
+The scoring uses 1 for correct, 0 for incorrect in Q columns, and Total Grade = (sum of correct) × 10.
+
+Wait for display 3 to finish the comprehensive grading script, but let me also verify the answer key by extracting it programmatically on display 2.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this Python script to verify the answer key and check the grades.xlsx scoring format:\n\npython3 << 'PYEOF'\nimport docx, re, openpyxl\n\n# Extract answer key\nref_doc = docx.Document('/home/user/exam/ReferenceAnswers.docx')\nref_text = '\\n'.join(p.text for p in ref_doc.paragraphs)\nref_answers = re.findall(r'【Answer】\\s*([A-D])', ref_text)\nprint(f'Answer key ({len(ref_answers)} questions): {ref_answers}')\n\n# Read grades.xlsx to understand exact structure\nwb = openpyxl.load_workbook('/home/user/exam/grades.xlsx')\nws = wb.active\nprint(f'\\nSheet dimensions: {ws.dimensions}')\nprint(f'Max row: {ws.max_row}, Max col: {ws.max_column}')\n\n# Print all rows with cell coordinates\nfor row_idx in range(1, ws.max_row + 1):\n    row_data = {}\n    for col_idx in range(1, ws.max_column + 1):\n        cell = ws.cell(row=row_idx, column=col_idx)\n        row_data[cell.coordinate] = cell.value\n    print(f'Row {row_idx}: {row_data}')\n\n# Check answer_sheet0 (Linda Garcia) to verify scoring pattern\ndoc0 = docx.Document('/home/user/exam/answer_sheet0.docx')\ntext0 = '\\n'.join(p.text for p in doc0.paragraphs)\nanswers0 = re.findall(r'【Answer】\\s*([A-D])', text0)\nprint(f'\\nSheet 0 answers: {answers0}')\nprint(f'Answer key:      {ref_answers}')\nprint('Comparison:', ['1' if a==r else '0' for a,r in zip(answers0, ref_answers)])\nPYEOF", "display": 2}
+  ]
+}
+```

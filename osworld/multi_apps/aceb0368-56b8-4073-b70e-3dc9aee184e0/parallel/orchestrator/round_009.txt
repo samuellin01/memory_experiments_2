@@ -1,0 +1,12 @@
+The agent on display 2 has already written all the grades to the grades.xlsx file using openpyxl AND verified the data. The verification output shows all grades are correctly written. However, the LibreOffice Calc on display 0 still shows the old data (without the updated grades) because the file was modified externally by openpyxl while LibreOffice had it open.
+
+I need to reload the file in LibreOffice Calc on display 0 so it shows the updated data. The issue is that LibreOffice might have a lock file conflict. Let me reload the spreadsheet on display 0.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "The grades.xlsx file has been updated externally with all student scores. You need to reload it in LibreOffice Calc which is currently open on this display. First, close any notification banners/popups by clicking their X buttons. Then reload the file by going to Edit menu or pressing Ctrl+W to close the current document, then reopen it. Alternatively, you can use the menu: File > Reload, or close LibreOffice Calc completely and reopen the file. The simplest approach: press Ctrl+F4 to close the document (click 'No' if asked to save), then use File > Open or Ctrl+O to open /home/user/exam/grades.xlsx. After reopening, verify that all 9 students (rows 3-11) now have scores filled in for Q1-Q10 and Total Grade columns.", "display": 0}
+  ]
+}
+```
