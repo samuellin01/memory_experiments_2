@@ -1,8 +1,0 @@
-Good, I already dispatched a task on display 3 to extract text from the docx files. Let me also dispatch the same on display 2 as a backup approach.
-
-{
-  "action": "dispatch",
-  "subtasks": [
-    {"instruction": "Extract text from all the docx files in /home/user/exam/. Run this python3 script:\n\npython3 << 'EOF'\nimport zipfile\nimport xml.etree.ElementTree as ET\n\ndef read_docx(path):\n    with zipfile.ZipFile(path) as z:\n        with z.open('word/document.xml') as f:\n            tree = ET.parse(f)\n            root = tree.getroot()\n            texts = [node.text for node in root.iter('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t') if node.text]\n            return '\\n'.join(texts)\n\nprint('=== ReferenceAnswers ===')\nprint(read_docx('/home/user/exam/ReferenceAnswers.docx'))\nprint()\nfor i in range(10):\n    print(f'=== answer_sheet{i} ===')\n    print(read_docx(f'/home/user/exam/answer_sheet{i}.docx'))\n    print()\nEOF", "display": 2}
-  ]
-}
