@@ -1,0 +1,87 @@
+Context:
+Original task: I am an NLP researcher. Check out the best long paper awards of ACL from 2019 to 2022 and record the 'title', 'year', 'author list' and 'PDF link' into table best_awards_acl.xlsx on the desktop. Separate authors only by commas, use offical aclanthology urls not arxiv, and sort rows by years in descending orders.
+
+Progress so far:
+1. [MAX_STEPS] Using Google Chrome, look up the ACL 2020 and ACL 2019 best long paper awards. Search for 'ACL 2020 best paper award' and 'ACL 2019 best paper award' on Google or go to the ACL website (aclweb.org). For each year, find the best long paper award winner(s) and record the title, all authors, and the ACL Anthology PDF link (aclanthology.org URLs, not arxiv). Save the findings to /tmp/acl_2020_2019.txt with clear formatting for each year.
+   Result: ## Summary
+
+### 1) What I Successfully Completed
+- **ACL 2020 Best Long Paper Award** - fully identified:
+  - **Title:** "Beyond Accuracy: Behavioral Testing of NLP Models with CheckList"
+  - **Authors:** Marco Tulio Ribeiro, Tongshuang Wu, Carlos Guestrin, Sameer Singh
+  - **Year:** 2020
+  - **ACL Anthology PDF Link:** https://aclanthology.org/2020.acl-main.442.pdf
+  - Verified on both the official ACL 2020 conference page (acl2020.org/blog/ACL-2020-best-papers/) and ACL Anthology (aclanthology.org/2020.acl-main.442/)
+
+### 2) Approaches Tried
+- **What worked:** Searching Google for "ACL 2020 best long paper award" quickly found the official ACL 2020 best papers blog page. Then navigating directly to the ACL Anthology page using the known anthology ID (2020.acl-main.442) confirmed the paper details and PDF link.
+- **What didn't work well:** The Chrome welcome dialog took 3 attempts to dismiss (clicking OK twice didn't work, pressing Enter finally worked), which consumed valuable steps.
+
+### 3) What Is Still Incomplete
+- **ACL 2019 Best Long Paper Award** was not looked up. I was about to search for it when steps ran out.
+- **The output file `/tmp/acl_2020_2019.txt`** was never created/saved.
+- For reference, the ACL 2019 best long paper award is: "Bridging the Gap between Training and Inference for Neural Machine Translation" by Wen Zhang, Yang Feng, Fandong Meng, Di You, Qun Liu (PDF: https://aclanthology.org/P19-1426.pdf)
+
+### 4) Recommended Approach for Future Agent
+1. **Skip the browser entirely for well-known information.** These are well-documented awards. Use `curl` or `wget` to fetch pages and parse them, or simply write the known information directly to the file.
+2. **Minimize dialog interactions** - dismiss Chrome dialogs quickly or use command-line flags to avoid them.
+3. **Batch operations:** Instead of searching one year at a time, go directly to known URLs:
+   - `https://aclanthology.org/volumes/P19-1/` or search on aclanthology.org
+   - `https://www.aclweb.org/portal/content/acl-2019-best-paper-awards`
+4. **Write the file early** with partial results and update it, so progress isn't lost if steps run out.
+5. **Use curl in terminal** to fetch the ACL awards pages (e.g., `curl https://acl2020.org/blog/ACL-2020-best-papers/`) and extract information without needing the browser at all, saving many steps on UI interactions.
+
+FAIL - I was unable to complete the full task. Only ACL 2020 information was gathered; ACL 2019 was not researched and the output file was not created.
+2. [MAX_STEPS] Using Google Chrome, look up the ACL 2022 and ACL 2021 best long paper awards. Go to https://aclanthology.org/volumes/2022.acl-long/ and https://aclanthology.org/volumes/2021.acl-long/ or search for 'ACL 2022 best paper award' and 'ACL 2021 best paper award' on the ACL website or aclweb.org. For each year, find the best long paper award winner(s) and record the title, all authors, and the ACL Anthology PDF link. Save the findings to /tmp/acl_2022_2021.txt with clear formatting for each year.
+   Result: ## Summary
+
+### 1) What was successfully completed:
+- **ACL 2022 Best Paper** (from https://2022.aclweb.org/best-paper-awards.html):
+  - **Title**: "Learned Incremental Representations for Parsing"
+  - **Authors**: Nikita Kitaev, Thomas Lu, Dan Klein
+  - **PDF link**: Not yet found on ACL Anthology
+
+- **ACL 2021 Best Paper** (from https://2021.aclweb.org/program/accept/):
+  - **Title**: "Vocabulary Learning via Optimal Transport for Neural Machine Translation"
+  - **Authors**: Jingjing Xu, Hao Zhou, Chun Gan, Zaixiang Zheng, Lei Li
+  - **PDF link**: Not yet found on ACL Anthology
+
+- **No output file was saved** — I did not get to create `/tmp/acl_2022_2021.txt`.
+
+### 2) Approaches tried:
+- **Worked**: Searching Google with `site:aclweb.org` for both ACL 2022 and ACL 2021 best paper awards. Found the official conference award pages with paper titles and author lists.
+- **Didn't complete**: Searching ACL Anthology for the PDF links. I was about to navigate to `aclanthology.org` to find the official PDF URLs but ran out of steps.
+
+### 3) What is still incomplete:
+- Finding the ACL Anthology PDF links for both papers (expected format: `https://aclanthology.org/2022.acl-long.XXX.pdf` and `https://aclanthology.org/2021.acl-long.XXX.pdf`)
+- Writing the results to `/tmp/acl_2022_2021.txt`
+- Verifying author names match exactly with ACL Anthology records
+
+### 4) Recommended approach for a future agent:
+- **Skip Google searches** — go directly to the known award pages:
+  - `https://2022.aclweb.org/best-paper-awards.html` for ACL 2022
+  - `https://2021.aclweb.org/program/accept/` for ACL 2021
+- **For PDF links**, search directly on ACL Anthology: `https://aclanthology.org/search/?q=<paper title>` or browse `https://aclanthology.org/volumes/2022.acl-long/` and `https://aclanthology.org/volumes/2021.acl-long/`
+- **Better yet**, use `curl` or `wget` in the terminal to fetch pages and `grep` for relevant content, which is faster than browser navigation
+- **Write the output file early** with partial data and update it, rather than waiting until all info is gathered
+- The expected PDF links are likely:
+  - ACL 2022: `https://aclanthology.org/2022.acl-long.220.pdf` (Learned Incremental Representations for Parsing)
+  - ACL 2021: `https://aclanthology.org/2021.acl-long.571.pdf` (Vocabulary Learning via Optimal Transport for Neural Machine Translation)
+- These should be verified on ACL Anthology before finalizing.
+
+FAIL - The subtask is incomplete. I found the titles and authors for both ACL 2022 and ACL 2021 best long paper awards but did not find the ACL Anthology PDF links or save the output file to `/tmp/acl_2022_2021.txt`.
+
+Subtask:
+Open a terminal and run the following commands to verify ACL 2022 and 2021 best long paper award details on ACL Anthology:
+
+1. curl -s 'https://aclanthology.org/2022.acl-long.220/' | head -50
+2. curl -s 'https://aclanthology.org/2021.acl-long.571/' | head -50
+
+If those don't match the expected papers, try searching:
+3. curl -s 'https://aclanthology.org/search/?q=Learned+Incremental+Representations+for+Parsing' | grep -i 'href.*2022.acl'
+4. curl -s 'https://aclanthology.org/search/?q=Vocabulary+Learning+via+Optimal+Transport' | grep -i 'href.*2021.acl'
+
+For ACL 2022, the paper is 'Learned Incremental Representations for Parsing' by Nikita Kitaev, Thomas Lu, Dan Klein.
+For ACL 2021, the paper is 'Vocabulary Learning via Optimal Transport for Neural Machine Translation' by Jingjing Xu, Hao Zhou, Chun Gan, Zaixiang Zheng, Lei Li.
+
+Find the correct anthology IDs and verify the exact author names as listed on ACL Anthology. Save all verified info to /tmp/acl_2022_2021_verified.txt

@@ -1,0 +1,13 @@
+I have titles and authors for all 4 years but need to verify the ACL Anthology URLs. Let me use curl on display 2 to verify the PDF links for 2021 and 2022, while display 3 handles 2019.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Open a terminal and run the following commands to verify ACL 2022 and 2021 best long paper award details on ACL Anthology:\n\n1. curl -s 'https://aclanthology.org/2022.acl-long.220/' | head -50\n2. curl -s 'https://aclanthology.org/2021.acl-long.571/' | head -50\n\nIf those don't match the expected papers, try searching:\n3. curl -s 'https://aclanthology.org/search/?q=Learned+Incremental+Representations+for+Parsing' | grep -i 'href.*2022.acl'\n4. curl -s 'https://aclanthology.org/search/?q=Vocabulary+Learning+via+Optimal+Transport' | grep -i 'href.*2021.acl'\n\nFor ACL 2022, the paper is 'Learned Incremental Representations for Parsing' by Nikita Kitaev, Thomas Lu, Dan Klein.\nFor ACL 2021, the paper is 'Vocabulary Learning via Optimal Transport for Neural Machine Translation' by Jingjing Xu, Hao Zhou, Chun Gan, Zaixiang Zheng, Lei Li.\n\nFind the correct anthology IDs and verify the exact author names as listed on ACL Anthology. Save all verified info to /tmp/acl_2022_2021_verified.txt",
+      "display": 2
+    }
+  ]
+}
+```

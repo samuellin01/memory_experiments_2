@@ -1,0 +1,42 @@
+Context:
+Original task: I am an NLP researcher. Check out the best long paper awards of ACL from 2019 to 2022 and record the 'title', 'year', 'author list' and 'PDF link' into table best_awards_acl.xlsx on the desktop. Separate authors only by commas, use offical aclanthology urls not arxiv, and sort rows by years in descending orders.
+
+Progress so far:
+1. [MAX_STEPS] Using Google Chrome, look up the ACL 2020 and ACL 2019 best long paper awards. Search for 'ACL 2020 best paper award' and 'ACL 2019 best paper award' on Google or go to the ACL website (aclweb.org). For each year, find the best long paper award winner(s) and record the title, all authors, and the ACL Anthology PDF link (aclanthology.org URLs, not arxiv). Save the findings to /tmp/acl_2020_2019.txt with clear formatting for each year.
+   Result: ## Summary
+
+### 1) What I Successfully Completed
+- **ACL 2020 Best Long Paper Award** - fully identified:
+  - **Title:** "Beyond Accuracy: Behavioral Testing of NLP Models with CheckList"
+  - **Authors:** Marco Tulio Ribeiro, Tongshuang Wu, Carlos Guestrin, Sameer Singh
+  - **Year:** 2020
+  - **ACL Anthology PDF Link:** https://aclanthology.org/2020.acl-main.442.pdf
+  - Verified on both the official ACL 2020 conference page (acl2020.org/blog/ACL-2020-best-papers/) and ACL Anthology (aclanthology.org/2020.acl-main.442/)
+
+### 2) Approaches Tried
+- **What worked:** Searching Google for "ACL 2020 best long paper award" quickly found the official ACL 2020 best papers blog page. Then navigating directly to the ACL Anthology page using the known anthology ID (2020.acl-main.442) confirmed the paper details and PDF link.
+- **What didn't work well:** The Chrome welcome dialog took 3 attempts to dismiss (clicking OK twice didn't work, pressing Enter finally worked), which consumed valuable steps.
+
+### 3) What Is Still Incomplete
+- **ACL 2019 Best Long Paper Award** was not looked up. I was about to search for it when steps ran out.
+- **The output file `/tmp/acl_2020_2019.txt`** was never created/saved.
+- For reference, the ACL 2019 best long paper award is: "Bridging the Gap between Training and Inference for Neural Machine Translation" by Wen Zhang, Yang Feng, Fandong Meng, Di You, Qun Liu (PDF: https://aclanthology.org/P19-1426.pdf)
+
+### 4) Recommended Approach for Future Agent
+1. **Skip the browser entirely for well-known information.** These are well-documented awards. Use `curl` or `wget` to fetch pages and parse them, or simply write the known information directly to the file.
+2. **Minimize dialog interactions** - dismiss Chrome dialogs quickly or use command-line flags to avoid them.
+3. **Batch operations:** Instead of searching one year at a time, go directly to known URLs:
+   - `https://aclanthology.org/volumes/P19-1/` or search on aclanthology.org
+   - `https://www.aclweb.org/portal/content/acl-2019-best-paper-awards`
+4. **Write the file early** with partial results and update it, so progress isn't lost if steps run out.
+5. **Use curl in terminal** to fetch the ACL awards pages (e.g., `curl https://acl2020.org/blog/ACL-2020-best-papers/`) and extract information without needing the browser at all, saving many steps on UI interactions.
+
+FAIL - I was unable to complete the full task. Only ACL 2020 information was gathered; ACL 2019 was not researched and the output file was not created.
+
+Subtask:
+Open a terminal and use curl to verify the ACL 2019 best long paper award. Run these commands:
+1. curl -s https://aclanthology.org/P19-1426/ | grep -i '<title>\|<meta' to verify the paper title and authors
+2. Also curl -s https://2019.aclweb.org/blog/best-papers/ to find the official best long paper award info for ACL 2019
+3. Save the verified information (title, authors, PDF link) to /tmp/acl_2019_info.txt
+
+The expected paper is 'Bridging the Gap between Training and Inference for Neural Machine Translation' by Wen Zhang, Yang Feng, Fandong Meng, Di You, Qun Liu. Verify this and get the exact ACL Anthology URL.
