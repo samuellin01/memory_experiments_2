@@ -1,0 +1,16 @@
+Now I have all the data I need. Let me verify the grading for Student 0 (Linda Garcia) first to make sure my answer extraction is correct, then prepare the update script.
+
+**Answer Key:** D, A, C, D, B, C, C, D, D, D
+**Student 0 (Linda Garcia):** D, B, C, D, B, D, C, C, D, D
+**Expected scores:** 1, 0, 1, 1, 1, 0, 1, 0, 1, 1 = 7 correct × 10 = 70 ✓ (matches the already-graded row!)
+
+Now let me compute scores for students 1-9 and write them to the spreadsheet. I need to use openpyxl to save a modified copy, then have LibreOffice Calc reload it.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, run this Python script to update the grades.xlsx spreadsheet with scores for students 1-9 (student 0 is already graded). The script will save to a temporary file first, then replace the original:\n\npython3 << 'PYEOF'\nimport openpyxl\nimport shutil\n\n# Answer key\nanswer_key = ['D', 'A', 'C', 'D', 'B', 'C', 'C', 'D', 'D', 'D']\n\n# Student answers (extracted from answer sheets)\nstudent_answers = {\n    0: ['D', 'B', 'C', 'D', 'B', 'D', 'C', 'C', 'D', 'D'],\n    1: ['D', 'A', 'B', 'D', 'B', 'D', 'C', 'A', 'D', 'D'],\n    2: ['D', 'A', 'C', 'D', 'C', 'A', 'C', 'B', 'D', 'D'],\n    3: ['A', 'A', 'C', 'D', 'B', 'C', 'C', 'B', 'D', 'D'],\n    4: ['D', 'A', 'C', 'D', 'C', 'C', 'C', 'D', 'D', 'A'],\n    5: ['D', 'A', 'C', 'A', 'B', 'D', 'B', 'D', 'A', 'D'],\n    6: ['D', 'B', 'C', 'D', 'B', 'B', 'C', 'C', 'D', 'A'],\n    7: ['D', 'A', 'B', 'D', 'B', 'C', 'C', 'D', 'D', 'D'],\n    8: ['A', 'A', 'B', 'D', 'C', 'C', 'C', 'A', 'D', 'C'],\n    9: ['D', 'A', 'C', 'D', 'B', 'C', 'C', 'D', 'D', 'D'],\n}\n\n# Verify student 0 grading matches existing data\ns0_scores = [1 if student_answers[0][j] == answer_key[j] else 0 for j in range(10)]\nprint(f'Student 0 verification: scores={s0_scores}, total={sum(s0_scores)*10}')\nprint('Expected: [1, 0, 1, 1, 1, 0, 1, 0, 1, 1], total=70')\n\n# Load workbook\nwb = openpyxl.load_workbook('/home/user/exam/grades.xlsx')\nws = wb.active\n\n# Grade students 1-9 (rows 3-11 in spreadsheet)\nfor student_id in range(1, 10):\n    row = student_id + 2  # student 1 -> row 3, student 2 -> row 4, etc.\n    answers = student_answers[student_id]\n    scores = []\n    for q in range(10):\n        score = 1 if answers[q] == answer_key[q] else 0\n        scores.append(score)\n        col = q + 3  # Q1 -> col C (3), Q2 -> col D (4), etc.\n        ws.cell(row=row, column=col, value=score)\n    total = sum(scores) * 10\n    ws.cell(row=row, column=13, value=total)  # Column M = 13\n    print(f'Student {student_id} (row {row}): scores={scores}, total={total}')\n\n# Save to temp file first\ntemp_path = '/tmp/grades_updated.xlsx'\nwb.save(temp_path)\nprint(f'Saved updated grades to {temp_path}')\n\n# Also save directly to original path\nwb.save('/home/user/exam/grades.xlsx')\nprint('Saved to /home/user/exam/grades.xlsx')\nPYEOF", "display": 2}
+  ]
+}
+```

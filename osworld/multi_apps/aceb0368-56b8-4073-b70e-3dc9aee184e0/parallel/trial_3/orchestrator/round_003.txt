@@ -1,0 +1,10 @@
+Good, I now know there are 10 student answer sheets (answer_sheet0.docx through answer_sheet9.docx) and a grades.xlsx spreadsheet. Let me extract all student answers while waiting for the spreadsheet view.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, run a Python script to extract answers from all 10 student answer sheets. Run this command:\n\npython3 << 'EOF'\nimport zipfile\nimport xml.etree.ElementTree as ET\nimport re\n\ndef extract_text_from_docx(filepath):\n    with zipfile.ZipFile(filepath) as z:\n        with z.open('word/document.xml') as f:\n            tree = ET.parse(f)\n    root = tree.getroot()\n    ns = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'}\n    texts = []\n    for p in root.iter('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}p'):\n        para_text = ''.join(node.text for node in p.iter('{http://schemas.openxmlformats.org/wordprocessingml/2006/main}t') if node.text)\n        texts.append(para_text)\n    return '\\n'.join(texts)\n\nfor i in range(10):\n    filepath = f'/home/user/exam/answer_sheet{i}.docx'\n    text = extract_text_from_docx(filepath)\n    # Find answers - look for patterns like 【Answer】X or Answer: X\n    answers = re.findall(r'[【\\[]Answer[】\\]]\\s*([A-D])', text)\n    print(f'Student {i}: {answers}')\n    # Also save full text for debugging\n    with open(f'/tmp/student_{i}_text.txt', 'w') as f:\n        f.write(text)\nEOF", "display": 2}
+  ]
+}
+```

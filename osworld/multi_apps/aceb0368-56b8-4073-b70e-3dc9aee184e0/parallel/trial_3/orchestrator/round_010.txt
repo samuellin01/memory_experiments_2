@@ -1,0 +1,12 @@
+Good - LibreOffice Calc was closed, which actually helps because now the Python script on display 2 can save to grades.xlsx without file locking issues. The lock file should be gone now. Let me wait for the Python script to finish, then reopen the updated file in LibreOffice Calc on display 0.
+
+Let me also remove any stale lock file just in case:
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, remove the LibreOffice lock file if it exists: rm -f '/home/user/exam/.~lock.grades.xlsx#' && echo 'Lock file removed'", "display": 3}
+  ]
+}
+```

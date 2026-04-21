@@ -1,0 +1,10 @@
+Excellent! I now have all student answers extracted. I need to wait for the spreadsheet data from display 3 and the Calc window on display 0. But I can already start preparing the grading data. Let me also extract student names from the answer sheets.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, run this Python script to extract student names from each answer sheet and also check the full text of the first few students:\n\npython3 << 'EOF'\nfor i in range(10):\n    with open(f'/tmp/student_{i}_text.txt', 'r') as f:\n        text = f.read()\n    # Print first few lines to find student name\n    lines = [l.strip() for l in text.split('\\n') if l.strip()]\n    print(f'=== Student {i} first 5 lines ===')\n    for line in lines[:5]:\n        print(f'  {line}')\nEOF", "display": 2}
+  ]
+}
+```

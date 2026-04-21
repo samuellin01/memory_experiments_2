@@ -1,0 +1,26 @@
+Now I have all the data I need. Let me analyze the mapping:
+
+**Spreadsheet structure (from display 3 screenshot):**
+- Row 2: Linda Garcia (20230901000) - already graded
+- Row 3: Richard Smith (20230901001) - needs grading
+- Row 4: Jennifer Rodriguez (20230901002)
+- Row 5: Michael Gonzalez (20230901003)
+- Row 6: Mary Williams (20230901004)
+- Row 7: Joseph Thomas (20230901005)
+- Row 8: James Martinez (20230901006)
+- Row 9: Barbara Wilson (20230901007)
+- Row 10: Karen Davis (20230901008)
+- Row 11: David Brown (20230901009)
+
+The student IDs end with 000-009, matching answer_sheet0-9. Student 0 (Linda Garcia) is already graded. I need to grade students 1-9.
+
+Now I need to verify the mapping by checking student names in the answer sheets, then write a script to update the spreadsheet. But first, I need to figure out the approach - since LibreOffice Calc has the file open, I should use the LibreOffice UNO interface or close Calc first, update via openpyxl, then reopen.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, run this Python script to verify the student name mapping and then print the grading results:\n\npython3 << 'PYEOF'\nimport re\n\n# Read student names from answer sheets\nfor i in range(10):\n    with open(f'/tmp/student_{i}_text.txt', 'r') as f:\n        text = f.read()\n    lines = [l.strip() for l in text.split('\\n') if l.strip()]\n    # Find name - usually in first few lines\n    name = 'Unknown'\n    for line in lines[:10]:\n        if 'Name' in line or 'name' in line or '姓名' in line:\n            name = line\n            break\n    print(f'Sheet {i}: {lines[:3]}')\nPYEOF", "display": 3}
+  ]
+}
+```

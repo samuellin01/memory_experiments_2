@@ -1,0 +1,10 @@
+Good, the answer key is saved. Let me also read the spreadsheet data using Python on display 3 while waiting for the other tasks.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, run this Python script to read the grades.xlsx spreadsheet and show its current contents:\n\npython3 << 'EOF'\nimport openpyxl\nwb = openpyxl.load_workbook('/home/user/exam/grades.xlsx')\nfor sheet_name in wb.sheetnames:\n    ws = wb[sheet_name]\n    print(f'Sheet: {sheet_name}')\n    print(f'Dimensions: {ws.dimensions}')\n    print(f'Max row: {ws.max_row}, Max col: {ws.max_column}')\n    for row in ws.iter_rows(min_row=1, max_row=ws.max_row, values_only=False):\n        row_data = [(cell.coordinate, cell.value) for cell in row]\n        print(row_data)\n    print()\nEOF", "display": 3}
+  ]
+}
+```

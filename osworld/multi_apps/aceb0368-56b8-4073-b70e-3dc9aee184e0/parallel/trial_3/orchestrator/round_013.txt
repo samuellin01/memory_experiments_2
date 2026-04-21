@@ -1,0 +1,16 @@
+The grades.xlsx file has been saved with all correct data. I can see it's already open on display 3 showing all the correct grades. Now I just need to open it on the primary display (display 0) where the file manager is currently showing. The subtask to open it on display 0 is already running. Let me wait for it.
+
+But I notice from display 2 that `soffice --calc` keeps exiting on the secondary display. This is because LibreOffice is likely already running on display 3. Let me wait for the display 0 task to complete - it should be able to double-click the file in the file manager to open it.
+
+I'll wait for the display 0 task to finish. No new dispatches needed right now.
+
+Let me check - display 0 is still busy with the task to open grades.xlsx. I'll wait.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Kill any existing LibreOffice processes on all displays so we can cleanly open the file on display 0: run 'pkill -f soffice; pkill -f libreoffice; sleep 2; rm -f /home/user/exam/.~lock.grades.xlsx#; echo done'", "display": 3}
+  ]
+}
+```

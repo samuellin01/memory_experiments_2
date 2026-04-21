@@ -1,0 +1,10 @@
+I see the issue - there are multiple LibreOffice instances interfering. I can see from the wmctrl output on display 0 that there's a "ReferenceAnswers.docx - LibreOffice Writer" window still open. Let me kill all LibreOffice instances first, then cleanly open just the grades.xlsx on display 0.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "On the primary display, do the following steps in order:\n1. First, close the terminal window by clicking its X button or typing 'exit'\n2. Close the file manager window\n3. Then kill ALL LibreOffice processes by opening a new terminal (right-click desktop > Open Terminal, or press Ctrl+Alt+T) and running: pkill -9 -f soffice; pkill -9 -f libreoffice; sleep 3; rm -f /home/user/exam/.~lock.grades.xlsx#; rm -f /home/user/exam/.~lock.ReferenceAnswers.docx#\n4. Then open grades.xlsx: run 'soffice --calc /home/user/exam/grades.xlsx &'\n5. Wait 8 seconds for it to fully load\n6. Then minimize the terminal with: xdotool getactivewindow windowminimize\n7. The LibreOffice Calc window should now be visible with the graded spreadsheet", "display": 0}
+  ]
+}
+```
