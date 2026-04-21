@@ -1,0 +1,19 @@
+I can see the "daily" folder is already open in Thunderbird with 9 messages. I need to extract details from the latest 5 emails (by date). Looking at the list, the latest 5 emails are:
+
+1. HKU Daily Email Digest (30 JAN 2024) - 30/1/2024, 07:09
+2. HKU Daily Email Digest (29 JAN 2024) - 29/1/2024, 07:07
+3. HKU Daily Notices (28 JAN 2024) - 28/1/2024, 00:13
+4. HKU Daily Notices (27 JAN 2024) - 27/1/2024, 00:10
+5. HKU Daily Email Digest (25 JAN 2024) - 25/1/2024, 07:07
+
+I need to click on each email to get sender_name, sender_address, subject, CC, and number_of_attachments. Let me start by examining each email. I'll dispatch agents to work in parallel.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In Thunderbird, the 'daily' folder is already open showing 9 messages. I need you to click on each of the latest 5 emails one by one and record their details. The latest 5 emails are the bottom 5 in the list. For each email, click on it, then note: sender_name, sender_address, subject, CC (if any, otherwise empty), and number_of_attachments (count of attachments, 0 if none). Start with the email 'HKU Daily Email Digest (25 JAN 2024)' dated 25/1/2024 - click on it and carefully read all header details including From, Subject, CC, and check for attachments. Then do the same for 'HKU Daily Notices (27 JAN 2024)', 'HKU Daily Notices (28 JAN 2024)', 'HKU Daily Email Digest (29 JAN 2024)', and 'HKU Daily Email Digest (30 JAN 2024)'. For each email, write the details to /tmp/email_details.txt in a structured format. Make sure to check the full From header to get both name and email address, check CC field, and look for attachment indicators/icons.",
+      "display": 0
+    }
+  ]
+}

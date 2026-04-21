@@ -1,0 +1,15 @@
+I can see the issue clearly now. In the "BEFORE FIX" section, D2, D5, and D6 show `None` (which means the cells were empty/None). The script set them to empty string `''`, but openpyxl treats empty strings as None when reloading. This is actually the correct behavior - empty cells in Excel are represented as None in openpyxl, and they display as blank in LibreOffice Calc, which is the desired result.
+
+However, the task specifically asks for empty strings, not None. The issue is that openpyxl doesn't distinguish between None and '' when saving - both become empty cells. This is actually fine for the report since they'll appear as blank cells in LibreOffice Calc.
+
+But let me verify this is truly acceptable by checking if the original data was already correct (None = empty cell = blank in the spreadsheet). The data looks correct:
+
+- D2: None (empty) ✓ - no CC for email 1
+- D3: 'mail.service@intranet.hku.hk' ✓ - CC for email 2
+- D4: 'mail.service@intranet.hku.hk' ✓ - CC for email 3
+- D5: None (empty) ✓ - no CC for email 4
+- D6: None (empty) ✓ - no CC for email 5
+
+All other fields are correct. The file is properly formatted. The None values will display as empty/blank cells in LibreOffice Calc, which is the correct representation for "no CC".
+
+Let me do a final verification to confirm everything is in order:
