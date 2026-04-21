@@ -1,0 +1,11 @@
+The programmatic approaches keep failing because the site is a JS SPA and Chrome CDP connections have issues. Let me try a different strategy on display 3 - launch Chrome with the correct flags and use selenium, or use a simpler approach: launch a fresh Chrome with `--remote-allow-origins=*` and then use CDP.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the xterm terminal, do the following steps:\n\n1. First kill any existing Chrome processes:\n   pkill -f chrome; sleep 2\n\n2. Launch Chrome with correct flags:\n   google-chrome --no-sandbox --disable-gpu --remote-debugging-port=9222 --remote-allow-origins=* --user-data-dir=/tmp/chrome-fresh 'about:blank' &\n   sleep 3\n\n3. Write a Python script to /tmp/get_words.py that:\n   - Uses urllib to get http://127.0.0.1:9222/json to find the websocket URL\n   - Connects via websocket-client\n   - For each of the 10 books, navigates to howlongtoread.com/results/BOOKNAME, waits 5 seconds, then clicks the first matching result, waits 5 seconds, then extracts the word count from the page using document.querySelector or document.body.innerText\n   - Calculates words per day\n   - Finds the slowest\n   - Saves to /tmp/slowest_book.txt\n\n4. Run the script: python3 /tmp/get_words.py\n\nBooks and days:\n- Fire and Blood: 44 days\n- Song of Solomon: 48 days\n- The Lost Symbol: 66 days\n- 2001 A Space Odyssey: 23 days\n- American Gods: 50 days\n- Out of the Silent Planet: 36 days\n- The Andromeda Strain: 30 days\n- Brave New World: 19 days\n- Silence Shusaku Endo: 33 days\n- The Shining: 6 days\n\nIMPORTANT: Write the script file using a single echo command or python3 -c to create the file, NOT using heredoc (which is slow). For example:\npython3 -c \"\nimport json\nscript = '''... your script content ...'''\nwith open('/tmp/get_words.py', 'w') as f:\n    f.write(script)\n\"\n\nThen run: python3 /tmp/get_words.py\n\nSave the result to /tmp/slowest_book.txt",
+      "display": 3
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+I see Chrome is open on display 2 with howlongtoread.com loaded. Let me try a more focused approach - use Chrome on display 2 to look up books one at a time via direct URL navigation (which is faster than searching), and on display 2 I'll look up 2-3 books per attempt since the URL pattern `howlongtoread.com/results/BOOKNAME` works.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In Chrome on this display, howlongtoread.com is already open. You need to look up word counts for books efficiently. First dismiss any 'Restore pages' popup by clicking the X to close it.\n\nThen navigate directly to each book by typing URLs in the address bar. The URL pattern is: howlongtoread.com/results/BOOK+NAME\n\nFor each book, go to the search results, click on the correct book, and note the word count shown on the book's detail page.\n\nLook up these 5 books IN ORDER, recording each word count:\n1. Navigate to howlongtoread.com/results/Fire+and+Blood - click on 'Fire & Blood' by George R.R. Martin, note word count\n2. Navigate to howlongtoread.com/results/Song+of+Solomon - click on the one by Toni Morrison, note word count  \n3. Navigate to howlongtoread.com/results/The+Lost+Symbol - click on the one by Dan Brown, note word count\n4. Navigate to howlongtoread.com/results/2001+A+Space+Odyssey - click on the one by Arthur C. Clarke, note word count\n5. Navigate to howlongtoread.com/results/American+Gods - click on the one by Neil Gaiman, note word count\n\nAfter getting each word count, save ALL results to /tmp/batch1_words.txt by opening a new tab and navigating to about:blank, then using the address bar to run javascript, OR better yet, just remember them all and at the end, open a terminal and write them to a file.\n\nActually, the most efficient approach: after looking up all 5, save results to /tmp/batch1_words.txt using the xterm terminal on this display. Format: one line per book with 'Title: wordcount'",
+      "display": 2
+    }
+  ]
+}
