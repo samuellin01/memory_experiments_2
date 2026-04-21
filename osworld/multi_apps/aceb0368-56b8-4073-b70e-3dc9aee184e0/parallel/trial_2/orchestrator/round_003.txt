@@ -1,0 +1,9 @@
+Now I have all the information I need. There are 10 answer sheets (answer_sheet0.docx through answer_sheet9.docx) corresponding to 10 students, and a ReferenceAnswers.docx with the answer key. I need to extract the content from all these files. Let me use python to extract the text from all docx files in parallel.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Using python3, extract the text content from the reference answers and the first 5 answer sheets. Run this command:\n\npython3 -c \"\nimport subprocess\nimport sys\n\ntry:\n    from docx import Document\nexcept ImportError:\n    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'python-docx'])\n    from docx import Document\n\nfiles = ['/home/user/exam/ReferenceAnswers.docx'] + [f'/home/user/exam/answer_sheet{i}.docx' for i in range(5)]\nfor f in files:\n    print(f'=== {f} ===')\n    doc = Document(f)\n    for table in doc.tables:\n        for row in table.rows:\n            print([cell.text for cell in row.cells])\n    for para in doc.paragraphs:\n        print(para.text)\n    print()\n\"\n\nReport ALL the output exactly as printed.", "display": 2},
+    {"instruction": "Using python3, extract the text content from answer sheets 5-9. Run this command:\n\npython3 -c \"\nimport subprocess\nimport sys\n\ntry:\n    from docx import Document\nexcept ImportError:\n    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'python-docx'])\n    from docx import Document\n\nfiles = [f'/home/user/exam/answer_sheet{i}.docx' for i in range(5, 10)]\nfor f in files:\n    print(f'=== {f} ===')\n    doc = Document(f)\n    for table in doc.tables:\n        for row in table.rows:\n            print([cell.text for cell in row.cells])\n    for para in doc.paragraphs:\n        print(para.text)\n    print()\n\"\n\nReport ALL the output exactly as printed.", "display": 3}
+  ]
+}

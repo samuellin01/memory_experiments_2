@@ -1,0 +1,8 @@
+I already have the extraction tasks running on displays 2 and 3. Display 3 just finished its previous task, so let me dispatch the answer_sheet5-9 extraction there now.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Using python3, extract the text content from answer sheets 5-9. Run this command:\n\npython3 -c \"\nimport subprocess\nimport sys\n\ntry:\n    from docx import Document\nexcept ImportError:\n    subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'python-docx'])\n    from docx import Document\n\nfiles = [f'/home/user/exam/answer_sheet{i}.docx' for i in range(5, 10)]\nfor f in files:\n    print(f'=== {f} ===')\n    doc = Document(f)\n    for table in doc.tables:\n        for row in table.rows:\n            print([cell.text for cell in row.cells])\n    for para in doc.paragraphs:\n        print(para.text)\n    print()\n\"\n\nReport ALL the output exactly as printed.", "display": 3}
+  ]
+}

@@ -1,0 +1,10 @@
+I can see a LibreOffice Calc spreadsheet with student grades. Row 2 (Linda Garcia) has scores filled in as a reference, and rows 3-11 need to be graded. I need to first understand the full picture - there must be answer sheets for the students and an answer key somewhere. Let me explore the spreadsheet and filesystem to find the answer key and student answer files.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the LibreOffice Calc spreadsheet that is open (grades.xlsx), scroll right to see if there are more columns beyond what's visible (column M 'Total Grade'). Also check if there are other sheets besides Sheet1 by looking at the sheet tabs at the bottom. Report what you find.", "display": 0},
+    {"instruction": "Search the filesystem for any files related to exam answers, answer keys, or student test papers. Look in common locations like /home/user/, /home/user/Desktop/, /home/user/Documents/, /home/user/Downloads/, and the directory containing grades.xlsx. Run commands like: find /home/user -type f | head -50, and also check what's in the same directory as grades.xlsx. Report all files found.", "display": 2},
+    {"instruction": "Search more broadly for exam-related files. Run: find / -name '*.xlsx' -o -name '*.csv' -o -name '*.txt' -o -name '*.pdf' -o -name '*.doc' -o -name '*.docx' 2>/dev/null | grep -iv '/usr\\|/lib\\|/snap\\|/proc\\|/sys' | head -50. Also run: find /home/user -type f -name '*answer*' -o -name '*exam*' -o -name '*key*' -o -name '*test*' -o -name '*grade*' -o -name '*student*' 2>/dev/null. Report everything found.", "display": 3}
+  ]
+}
