@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('python3 -c "\nimport docx\ndoc = docx.Document(\'answ'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("er_sheet0.docx')\nfor i, p in enumerate(doc.paragra"), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('phs):\n    print(f\'{i}: [{p.text}]\')\n"\n'), shell=True, check=True)
+import time; time.sleep(0.05)

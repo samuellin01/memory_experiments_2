@@ -1,0 +1,5 @@
+Now I see the problem! The `letter = parts[-1]` is returning `'【Answer】D'` as a whole because the text doesn't have a space between 【Answer】 and the letter in some cases. Looking at the output: `letter='【Answer】D'` - the letter D is part of the same token as 【Answer】.
+
+Wait, looking more carefully: `SKIP: '【Answer】D' letter='【Answer】D'` - so the text is `【Answer】D` without a space. But earlier when I ran the command line test, I saw `' 【Answer】 D'` with spaces. 
+
+The issue is that in the reference answers file, the answer letter might be part of the same run without a space. Let me check the actual text more carefully and use a different extraction approach - just get the last character of the text.
