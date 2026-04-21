@@ -1,0 +1,1 @@
+pyautogui.tripleClick(924, 456)
