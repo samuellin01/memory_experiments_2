@@ -1,0 +1,9 @@
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run a script to look up word counts for all 10 books from howlongtoread.com. Use curl to fetch search results and book pages. Run this in the terminal:\n\nbash -c '\nfor query in \"Fire+and+Blood\" \"Song+of+Solomon+Toni+Morrison\" \"The+Lost+Symbol+Dan+Brown\" \"2001+A+Space+Odyssey+Arthur+Clarke\" \"American+Gods+Neil+Gaiman\" \"Out+of+the+Silent+Planet+CS+Lewis\" \"The+Andromeda+Strain+Michael+Crichton\" \"Brave+New+World+Aldous+Huxley\" \"Silence+Shusaku+Endo\" \"The+Shining+Stephen+King\"; do\n  echo \"=== Query: $query ===\"\n  html=$(curl -s \"https://howlongtoread.com/results/$query\")\n  book_link=$(echo \"$html\" | grep -oP \"href=\\\"/book/[^\\\"]+\\\"\" | head -1 | sed \"s/href=\\\"//;s/\\\"$//\")\n  echo \"Link: $book_link\"\n  if [ -n \"$book_link\" ]; then\n    book_html=$(curl -s \"https://howlongtoread.com$book_link\")\n    echo \"$book_html\" | grep -i \"word\" | head -5\n  fi\n  echo \"---\"\ndone\n' 2>&1 | tee /tmp/lookup_results.txt\n\nAfter running, check the output. If word counts are not clearly visible, try fetching one specific book page and examining the HTML more carefully with: curl -s 'https://howlongtoread.com/book/FIRST_RESULT_ID' | grep -i -A2 -B2 'word' to find the right pattern. Save final results to /tmp/wordcounts_all.txt",
+      "display": 3
+    }
+  ]
+}

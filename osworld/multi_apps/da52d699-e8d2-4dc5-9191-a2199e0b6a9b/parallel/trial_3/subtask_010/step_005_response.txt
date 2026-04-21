@@ -1,0 +1,11 @@
+Excellent! Now I can see the debug output. Key findings:
+
+1. **Book links ARE found** - the pattern is `https://howlongtoread.com/books/BOOKID` (no title in URL, just `/books/NUMBER`)
+2. The search for "Fire and Blood" returns multiple results, and the correct one is `https://howlongtoread.com/books/246732` (which we know is the right one)
+3. The first result is `https://howlongtoread.com/books/5464422` which is "Fire and Blood: A History of Mexico" - NOT the right book
+4. The search results show book titles and authors in the body text
+
+Now I need to understand why the previous script failed - the links are `/books/` not `/books/` with trailing path. Let me scroll up to check the timing - it seems the links appeared. The issue in the previous script was probably that `links[i].href.indexOf('/books/')` should have worked. Let me now write the improved script that:
+1. Uses the correct URL pattern with %20
+2. Matches the right book from results
+3. Gets word counts from book pages

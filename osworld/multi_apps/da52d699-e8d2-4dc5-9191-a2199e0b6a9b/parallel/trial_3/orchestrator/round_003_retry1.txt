@@ -1,0 +1,9 @@
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, create and run a bash script to look up word counts for 10 books from howlongtoread.com. Write this script to /tmp/get_words.sh and run it:\n\n#!/bin/bash\nget_wordcount() {\n  local query=\"$1\"\n  local name=\"$2\"\n  local search_html=$(curl -s \"https://howlongtoread.com/results/$query\")\n  local book_path=$(echo \"$search_html\" | grep -oP '/books/[0-9]+/[^\"]+' | head -1)\n  if [ -n \"$book_path\" ]; then\n    local book_html=$(curl -s \"https://howlongtoread.com$book_path\")\n    local wc=$(echo \"$book_html\" | grep -A1 'Word Count' | grep -oP '[0-9,]+' | head -1)\n    echo \"$name | $wc | $book_path\"\n  else\n    echo \"$name | NOT_FOUND\"\n  fi\n}\n\nget_wordcount \"Fire+and+Blood\" \"Fire and Blood\"\nget_wordcount \"Song+of+Solomon+Toni+Morrison\" \"Song of Solomon\"\nget_wordcount \"The+Lost+Symbol+Dan+Brown\" \"The Lost Symbol\"\nget_wordcount \"2001+A+Space+Odyssey\" \"2001 A Space Odyssey\"\nget_wordcount \"American+Gods+Neil+Gaiman\" \"American Gods\"\nget_wordcount \"Out+of+the+Silent+Planet\" \"Out of the Silent Planet\"\nget_wordcount \"The+Andromeda+Strain\" \"The Andromeda Strain\"\nget_wordcount \"Brave+New+World+Aldous+Huxley\" \"Brave New World\"\nget_wordcount \"Silence+Shusaku+Endo\" \"Silence\"\nget_wordcount \"The+Shining+Stephen+King\" \"The Shining\"\n\nSave this to /tmp/get_words.sh, make it executable, and run it with: bash /tmp/get_words.sh 2>&1 | tee /tmp/all_wordcounts.txt\n\nThen cat /tmp/all_wordcounts.txt to verify. If word counts show as empty, try a different grep pattern - check the raw HTML of one book page first with: curl -s 'https://howlongtoread.com/books/246732/Fire--Blood' | grep -i word | head -10",
+      "display": 2
+    }
+  ]
+}
