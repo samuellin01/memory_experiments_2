@@ -1,0 +1,5 @@
+I see the output still shows `None` in the verification. It seems the fix didn't work as expected - the empty string might be displaying as `None` when read back. Let me check more carefully. Actually, looking at the output, it still shows `None`. This might be because openpyxl treats empty strings as None when reading. Let me check if the issue is in the original script where the CC was set as empty string but Python's `or` logic might have caused issues. Let me look at the actual cell values more carefully.
+
+Actually, looking more carefully at the output, I see that the rows 1, 4, and 5 show `None` for CC. The empty string "" in openpyxl gets read back as None. This is actually fine - in the spreadsheet, the cell will appear empty, which is correct for emails without CC. The display as `None` is just how Python prints it.
+
+Let me verify the file is correct by opening it in LibreOffice Calc.
