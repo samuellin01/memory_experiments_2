@@ -1,0 +1,14 @@
+I can see the requirements document is open. The instructions are:
+1. The friend wants to make the background of a picture transparent so they can use it with different scenarios/backgrounds for a video clip.
+
+I need to first find the image file on the Desktop, then remove its background and save it as "pic.jpg". Let me first check what image files are on the Desktop.
+
+However, there's an important consideration: JPEG format does NOT support transparency. The friend wants a transparent background, but the output format requested is "pic.jpg". I'll need to remove the background and save as JPG - which will result in a white background (or I could save as PNG for transparency). But since the task says to save as "pic.jpg", I'll follow that instruction. Let me first find the image file.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "List all files on the Desktop to find the image file. Run: ls -la /home/user/Desktop/", "display": 2},
+    {"instruction": "Check if rembg or any background removal Python packages are installed. Run: pip list 2>/dev/null | grep -i -E 'rembg|pillow|opencv' && which rembg", "display": 3}
+  ]
+}

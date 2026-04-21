@@ -1,0 +1,7 @@
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Check if pic.jpg or pic.png already exist on the Desktop, and check if any python3 process is still running. Run: ls -la /home/user/Desktop/pic.* 2>/dev/null; echo '---'; ps aux | grep python3 | grep -v grep", "display": 3},
+    {"instruction": "Write a Python script to /tmp/remove_bg.py and run it. First create the file with this command:\n\ncat > /tmp/remove_bg.py << 'PYEOF'\nfrom rembg import remove\nfrom PIL import Image\nimport io\n\ninput_path = '/home/user/Desktop/ChMkKV8wsR6IBfEtABYfc0Tgu9cAAA1lQHO_78AFh-L733.jpg'\n\nwith open(input_path, 'rb') as f:\n    input_data = f.read()\n\nprint('Removing background...')\noutput_data = remove(input_data)\nprint('Background removed successfully')\n\nimg = Image.open(io.BytesIO(output_data))\nimg.save('/home/user/Desktop/pic.png', 'PNG')\nprint('Saved as pic.png')\n\nimg_rgba = img.convert('RGBA')\nimg_rgb = Image.new('RGB', img_rgba.size, (255, 255, 255))\nimg_rgb.paste(img_rgba, mask=img_rgba.split()[3])\nimg_rgb.save('/home/user/Desktop/pic.jpg', 'JPEG')\nprint('Saved as pic.jpg')\nprint('Done!')\nPYEOF\n\nThen run: python3 /tmp/remove_bg.py\n\nWait for it to complete. The rembg model may need to download on first run so be patient - this could take several minutes.", "display": 2}
+  ]
+}
