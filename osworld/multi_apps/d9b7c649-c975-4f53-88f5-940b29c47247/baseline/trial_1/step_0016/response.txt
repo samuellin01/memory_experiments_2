@@ -1,0 +1,10 @@
+I can see the report has been fixed and saved. The output shows:
+
+1. **Header**: ('sender_name', 'sender_address', 'subject', 'CC', 'number_of_attachments')
+2. ('HKU Bulk Email Delivery System', 'mail.service@intranet.hku.hk', 'HKU Daily Email Digest (25 JAN 2024)', None, 0)
+3. ('eNotices System', 'enotices.daily.digest@hku.hk', 'HKU Daily Notices (27 JAN 2024)', 'mail.service@intranet.hku.hk', 0)
+4. ('eNotices System', 'enotices.daily.digest@hku.hk', 'HKU Daily Notices (28 JAN 2024)', 'mail.service@intranet.hku.hk', 0)
+5. ('HKU Bulk Email Delivery System', 'mail.service@intranet.hku.hk', 'HKU Daily Email Digest (29 JAN 2024)', None, 0)
+6. ('HKU Bulk Email Delivery System', 'mail.service@intranet.hku.hk', 'HKU Daily Email Digest (30 JAN 2024)', None, 0)
+
+I notice the "None" values are still showing. This is because the empty string '' is being read back as None by openpyxl for display. Let me check if the cells actually contain empty strings or None by opening the file in LibreOffice to verify. But actually, looking more carefully, the output still shows "None" - this might be because openpyxl treats empty strings as None when reading back. Let me verify this is correct by checking the actual cell values.
