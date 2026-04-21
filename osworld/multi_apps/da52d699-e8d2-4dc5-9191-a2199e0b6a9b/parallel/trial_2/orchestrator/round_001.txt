@@ -1,0 +1,35 @@
+I can see the spreadsheet with book data. Let me analyze the columns:
+- A: Title, B: Author, C: Genre, D: Start Date, E: End Date, F: Rating, G: Word count (likely), H: Days to read, I: Some calculated value
+
+I need to:
+1. Extract the book titles and their word counts from the spreadsheet
+2. Look up each book on howlongtoread.com to get the word count (since column G might be page count or word count from the site)
+3. Calculate words per day for each book
+4. Find the slowest reading pace (lowest words per day)
+
+Wait, looking more carefully at the data:
+- Column G appears to be word counts (211094, 101062, 152191, 88803, 189565, 47840, 97773, 80132, 65481, 148603)
+- Column H appears to be days (44, 48, 66, 23, 50, 36, 30, 19, 33, 6)
+- Column I appears to be words per day (4797.59, 2105.46, 2305.92, 3861, 3797.3, 1328.89, 3259.1, 4217.47, 1984.27, 24767.17)
+
+But the task says to use howlongtoread.com as reference for word counts, not the spreadsheet values. The reading dates come from the spreadsheet. Let me look up the actual word counts from howlongtoread.com for each book, then calculate words per day.
+
+Let me start by looking up word counts for all 10 books in parallel, and also extract the exact spreadsheet data.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Extract the full data from the spreadsheet on display. For each book (rows 2-11), note: Title, Start Date, End Date, and any other columns. Write all data to /tmp/book_data.txt. The columns appear to be: A=Title, B=Author, C=Genre, D=Start Date, E=End Date, F=Rating, G=some number, H=some number, I=some number. Please click on cells in columns G, H, I headers (row 1) to see what they are labeled, and also record the exact values for each book.",
+      "display": 0
+    },
+    {
+      "instruction": "Open Google Chrome and go to https://howlongtoread.com/. Search for the book 'Fire and Blood' by George R. R. Martin and find the word count. Then search for 'Song of Solomon' by Toni Morrison and find the word count. Then search for 'The Lost Symbol' by Dan Brown and find the word count. Then search for '2001: A Space Odyssey' by Arthur C. Clarke and find the word count. Then search for 'American Gods' by Neil Gaiman and find the word count. Write all results to /tmp/wordcounts_batch1.txt in format: BookTitle: WordCount",
+      "display": 2
+    },
+    {
+      "instruction": "Open Google Chrome and go to https://howlongtoread.com/. Search for the book 'Out of the Silent Planet' by C.S. Lewis and find the word count. Then search for 'The Andromeda Strain' by Michael Crichton and find the word count. Then search for 'Brave New World' by Aldous Huxley and find the word count. Then search for 'Silence' by Shusaku Endo and find the word count. Then search for 'The Shining' by Stephen King and find the word count. Write all results to /tmp/wordcounts_batch2.txt in format: BookTitle: WordCount",
+      "display": 3
+    }
+  ]
+}
