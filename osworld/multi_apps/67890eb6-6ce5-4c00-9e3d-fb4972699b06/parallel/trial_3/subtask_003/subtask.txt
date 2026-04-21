@@ -1,0 +1,53 @@
+Context:
+Original task: I am an NLP researcher. Check out the best long paper awards of ACL from 2019 to 2022 and record the 'title', 'year', 'author list' and 'PDF link' into table best_awards_acl.xlsx on the desktop. Separate authors only by commas, use offical aclanthology urls not arxiv, and sort rows by years in descending orders.
+
+Progress so far:
+1. [MAX_STEPS] In Google Chrome, research the ACL best long paper awards for years 2020, 2021, and 2022. Visit these pages to find award information:
+- https://aclanthology.org/events/acl-2020/
+- https://aclanthology.org/events/acl-2021/
+- https://aclanthology.org/events/acl-2022/
+For each year, record the best long paper award title, all authors, and the PDF link (aclanthology URL). Save all findings to /tmp/acl2020_2022.txt
+   Result: ## Summary
+
+### 1) What was successfully completed
+- Google Chrome was launched and navigated to `https://aclanthology.org/events/acl-2020/`
+- The page loaded successfully showing the ACL 2020 event page with volumes and paper listings
+- I confirmed the page structure: it lists proceedings volumes and individual papers
+
+### 2) Approaches tried and what worked vs didn't work
+- **Opening the ACL anthology event page**: Worked - the page loaded correctly
+- **Searching for "Best Paper" using Ctrl+F**: Did NOT work - returned 0/0 results. The ACL anthology event pages list all papers in the proceedings but do **not** mark or label award-winning papers on these pages
+- **Scrolling through paper listings**: Did not find award markers or a dedicated awards section on the event page
+
+### 3) What is still incomplete
+- **All three years (2020, 2021, 2022)** still need their best long paper award information collected
+- The output file `/tmp/acl2020_2022.txt` was never created
+- No titles, authors, or PDF links were recorded
+
+### 4) Recommended approach for a future agent
+The ACL anthology event pages (`/events/acl-YYYY/`) do **not** display award information. Instead, the agent should:
+
+1. **Search Google directly** for "ACL 2020 best long paper award", "ACL 2021 best long paper award", "ACL 2022 best long paper award" — this will quickly surface the award winners
+2. **Alternatively**, visit the official ACL conference websites (e.g., `acl2020.org`, `2021.aclweb.org`, `2022.aclweb.org`) which typically announce awards
+3. **Or** visit `https://aclweb.org/aclwiki/Best_paper_awards` which historically lists all ACL best paper awards
+4. Once the paper titles are identified, search for them on `aclanthology.org` to get the official PDF links and complete author lists
+5. Save all findings to `/tmp/acl2020_2022.txt` in a structured format
+
+The key insight is: **don't waste time on the anthology event pages** — go straight to Google or the ACL wiki for award information, then use anthology for the official URLs.
+
+FAIL - Was unable to collect any award information or create the output file due to running out of steps while trying to find award data on the ACL anthology event pages, which don't display award designations.
+
+Subtask:
+In Google Chrome, search Google for 'ACL best long paper award 2020 2021 2022 site:aclweb.org' or alternatively visit https://www.aclweb.org/portal/content/acl-best-paper-awards. The goal is to find the best long paper award winners for ACL 2020, 2021, and 2022. For each year, record the paper title and authors. Then for each paper, search on aclanthology.org to find the official PDF link. Save all findings (title, year, authors, aclanthology PDF URL) to /tmp/acl2020_2022.txt. 
+
+If the above doesn't work, try Googling each year individually:
+- 'ACL 2020 best long paper award'
+- 'ACL 2021 best long paper award'
+- 'ACL 2022 best long paper award'
+
+Known answers for reference (verify these):
+- ACL 2020: 'Beyond Accuracy: Behavioral Testing of NLP Models with CheckList'
+- ACL 2021: 'Vocabulary Learning via Optimal Transport for Neural Machine Translation'
+- ACL 2022: might be multiple papers
+
+Make sure to get the aclanthology.org PDF links (not arxiv).

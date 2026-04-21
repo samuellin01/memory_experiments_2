@@ -1,0 +1,13 @@
+I now have verified data for 2019, 2020, and 2021. I still need to confirm the 2022 paper. From earlier research, the 2022 best long paper is "Learned Incremental Representations for Parsing" by Nikita Kitaev, Thomas Lu, and Dan Klein. Let me now verify the 2022 paper on aclanthology and create the Excel file in parallel.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Open a terminal and run these commands to find and verify the ACL 2022 best long paper on aclanthology.org:\n\n1. First search for the paper 'Learned Incremental Representations for Parsing' on aclanthology:\ncurl -s 'https://aclanthology.org/2022.acl-long.220/' | grep -oP '(?<=<meta name=\"citation_title\" content=\")[^\"]+'\ncurl -s 'https://aclanthology.org/2022.acl-long.220/' | grep -oP '(?<=<meta name=\"citation_author\" content=\")[^\"]+'\ncurl -s 'https://aclanthology.org/2022.acl-long.220/' | grep -oP '(?<=<meta name=\"citation_pdf_url\" content=\")[^\"]+'\n\nIf that doesn't match, try searching:\ncurl -s 'https://aclanthology.org/search/?q=Learned+Incremental+Representations+for+Parsing&venue=ACL' | grep -oP 'href=\"(/2022\\.acl-long\\.[0-9]+/)\"' | head -5\n\nOr try other IDs like:\ncurl -s 'https://aclanthology.org/2022.acl-long.89/' | grep -oP '(?<=<meta name=\"citation_title\" content=\")[^\"]+'\n\nAlso try:\nfor i in 1 89 220 256 319 500; do echo \"=== 2022.acl-long.$i ===\"; curl -s \"https://aclanthology.org/2022.acl-long.$i/\" | grep -oP '(?<=<meta name=\"citation_title\" content=\")[^\"]+'; done\n\nSave the verified ACL 2022 info to /tmp/acl2022.txt",
+      "display": 2
+    }
+  ]
+}
+```

@@ -1,0 +1,13 @@
+The browser-based approach is too slow. Let me use command-line tools (curl/wget) to quickly find the information. I'll use the terminal on display 2 to search for ACL 2019 best paper info while display 3 continues working on 2020-2022.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Open a terminal and run the following commands to research ACL best long paper awards. Use curl and Google search to find the information.\n\n1. First try: curl -s 'https://en.wikipedia.org/wiki/Association_for_Computational_Linguistics' | grep -i 'best paper' -A 20\n\n2. Then try searching specific ACL conference pages. Use curl to fetch these URLs and look for award info:\n   - curl -s 'https://2019.aclweb.org/PC_blog/best-papers/' \n   - curl -s 'http://acl2020.org/blog/ACL-2020-best-papers/'\n   - curl -s 'https://2021.aclweb.org/blog/best-papers/'\n   - curl -s 'https://www.2022.aclweb.org/best_papers'\n\n3. After finding paper titles, verify on aclanthology.org by curling the specific paper pages.\n\nFor reference, the known best long paper awards are likely:\n- ACL 2019: 'Bridging the Gap between Training and Inference for Neural Machine Translation' - https://aclanthology.org/P19-1426/\n- ACL 2020: 'Beyond Accuracy: Behavioral Testing of NLP Models with CheckList' - https://aclanthology.org/2020.acl-main.442/\n- ACL 2021: 'Vocabulary Learning via Optimal Transport for Neural Machine Translation' - https://aclanthology.org/2021.acl-long.571/\n- ACL 2022: Need to verify\n\nFor each paper found, curl its aclanthology page to get the exact author list and PDF link. For example:\ncurl -s 'https://aclanthology.org/P19-1426/' | grep -E '<meta|author|title|pdf' | head -30\n\nSave all verified findings to /tmp/acl_awards.txt with format:\nYear: YYYY\nTitle: ...\nAuthors: ...\nPDF: ...\n\nMake sure to verify each paper and get exact author names from aclanthology.org.",
+      "display": 2
+    }
+  ]
+}
+```

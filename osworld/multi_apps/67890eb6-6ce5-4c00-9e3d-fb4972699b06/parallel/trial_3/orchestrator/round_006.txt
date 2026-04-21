@@ -1,0 +1,13 @@
+I now have verified data for 2019, 2020, and 2021. Display 2 is still working on finding the 2022 paper. Meanwhile, let me use display 3 to search for the ACL 2022 paper on aclanthology and also prepare to create the Excel file. The 2022 best long paper was confirmed as "Learned Incremental Representations for Parsing" by Nikita Kitaev, Thomas Lu, and Dan Klein from the 2022.aclweb.org website.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Open a terminal and run these commands:\n\n1. First, find the ACL 2022 paper 'Learned Incremental Representations for Parsing' on aclanthology.org:\ncurl -s 'https://aclanthology.org/2022.acl-long.220/' | sed 's/></> \\n</g' | grep 'citation_title'\n\nIf that doesn't match, try a broader search:\nfor i in $(seq 1 10) 89 100 150 200 220 250 300 350 400 450 500; do\n  title=$(curl -s \"https://aclanthology.org/2022.acl-long.$i/\" | sed 's/></>\\n</g' | grep 'citation_title' | grep -oP 'content=\"[^\"]+\"' | head -1)\n  if echo \"$title\" | grep -qi 'Incremental\\|Parsing'; then\n    echo \"FOUND at 2022.acl-long.$i: $title\"\n  fi\ndone\n\nAlternatively, try the direct search approach:\ncurl -sL 'https://aclanthology.org/search/?q=%22Learned+Incremental+Representations+for+Parsing%22' | sed 's/></>\\n</g' | grep -i 'incremental.*parsing\\|2022.acl' | head -20\n\n2. Once you find the correct URL, extract the metadata:\ncurl -s 'https://aclanthology.org/2022.acl-long.XXX/' | sed 's/></>\\n</g' | grep -E 'citation_title|citation_author|citation_pdf_url'\n\n3. Save the result to /tmp/acl2022_result.txt\n\nNote: The paper is definitely 'Learned Incremental Representations for Parsing' by Nikita Kitaev, Thomas Lu, Dan Klein (confirmed from 2022.aclweb.org). We just need to find its aclanthology URL and PDF link.",
+      "display": 3
+    }
+  ]
+}
+```

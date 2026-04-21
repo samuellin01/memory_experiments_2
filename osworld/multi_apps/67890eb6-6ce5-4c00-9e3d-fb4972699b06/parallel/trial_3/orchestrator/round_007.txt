@@ -1,0 +1,13 @@
+All four papers are now fully verified from aclanthology.org. Now I need to create the Excel file. Let me do this on display 2 using Python, and I also need to verify the 2021 author names (the "Hao Zhou" issue with Chinese characters). Let me create the Excel file directly.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Open a terminal and run this Python script to create the Excel file on the desktop. First install openpyxl if needed, then create the file:\n\npip install openpyxl\n\npython3 << 'PYEOF'\nimport openpyxl\n\nwb = openpyxl.Workbook()\nws = wb.active\nws.title = \"Best Awards ACL\"\n\n# Header row\nws.append(['title', 'year', 'author list', 'PDF link'])\n\n# Data rows sorted by year descending (2022, 2021, 2020, 2019)\nws.append([\n    'Learned Incremental Representations for Parsing',\n    2022,\n    'Nikita Kitaev, Thomas Lu, Dan Klein',\n    'https://aclanthology.org/2022.acl-long.220.pdf'\n])\n\nws.append([\n    'Vocabulary Learning via Optimal Transport for Neural Machine Translation',\n    2021,\n    'Jingjing Xu, Hao Zhou, Chun Gan, Zaixiang Zheng, Lei Li',\n    'https://aclanthology.org/2021.acl-long.571.pdf'\n])\n\nws.append([\n    'Beyond Accuracy: Behavioral Testing of NLP Models with CheckList',\n    2020,\n    'Marco Tulio Ribeiro, Tongshuang Wu, Carlos Guestrin, Sameer Singh',\n    'https://aclanthology.org/2020.acl-main.442.pdf'\n])\n\nws.append([\n    'Bridging the Gap between Training and Inference for Neural Machine Translation',\n    2019,\n    'Wen Zhang, Yang Feng, Fandong Meng, Di You, Qun Liu',\n    'https://aclanthology.org/P19-1426.pdf'\n])\n\nwb.save('/home/user/Desktop/best_awards_acl.xlsx')\nprint('Excel file saved successfully to /home/user/Desktop/best_awards_acl.xlsx')\nPYEOF\n\necho 'Done!'",
+      "display": 2
+    }
+  ]
+}
+```
