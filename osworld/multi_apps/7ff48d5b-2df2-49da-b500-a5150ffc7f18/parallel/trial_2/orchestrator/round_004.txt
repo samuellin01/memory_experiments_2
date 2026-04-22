@@ -1,0 +1,11 @@
+The text is in the document but it's poorly formatted - all in one block with character errors. I need to take a better approach: write the text to a file on a secondary display, copy it to clipboard, then paste it into LibreOffice on display 0 after clearing the existing text.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run the following commands to create a text file and copy it to clipboard:\n\ncat > /tmp/addresses.txt << 'EOF'\n深圳市福田区24小时自助签注机地址：\n\n1. 福田公安分局出入境智能服务区\n地址：福田区福强路3028号金沙嘴大厦\n\n2. 深圳市公安局梅林智能服务区\n地址：福田区梅林路与梅康路交汇处卓悦汇4号、5号门对面\n\n3. 福田公安分局华强北所智能服务点\n地址：福田区振兴路108号\n\n4. 福田公安分局南园所智能服务点\n地址：福田区滨河大道2033号\n\n5. 福田公安分局福田所福安北社区警务室智能服务点\n地址：福田区益田路5055号信息枢纽大厦西门一楼\nEOF\n\nThen verify the file was created correctly with: cat /tmp/addresses.txt\n\nThen install xclip if needed and copy to clipboard:\napt list --installed 2>/dev/null | grep xclip || sudo apt-get install -y xclip\nexport DISPLAY=:0\nxclip -selection clipboard < /tmp/addresses.txt\n\nVerify clipboard content: xclip -selection clipboard -o",
+      "display": 2
+    }
+  ]
+}
