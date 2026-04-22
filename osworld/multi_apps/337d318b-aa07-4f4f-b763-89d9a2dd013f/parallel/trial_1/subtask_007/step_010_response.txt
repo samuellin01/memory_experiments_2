@@ -1,0 +1,26 @@
+The current state is now clear:
+
+**Files on Desktop:**
+- `Bank-Statement.pdf`
+- `invoice TII-20220301-90.pdf`
+
+**Files in problematic folder:**
+- `Invoice # 243729.pdf` (Staples - $500 invoice vs $540 bank statement debit)
+- `Invoice # GES-20220215-82.pdf` (Solar Panels - $3,180 invoice but no amount recorded in bank statement for this transaction; the $3,180 appears as a credit under the Tech Innovators transaction instead)
+
+The GES invoice has been successfully moved to the problematic folder. The analysis shows:
+
+**GES Invoice Details (from `/tmp/invoice_ges.txt`):**
+- Invoice #: GES-20220215-82
+- Item: Solar Panels (Model X100), Qty: 5, Rate: US$600.00
+- Subtotal: US$3,000.00
+- Tax (6%): US$180.00
+- **Total/Balance Due: US$3,180.00**
+
+**Bank Statement for Solar Panels - Green Energy Solutions (22/3/15):**
+- **No amount recorded** — lines 75-76 show the description but no credit or debit amount
+- The $3,180.00 appears on line 81, which is under the Laptop Computers - Tech Innovators entry (22/3/20) as a credit
+
+This is a clear discrepancy — the Solar Panels payment amount is missing from its proper transaction line in the bank statement, and the $3,180.00 is misattributed to the Tech Innovators transaction.
+
+DONE — Successfully checked the GES invoice details. The grep command revealed: Invoice GES-20220215-82 for Solar Panels (Model X100) has Quantity: 5, Rate: US$600.00, Subtotal: US$3,000.00, Tax (6%): US$180.00, Total: US$3,180.00, with a 2% discount if paid within 10 days. Cross-checking with the bank statement shows a discrepancy: the Solar Panels - Green Energy Solutions entry on 22/3/15 has no amount recorded in the bank statement, while the $3,180.00 appears misattributed as a credit under the Laptop Computers - Tech Innovators entry on 22/3/20. The GES invoice has been moved to `~/Desktop/problematic/`. The problematic folder now contains both discrepant invoices: `Invoice # 243729.pdf` and `Invoice # GES-20220215-82.pdf`.

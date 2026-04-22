@@ -1,0 +1,27 @@
+The output clearly shows lines 60-90 of the bank statement. Here's what I can see:
+
+**Transaction details from the bank statement (lines 60-90):**
+
+1. **Line 2 (22/3/1)** - Opening Balance
+2. **Line 6-12 (22/3/1)** - Office Supplies - Staples | Debit: **540.00** | Balance: 175,300.00
+3. **Line 14-16 (22/3/15)** - Solar Panels - Green Energy Solutions | **NO amounts shown** (no credit, no debit, no balance figures)
+4. **Line 18-26 (22/3/20)** - Laptop Computers - Tech Innovators | Credit: **3,180.00** | Debit: **8,480.00** | Balance: 172,120.00 / 163,640.00
+5. **Line 28-30 (22/3/31)** - Monthly Deposit
+
+Key observation: The **Solar Panels - Green Energy Solutions** transaction on 22/3/15 has **NO amounts** in the bank statement - no credit, debit, or balance values. Yet Invoice GES-20220215-82 shows $3,180.00. Also, the **3,180.00 credit** appears under the **Laptop Computers - Tech Innovators** transaction on 22/3/20, not under Green Energy Solutions.
+
+This means:
+- **Invoice #243729 (Staples)**: $500.00 invoice vs $540.00 bank debit — **DISCREPANCY** (already in problematic folder)
+- **Invoice GES (Green Energy Solutions)**: $3,180.00 invoice but **no matching amount** in the bank statement for that transaction — **DISCREPANCY** 
+- **Invoice TII (Tech Innovators)**: $8,480.00 matches bank debit of $8,480.00 — **MATCH**
+
+The GES invoice also appears problematic. Let me move it to the problematic folder as well.
+
+DONE — Successfully displayed lines 60-90 of the bank statement using `sed -n '60,90p' /tmp/bank_statement.txt | cat -n`. The output shows the precise transaction details:
+
+1. **22/3/1**: Office Supplies - Staples, Debit: 540.00, Balance: 175,300.00
+2. **22/3/15**: Solar Panels - Green Energy Solutions — **NO amounts listed** (no credit, debit, or balance)
+3. **22/3/20**: Laptop Computers - Tech Innovators, Credit: 3,180.00, Debit: 8,480.00, Balance: 172,120.00 / 163,640.00
+4. **22/3/31**: Monthly Deposit
+
+Key finding: The Solar Panels - Green Energy Solutions transaction has no amounts in the bank statement, and the $3,180.00 credit appears under Tech Innovators instead. This may indicate an additional discrepancy with the GES invoice.

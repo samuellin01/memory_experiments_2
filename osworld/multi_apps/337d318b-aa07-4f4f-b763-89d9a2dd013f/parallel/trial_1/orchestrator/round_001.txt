@@ -1,0 +1,15 @@
+I can see on the desktop there are:
+- Bank-Statement.pdf
+- Invoice # GES-20220215-82.pdf
+- Invoice # 243729.pdf
+- Invoice TII-20220301-90.pdf
+
+I need to first read all these documents to understand their contents, then cross-check invoices against the bank statement. Let me start by extracting text from all PDFs in parallel.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Extract the text content from the file 'Bank-Statement.pdf' on the Desktop. Run: pdftotext ~/Desktop/Bank-Statement.pdf /tmp/bank_statement.txt && cat /tmp/bank_statement.txt. If pdftotext is not available, try: python3 -c \"import subprocess; subprocess.run(['pdftotext', '/home/user/Desktop/Bank-Statement.pdf', '/tmp/bank_statement.txt'])\" or use any other method to read the PDF content and save it to /tmp/bank_statement.txt", "display": 2},
+    {"instruction": "Extract the text content from all invoice PDFs on the Desktop. Run these commands:\npdftotext ~/Desktop/'Invoice # GES-20220215-82.pdf' /tmp/invoice_ges.txt\npdftotext ~/Desktop/'Invoice # 243729.pdf' /tmp/invoice_243729.txt\npdftotext ~/Desktop/'Invoice TII-20220301-90.pdf' /tmp/invoice_tii.txt\nThen cat all three files:\necho '=== Invoice GES ===' && cat /tmp/invoice_ges.txt && echo '=== Invoice 243729 ===' && cat /tmp/invoice_243729.txt && echo '=== Invoice TII ===' && cat /tmp/invoice_tii.txt", "display": 3}
+  ]
+}
