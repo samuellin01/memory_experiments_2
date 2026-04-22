@@ -1,0 +1,8 @@
+Context:
+Original task: I need to include the experiment results from "~/Documents/awesome-desktop/expe-results.xlsx" into the currently writing report. Specifically, extract the results of GPT-4 and insert a table into the "Main Results" section of my report. Remember to paste the table header, too.
+
+Progress so far:
+No subtasks completed yet.
+
+Subtask:
+Open the file ~/Documents/awesome-desktop/expe-results.xlsx using Python and examine its contents. Print all sheet names, then print the full contents of each sheet including headers. Save the output to /tmp/excel_contents.txt. Use: python3 -c "import openpyxl; wb=openpyxl.load_workbook('/home/user/Documents/awesome-desktop/expe-results.xlsx'); f=open('/tmp/excel_contents.txt','w'); [f.write(f'Sheet: {name}\n') or [f.write(str([cell.value for cell in row])+'\n') for row in wb[name].iter_rows()] or f.write('\n') for name in wb.sheetnames]; f.close(); print(open('/tmp/excel_contents.txt').read())"

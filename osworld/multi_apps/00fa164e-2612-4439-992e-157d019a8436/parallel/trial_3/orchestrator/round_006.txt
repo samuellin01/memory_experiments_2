@@ -1,0 +1,11 @@
+The manual approach is too slow. Let me switch to a programmatic approach. I'll save the document first, then use python-docx to fix the table contents, and reopen it in LibreOffice.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the LibreOffice Writer document currently open, save the document by pressing Ctrl+S. Then close the document by pressing Ctrl+W or going to File > Close. Wait for it to close completely.", "display": 0},
+    {"instruction": "Write a Python script to /tmp/fix_table.py that will modify the docx file. The file is at ~/Documents/awesome-desktop/awe_desk_env.docx. The script should:\n1. Install python-docx if needed: pip3 install python-docx\n2. Open the docx file\n3. Find the table in the document (there should be one table)\n4. Set the header row (row 0) cells to: model, os, calc, impress, writer, vlc, gimp, chrome, thunderbird, vscode, multi, avg\n5. Set the data row (row 1) cells to: Gpt-4, 0.333333333333333, 0, 0.0910384615384615, 0.0476190476190476, 0.150714285714286, 0.0625, 0.363636363636364, 0.133333333333333, 0.454545454545455, 0.214285714285714, 0.155727564102564\n6. Save the file\n\nIMPORTANT: When setting cell text, clear the existing content first by setting each cell's text to empty, then set the new value. Use paragraph runs to preserve formatting if possible. Make sure to handle existing text/runs properly.\n\nWrite the script to /tmp/fix_table.py and then wait - do NOT run it yet.", "display": 3}
+  ]
+}
+```
