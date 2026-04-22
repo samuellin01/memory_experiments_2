@@ -1,0 +1,15 @@
+
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Open a terminal and run the following commands to list all files on the desktop and analyze their contents. Run these commands:\n\necho '=== Desktop files ===' > /tmp/desktop_analysis.txt\nls -la ~/Desktop/ >> /tmp/desktop_analysis.txt\necho '' >> /tmp/desktop_analysis.txt\necho '=== File types ===' >> /tmp/desktop_analysis.txt\nfor f in ~/Desktop/*; do echo \"--- $f ---\"; file \"$f\"; done >> /tmp/desktop_analysis.txt\necho '' >> /tmp/desktop_analysis.txt\necho '=== Content preview of ambiguous files ===' >> /tmp/desktop_analysis.txt\nfor f in ~/Desktop/*; do if [ -f \"$f\" ]; then echo \"--- $f ---\" >> /tmp/desktop_analysis.txt; head -20 \"$f\" >> /tmp/desktop_analysis.txt 2>&1; echo '' >> /tmp/desktop_analysis.txt; fi; done\ncat /tmp/desktop_analysis.txt",
+      "display": 2
+    },
+    {
+      "instruction": "Open a terminal and check what's already inside the Paper_reading, Projects, and Miscellaneous folders on the desktop. Run these commands:\n\necho '=== Paper_reading ===' > /tmp/folders_analysis.txt\nls -la ~/Desktop/Paper_reading/ >> /tmp/folders_analysis.txt 2>&1\necho '' >> /tmp/folders_analysis.txt\necho '=== Projects ===' >> /tmp/folders_analysis.txt\nls -la ~/Desktop/Projects/ >> /tmp/folders_analysis.txt 2>&1\necho '' >> /tmp/folders_analysis.txt\necho '=== Miscellaneous ===' >> /tmp/folders_analysis.txt\nls -la ~/Desktop/Miscellaneous/ >> /tmp/folders_analysis.txt 2>&1\ncat /tmp/folders_analysis.txt",
+      "display": 3
+    }
+  ]
+}

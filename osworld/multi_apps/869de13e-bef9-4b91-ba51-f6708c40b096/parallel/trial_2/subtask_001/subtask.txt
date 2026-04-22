@@ -1,0 +1,18 @@
+Context:
+Original task: Can you organize my desktop by identifying academic papers, coding projects, and other documents, ensuring no file is misplaced? Specifically, place academic papers in the 'Paper_reading' folder, coding projects in 'Projects', and categorize everything else under 'Miscellaneous'. For files lacking clear extensions or names, apply content analysis to determine their appropriate classification.
+
+Progress so far:
+No subtasks completed yet.
+
+Subtask:
+Open a terminal and run the following commands to list all files on the desktop and analyze their contents. Run these commands:
+
+echo '=== Desktop files ===' > /tmp/desktop_analysis.txt
+ls -la ~/Desktop/ >> /tmp/desktop_analysis.txt
+echo '' >> /tmp/desktop_analysis.txt
+echo '=== File types ===' >> /tmp/desktop_analysis.txt
+for f in ~/Desktop/*; do echo "--- $f ---"; file "$f"; done >> /tmp/desktop_analysis.txt
+echo '' >> /tmp/desktop_analysis.txt
+echo '=== Content preview of ambiguous files ===' >> /tmp/desktop_analysis.txt
+for f in ~/Desktop/*; do if [ -f "$f" ]; then echo "--- $f ---" >> /tmp/desktop_analysis.txt; head -20 "$f" >> /tmp/desktop_analysis.txt 2>&1; echo '' >> /tmp/desktop_analysis.txt; fi; done
+cat /tmp/desktop_analysis.txt
