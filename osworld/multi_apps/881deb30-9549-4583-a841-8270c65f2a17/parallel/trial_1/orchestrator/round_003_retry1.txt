@@ -1,0 +1,9 @@
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write and run a Python script to extract table data from all ECS PDF files. Create the file /tmp/extract_ecs.py and run it. The script should:\n\n1. Use subprocess to call pdftotext with -layout -W 2000 flags on each PDF\n2. Save output and print it\n\nHere's the script to create at /tmp/extract_ecs.py:\n\nimport subprocess\n\nfor year_suffix in range(15, 24):\n    filename = f'/home/user/Documents/Fundings/ecs/ecs{year_suffix}.pdf'\n    result = subprocess.run(['pdftotext', '-layout', '-W', '2000', filename, '-'], capture_output=True, text=True)\n    text = result.stdout\n    outfile = f'/tmp/ecs{year_suffix}_wide.txt'\n    with open(outfile, 'w') as f:\n        f.write(text)\n    print(f'=== ecs{year_suffix}.pdf ===')\n    print(text[:3000])\n    print('...')\n    print(text[-1000:])\n    print()\n\nRun it with: python3 /tmp/extract_ecs.py 2>&1 | head -500",
+      "display": 2
+    }
+  ]
+}

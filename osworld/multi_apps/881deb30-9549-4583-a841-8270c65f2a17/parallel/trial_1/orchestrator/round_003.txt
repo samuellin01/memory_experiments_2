@@ -1,0 +1,11 @@
+The text extraction is proving difficult with pdftotext. Let me use a Python approach with tabula-py or directly parse the PDFs to extract the table data properly. Let me write a comprehensive Python script to handle this.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write and run a Python script to extract table data from all ECS PDF files. Create the file /tmp/extract_ecs.py with the following content and run it:\n\n```python\nimport subprocess\nimport re\n\n# First, let's look at the structure of one file carefully\nfor year_suffix in range(15, 24):\n    filename = f'/home/user/Documents/Fundings/ecs/ecs{year_suffix}.pdf'\n    result = subprocess.run(['pdftotext', '-layout', '-W', '2000', filename, '-'], capture_output=True, text=True)\n    text = result.stdout\n    outfile = f'/tmp/ecs{year_suffix}_wide.txt'\n    with open(outfile, 'w') as f:\n        f.write(text)\n    print(f'=== ecs{year_suffix}.pdf ===')\n    print(text[:3000])\n    print('...')\n    print(text[-1000:])\n    print()\n```\n\nRun it with: python3 /tmp/extract_ecs.py > /tmp/ecs_output.txt 2>&1 && cat /tmp/ecs_output.txt",
+      "display": 2
+    }
+  ]
+}

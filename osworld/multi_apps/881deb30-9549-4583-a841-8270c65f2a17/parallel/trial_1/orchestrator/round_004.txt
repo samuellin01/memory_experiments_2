@@ -1,0 +1,11 @@
+Now I have a better understanding of the data structure. The PDFs contain tables with institutions (CityU, HKBU, LU, CUHK, HKIEd/EdUHK, PolyU, HKUST, HKU) showing Application numbers and Supported numbers. I need to use a Python script to properly extract and parse this data. Let me use display 3 to write a comprehensive Python script that uses tabula-py for better table extraction.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write a Python script at /tmp/parse_ecs.py that uses tabula-py to extract tables from all ECS PDFs and compute pass rates by school and year. First install tabula-py: pip3 install tabula-py. Then create and run the script.\n\nThe PDFs are at /home/user/Documents/Fundings/ecs/ecs15.pdf through ecs23.pdf (years 2015-2023). Each PDF has a table with columns for institutions (CityU, HKBU, LU, CUHK, HKIEd/EdUHK, PolyU, HKUST, HKU) showing Application No and Supported No. The 'Total' row at the bottom has the aggregate numbers per institution.\n\nThe script should:\n1. Try tabula to extract tables from each PDF\n2. For each year, find the Total row and extract Application No and Supported No for each institution\n3. Calculate pass rate = Supported / Application for each school each year\n4. Print the results\n5. Save results to /tmp/ecs_pass_rates.txt\n\nIf tabula doesn't work, fall back to parsing the pdftotext -layout output files already at /tmp/ecs15_layout.txt through /tmp/ecs23_layout.txt. Look for lines containing 'Total' and extract the numbers.\n\nRun: pip3 install tabula-py 2>&1 | tail -3 && python3 /tmp/parse_ecs.py",
+      "display": 3
+    }
+  ]
+}

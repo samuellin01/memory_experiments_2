@@ -1,0 +1,11 @@
+I need to take a much more efficient approach. Let me use pdfplumber (a Python library) to properly extract tables from the PDFs, and write the complete script in one go.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Install pdfplumber and write a comprehensive Python script to extract ECS pass rates. Execute these commands:\n\n1. pip3 install pdfplumber 2>&1 | tail -5\n\n2. Create the script /tmp/parse_ecs_plumber.py with this EXACT content (use cat with heredoc):\n\ncat << 'PYEOF' > /tmp/parse_ecs_plumber.py\nimport pdfplumber\nimport re\nimport json\n\nresults = {}\nyear_map = {15:'2015/16', 16:'2016/17', 17:'2017/18', 18:'2018/19', 19:'2019/20', 20:'2020/21', 21:'2021/22', 22:'2022/23', 23:'2023/24'}\n\nfor suffix in range(15, 24):\n    pdf_path = f'/home/user/Documents/Fundings/ecs/ecs{suffix}.pdf'\n    year = year_map[suffix]\n    print(f'\\n=== Processing {pdf_path} (Year: {year}) ===')\n    try:\n        with pdfplumber.open(pdf_path) as pdf:\n            for page_num, page in enumerate(pdf.pages):\n                tables = page.extract_tables()\n                print(f'  Page {page_num+1}: {len(tables)} tables found')\n                for ti, table in enumerate(tables):\n                    print(f'  Table {ti+1}: {len(table)} rows x {len(table[0]) if table else 0} cols')\n                    for row in table:\n                        print(f'    {row}')\n    except Exception as e:\n        print(f'  Error: {e}')\nPYEOF\n\n3. python3 /tmp/parse_ecs_plumber.py 2>&1 | tee /tmp/plumber_output.txt | head -200",
+      "display": 3
+    }
+  ]
+}

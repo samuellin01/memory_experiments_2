@@ -1,0 +1,11 @@
+I need to take a more direct approach. Let me write a comprehensive Python script that parses the layout text files to extract the Total row data and compute pass rates. I'll also quickly grep the Total lines to understand the structure.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Run these commands to quickly see the Total rows and header structure from all ECS layout files:\n\n1. First show the Total rows: grep -A2 'Total' /tmp/ecs15_layout.txt | head -20\n2. Show the header/institution line: head -10 /tmp/ecs15_layout.txt\n3. Then do the same for all files:\nfor f in /tmp/ecs15_layout.txt /tmp/ecs16_layout.txt /tmp/ecs17_layout.txt /tmp/ecs18_layout.txt /tmp/ecs19_layout.txt /tmp/ecs20_layout.txt /tmp/ecs21_layout.txt /tmp/ecs22_layout.txt /tmp/ecs23_layout.txt; do echo \"===== $f =====\"; head -10 \"$f\"; echo '--- Total lines ---'; grep -n 'Total' \"$f\"; echo '--- Last 15 lines ---'; tail -15 \"$f\"; echo; done > /tmp/ecs_summary.txt 2>&1\n4. cat /tmp/ecs_summary.txt",
+      "display": 2
+    }
+  ]
+}
