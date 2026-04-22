@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('python3 -c "\nfrom docx import Document\ndoc = Docum'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("ent()\ndoc.add_paragraph('TinyBERT: Distilling BERT"), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote(" for Natural Language Understanding')\ndoc.save('/h"), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ome/user/ans.docx\')\nprint(\'Done\')\n"\n'), shell=True, check=True)
+import time; time.sleep(0.05)
