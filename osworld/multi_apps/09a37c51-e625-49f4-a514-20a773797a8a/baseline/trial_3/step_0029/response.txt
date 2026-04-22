@@ -1,0 +1,1 @@
+The issue persists with `gimp-by-color-select` - it expects a GimpRGB color, not the pixel value from `gimp-drawable-get-pixel`. The `gimp-drawable-get-pixel` returns a pixel as `(num-channels pixel)`, not a color. Let me use `gimp-context-set-foreground` and then use `gimp-by-color-select` with the foreground color, or use a different approach with `gimp-fuzzy-select` instead:
