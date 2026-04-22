@@ -1,0 +1,19 @@
+Now I have all the information I need. Let me split the PDF into chapters. The chapters are:
+
+1. Pages 3-17: "Symmetric matrices and adjacency of a graph" (already exists)
+2. Pages 18-28: "Graph isomorphism"
+3. Pages 29-43: "Graph polynomials"
+4. Pages 44-55: "Covers and Interlacing families"
+5. Pages 56-65: "Eigenvalues and the structure of graphs"
+6. Pages 66-78: "Optimization for cliques and colourings"
+7. Pages 79-86: "Theta"
+8. Pages 87-100: "The Laplacian matrix"
+
+I need to create chapters 2-8. Let me split this across two displays for speed.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run the following Python script to split the PDF into chapter files. Use PyMuPDF (fitz) which is already installed:\n\npython3 << 'PYEOF'\nimport fitz\n\nsrc = '/home/user/Desktop/book/Spectral Graph Theory.pdf'\ndoc = fitz.open(src)\n\nchapters = [\n    (1, 'Symmetric matrices and adjacency of a graph', 3, 17),\n    (2, 'Graph isomorphism', 18, 28),\n    (3, 'Graph polynomials', 29, 43),\n    (4, 'Covers and Interlacing families', 44, 55),\n    (5, 'Eigenvalues and the structure of graphs', 56, 65),\n    (6, 'Optimization for cliques and colourings', 66, 78),\n    (7, 'Theta', 79, 86),\n    (8, 'The Laplacian matrix', 87, 100),\n]\n\nfor num, title, start, end in chapters:\n    if num == 1:\n        continue  # already exists\n    out = fitz.open()\n    # pages are 0-indexed in fitz\n    out.insert_pdf(doc, from_page=start-1, to_page=end-1)\n    outpath = f'/home/user/Desktop/book/{num}. {title}.pdf'\n    out.save(outpath)\n    out.close()\n    print(f'Created: {outpath}')\n\ndoc.close()\nprint('Done!')\nPYEOF", "display": 2}
+  ]
+}

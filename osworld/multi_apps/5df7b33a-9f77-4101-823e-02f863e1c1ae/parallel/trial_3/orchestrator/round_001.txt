@@ -1,0 +1,15 @@
+I can see a PDF book "Spectral Graph Theory" open in Document Viewer on the primary display. The table of contents shows chapters starting at different pages. I need to:
+
+1. First, find the existing chapter 1 file to understand the naming convention
+2. Identify all chapter boundaries from the TOC
+3. Split the PDF into chapters following the naming pattern
+
+Let me start by examining the Desktop for the existing chapter 1 file and the book PDF, and also get more details about the chapter structure.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "List all files on the Desktop directory: run 'ls -la ~/Desktop/' in a terminal to see the book PDF and any existing chapter files. Also check the naming pattern of any chapter files already present.", "display": 2},
+    {"instruction": "Examine the PDF to get the exact chapter titles and page numbers. Run: python3 -c \"import subprocess; result = subprocess.run(['pdftotext', '/home/user/Desktop/book/Spectral Graph Theory.pdf', '-', '-l', '2'], capture_output=True, text=True); print(result.stdout)\" Also run: python3 -c \"import fitz; doc = fitz.open('/home/user/Desktop/book/Spectral Graph Theory.pdf'); print('Total pages:', len(doc)); [print(item) for item in doc.get_toc()]\" to get the table of contents structure.", "display": 3}
+  ]
+}
