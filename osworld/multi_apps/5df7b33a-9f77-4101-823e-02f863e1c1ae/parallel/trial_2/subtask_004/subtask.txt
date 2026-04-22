@@ -1,0 +1,73 @@
+Context:
+Original task: I enjoy reading during my spare time, but this book is too bulky. Each time I open it, I have to find where I left off, which is a hassle. I'd like to divide the book into several PDFs, each containing a different chapter, and name them following the example I set with chapter one.
+
+Progress so far:
+1. [DONE] Look at the table of contents in the PDF viewer on display 0. Scroll down through the sidebar bookmarks to see ALL chapter names. The sidebar shows: 'Symmetric...' page 3, 'Graph isom...' page 18, 'Graph polyn...' page 29, 'Covers and l...' page 44, 'Eigenvalues...' page 56, 'Optimizatio...' page 66, 'Theta' page 79, 'The Laplacia...' page 87. Click on each bookmark in the left sidebar to reveal the full chapter names. Just expand and read each one carefully, then report all full chapter titles and their starting page numbers.
+   Result: The eighth bookmark shows "The Laplacian matrix" on page 87. The chapter heading on the page confirms "The Laplacian matrix".
+
+Now I have all the full chapter titles and their starting page numbers. Here is the complete list:
+
+1. **Symmetric matrices and adjacency of a graph** — Page 3
+2. **Graph isomorphism** — Page 18
+3. **Graph polynomials** — Page 29
+4. **Covers and interlacing families** — Page 44
+5. **Eigenvalues and the structure of graphs** — Page 56
+6. **Optimization for cliques and colourings** — Page 66
+7. **Theta** — Page 79
+8. **The Laplacian matrix** — Page 87
+
+DONE. I have identified all 8 chapter titles and their starting page numbers from the PDF sidebar bookmarks:
+1. "Symmetric matrices and adjacency of a graph" — page 3
+2. "Graph isomorphism" — page 18
+3. "Graph polynomials" — page 29
+4. "Covers and interlacing families" — page 44
+5. "Eigenvalues and the structure of graphs" — page 56
+6. "Optimization for cliques and colourings" — page 66
+7. "Theta" — page 79
+8. "The Laplacian matrix" — page 87
+2. [DONE] Run this command to list all files on the Desktop: ls -la ~/Desktop/
+Then also check the exact filename of the chapter 1 file that already exists there.
+   Result: DONE
+
+Here are the findings from listing the Desktop files:
+
+**Directory structure:**
+- `~/Desktop/` contains one subdirectory: `book/`
+
+**Contents of `~/Desktop/book/`:**
+1. **Original book PDF:** `Spectral Graph Theory.pdf` (788,761 bytes, dated Apr 15, 2022)
+2. **Chapter 1 file (example naming):** `1. Symmetric matrices and adjacency of a graph.pdf` (348,838 bytes, dated Mar 8, 2024)
+
+**The naming convention established by the chapter 1 file is:**
+`{chapter_number}. {chapter_title}.pdf`
+
+So the remaining chapters should be named:
+- `2. Graph isomorphism.pdf`
+- `3. Graph polynomials.pdf`
+- `4. Covers and interlacing families.pdf`
+- `5. Eigenvalues and the structure of graphs.pdf`
+- `6. Optimization for cliques and colourings.pdf`
+- `7. Theta.pdf`
+- `8. The Laplacian matrix.pdf`
+
+Subtask:
+Run the following commands to check the existing chapter 1 file and then split the PDF into chapters 2-8. First check chapter 1's page count:
+
+pdfinfo ~/Desktop/book/'1. Symmetric matrices and adjacency of a graph.pdf'
+
+Then check if pdftk is available:
+which pdftk
+
+If pdftk is not available, try using qpdf or python3 with PyPDF2. The goal is to extract these page ranges from ~/Desktop/book/'Spectral Graph Theory.pdf' and save them to ~/Desktop/book/ with these exact filenames:
+
+- Pages 18-28: '2. Graph isomorphism.pdf'
+- Pages 29-43: '3. Graph polynomials.pdf'
+- Pages 44-55: '4. Covers and interlacing families.pdf'
+- Pages 56-65: '5. Eigenvalues and the structure of graphs.pdf'
+- Pages 66-78: '6. Optimization for cliques and colourings.pdf'
+- Pages 79-86: '7. Theta.pdf'
+- Pages 87-100: '8. The Laplacian matrix.pdf'
+
+BUT FIRST: check how many pages the existing chapter 1 file has. If it has 17 pages (pages 1-17, including title/TOC), then chapter 1 includes the front matter. In that case, chapter 2 should still start at page 18. If chapter 1 has 15 pages (pages 3-17), then the front matter is excluded.
+
+Use whatever PDF tool is available (pdftk, qpdf, or python3 with PyPDF2/pikepdf) to extract the pages.

@@ -1,0 +1,20 @@
+I can see the task clearly. There's a PDF book "Spectral Graph Theory.pdf" on the Desktop that needs to be split into chapters. Chapter 1 has already been extracted as "1. Symmetric matrices and adjacency of a gra..." (the naming pattern). I need to:
+
+1. First, understand the full chapter names and page ranges from the table of contents
+2. Then split the PDF accordingly
+
+Let me start by gathering more information about the book structure and the existing chapter 1 file.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Look at the file on the Desktop. There should be a file named something like '1. Symmetric matrices and adjacency of a gra...' - get its full filename. Run: ls -la ~/Desktop/ to see all files there. Also run: pdfinfo ~/Desktop/'Spectral Graph Theory.pdf' to get page count, and examine the PDF bookmarks/TOC with: pdftk ~/Desktop/'Spectral Graph Theory.pdf' dump_data | grep -A2 'BookmarkTitle' to get chapter titles and page numbers.",
+      "display": 2
+    },
+    {
+      "instruction": "Look at the table of contents in the PDF viewer on display 0. Scroll down through the sidebar bookmarks to see ALL chapter names. The sidebar shows: 'Symmetric...' page 3, 'Graph isom...' page 18, 'Graph polyn...' page 29, 'Covers and l...' page 44, 'Eigenvalues...' page 56, 'Optimizatio...' page 66, 'Theta' page 79, 'The Laplacia...' page 87. Click on each bookmark in the left sidebar to reveal the full chapter names. Just expand and read each one carefully, then report all full chapter titles and their starting page numbers.",
+      "display": 0
+    }
+  ]
+}
