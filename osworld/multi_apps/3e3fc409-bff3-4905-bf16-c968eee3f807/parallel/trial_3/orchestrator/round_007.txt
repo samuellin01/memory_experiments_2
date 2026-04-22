@@ -1,0 +1,10 @@
+I can see Chrome is running with many tabs/frames. The IMDB page is loaded but there are many ad frames. I need to find the actual IMDB tab and extract data. Let me try a more focused approach - write a single script that finds the right tab and extracts data, all in one go.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, run this single combined command. Do NOT type anything else, just paste and run this one command:\n\npython3 -c \"\nimport json, websocket, requests\ntabs = requests.get('http://127.0.0.1:1340/json').json()\nimdb_tab = None\nfor tab in tabs:\n    url = tab.get('url', '')\n    if 'imdb.com/chart/top' in url:\n        imdb_tab = tab\n        break\nif not imdb_tab:\n    for tab in tabs:\n        if 'imdb.com' in tab.get('url','') and tab.get('type')=='page':\n            imdb_tab = tab\n            break\nif not imdb_tab:\n    print('No IMDB tab'); exit(1)\nprint('Tab:', imdb_tab['url'][:80])\nws = websocket.create_connection(imdb_tab['webSocketDebuggerUrl'])\njs = '''(() => { let items = document.querySelectorAll('li.ipc-metadata-list-summary-item'); let r = []; for (let i=0; i<Math.min(30,items.length); i++) { let item = items[i]; let te = item.querySelector('h3.ipc-title__text'); let t = te ? te.textContent.trim() : ''; let m = t.match(/^(\\\\d+)\\\\.\\\\s*(.*)/); let rank = m ? m[1] : String(i+1); let ct = m ? m[2] : t; let ms = item.querySelectorAll('.cli-title-metadata span'); let y = ms.length>0 ? ms[0].textContent.trim() : ''; let re2 = item.querySelector('.ipc-rating-star--imdb'); let rating = ''; if(re2){let mx=re2.textContent.trim().match(/([\\\\d.]+)/); if(mx) rating=mx[1];} r.push(rank+'|'+ct+'|'+y+'|'+rating); } return r.join('\\\\n'); })()'''\nmsg = json.dumps({'id':1,'method':'Runtime.evaluate','params':{'expression':js}})\nws.send(msg)\nresult = json.loads(ws.recv())\ndata = result.get('result',{}).get('result',{}).get('value','')\nprint(data)\nwith open('/tmp/imdb_top30.txt','w') as f: f.write(data+'\\n')\nws.close()\nprint('DONE')\n\"\n", "display": 2}
+  ]
+}
+```
