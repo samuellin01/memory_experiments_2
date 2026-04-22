@@ -1,0 +1,8 @@
+I can see from the screenshot on display 3 the table structure clearly. The columns are: CUHK, CityU, EdUHK, HKBU, LU, PolyU, HKUST, HKU, Total. I need to use a more efficient approach - let me use `pdfplumber` in Python to extract the tables programmatically and build the Excel file. Let me write a comprehensive Python script on display 3 while display 2 finishes the grep.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Install pdfplumber and openpyxl, then write and run a Python script to extract GRF CS data. Run:\npip3 install pdfplumber openpyxl\n\nThen create and run this Python script:\n\ncat > /tmp/extract_grf.py << 'PYEOF'\nimport pdfplumber\nimport re\n\n# For each year, extract the Computing Science & Information Technology row\nfiles = {\n    '2019/20': '/home/user/Documents/Fundings/grf/grf19.pdf',\n    '2020/21': '/home/user/Documents/Fundings/grf/grf20.pdf',\n    '2021/22': '/home/user/Documents/Fundings/grf/grf21.pdf',\n    '2022/23': '/home/user/Documents/Fundings/grf/grf22.pdf',\n    '2023/24': '/home/user/Documents/Fundings/grf/grf23.pdf',\n}\n\nfor year, fpath in files.items():\n    print(f'\\n=== {year} ({fpath}) ===')\n    with pdfplumber.open(fpath) as pdf:\n        for i, page in enumerate(pdf.pages):\n            text = page.extract_text()\n            if text and 'omput' in text.lower():\n                print(f'--- Page {i} ---')\n                # Print full page text\n                print(text)\n                print()\nPYEOF\npython3 /tmp/extract_grf.py", "display": 3}
+  ]
+}

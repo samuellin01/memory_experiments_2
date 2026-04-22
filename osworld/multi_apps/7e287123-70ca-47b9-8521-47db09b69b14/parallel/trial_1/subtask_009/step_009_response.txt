@@ -1,0 +1,15 @@
+I see a problem! The data for HKBU, HKU, HKUST, and PolyU shows 0 applied and 0 supported for 2019 and 2020, which doesn't match the earlier verification output. Let me scroll up to see all sheets.
+
+Wait - looking more carefully:
+- **HKBU**: 2019=0, 2020=0 — but earlier the verification showed HKBU had 13 applied, 5 supported for 2019/20
+- **HKU**: 2019=0, 2020=0 — but earlier showed 25 applied, 7 supported for 2019/20
+- **HKUST**: 2019=0, 2020=0 — but earlier showed 42 applied, 13 supported for 2019/20
+- **PolyU**: 2019=0, 2020=0 — but earlier showed 30 applied, 14 supported for 2019/20
+
+Something is very wrong! The Year column shows just `2019`, `2020` etc. (integers) instead of `'2019/20'`, `'2020/21'`. This means the year_labels mapping used integer keys 2019-2023, but the parsed dict also uses integer keys. Let me check...
+
+Actually wait - the issue is that the Year column shows integer values (2019, 2020...) but the year_labels in the script were `{2019: '2019/20', ...}`. The output shows `(2019, 0, 0, '0.00%')` - the year is stored as integer 2019, not string '2019/20'. And the data shows zeros for 2019 and 2020 for HKBU, HKU, HKUST, PolyU.
+
+But the earlier verification print showed correct data! Let me re-examine. The issue might be that the Year values in the Excel are just integers, not the year labels. And the data might be wrong because the mapping between years and data got confused.
+
+Let me scroll up to see the full output including CUHK and CityU sheets:

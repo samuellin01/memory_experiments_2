@@ -1,0 +1,11 @@
+Now I can see the problem clearly! ALL universities show 0 applied and 0 supported for years 2019 and 2020, which is clearly wrong. The earlier verification printout showed correct data (e.g., CUHK 2019/20 had 43 applied, 14 supported), but the Excel file has zeros.
+
+The issue is that the Year column stores integer years (2019, 2020, 2021, 2022, 2023) but the `year_labels` dictionary maps them to strings like '2019/20'. The `ws.cell` wrote integer years, but the data in `parsed` dict used integer keys correctly. 
+
+Wait - looking again: CUHK shows `(2021, 37, 17, '45.95%')` which matches the verification output for 2021/22. But 2019 and 2020 show zeros. This means the data for years 2019 and 2020 is actually zero in the `parsed` dict!
+
+The problem is that the raw data from `pdfplumber.extract_text()` for the Computing Science line may have been parsed differently than I thought. The numbers extracted from the text might not have been correctly mapped. Let me look at this more carefully.
+
+Actually, I think I see it now - the `extract_text()` output might have given the data in a different order than what `pdftotext -layout` gave. The `pdfplumber.extract_text()` might reorder columns. Let me check by looking at the raw data more carefully.
+
+Let me re-examine the actual extracted text and the column mapping:
