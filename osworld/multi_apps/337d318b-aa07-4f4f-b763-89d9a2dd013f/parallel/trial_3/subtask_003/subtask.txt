@@ -1,0 +1,55 @@
+Context:
+Original task: Cross-check the invoices with the bank statements and identify any discrepancies. Then pull out the invoices that don't match the statements and put them in the "problematic" folder.
+
+Progress so far:
+1. [DONE] Create a folder called 'problematic' on the Desktop. Run: mkdir -p ~/Desktop/problematic
+   Result: DONE. The folder `problematic` has been successfully created on the Desktop at `/home/user/Desktop/problematic`. The `ls -ld` command confirms it exists as a directory with standard permissions (`drwxr-xr-x`), owned by user `user`.
+2. [MAX_STEPS] Extract text content from all PDF files on the Desktop. Run these commands:
+1. pdftotext ~/Desktop/Bank-Statement.pdf /tmp/bank_statement.txt
+2. pdftotext ~/Desktop/'Invoice # 243729.pdf' /tmp/invoice_243729.txt
+3. pdftotext ~/Desktop/'Invoice # GES-20220215-82.pdf' /tmp/invoice_ges.txt
+4. pdftotext ~/Desktop/'Invoice TII-20220301-90.pdf' /tmp/invoice_tii.txt
+Then cat all four text files to display their contents.
+   Result: ## Summary
+
+### 1) What I Successfully Completed
+- **Extracted text from all 4 PDF files** on the Desktop to /tmp/:
+  - `/tmp/bank_statement.txt` - from `~/Desktop/Bank-Statement.pdf`
+  - `/tmp/invoice_243729.txt` - from `~/Desktop/Invoice # 243729.pdf`
+  - `/tmp/invoice_ges.txt` - from `~/Desktop/Invoice # GES-20220215-82.pdf`
+  - `/tmp/invoice_tii.txt` - from `~/Desktop/invoice TII-20220301-90.pdf`
+- **Displayed (cat) all four text files** and viewed most of the content by scrolling.
+
+### Key Values Found:
+- **Bank Statement**: Account 111-234-567-890, Period 03/01/2022 to 03/31/2022, Opening Balance ~175,800, Closing Balance 4,367,040.00, 4 transactions including: Office Supplies - Staples (540.00), Monthly Deposit, Monthly Fees, and another transaction around 163,640.00
+- **Invoice #243729** (Staples Office Supplies): Date Jan 1, 2022, PO# P012345, Balance Due US$500.00, 10x Office Supplies at US$50.00 each
+- **Invoice GES-20220215-82** (Green Energy Solutions): Date Feb 15, 2022, PO# P012346, Balance Due US$3,180.00, shipped to Johnson Enterprises
+- **Invoice TII-20220301-90**: Partially viewed - saw Quantity 10, Subtotal $8,000.00, Balance Due $8,480.00
+
+### 2) Approaches Tried
+- **Worked**: Running `pdftotext` for each file and `cat` to display all contents
+- **Didn't work initially**: The filename for the TII invoice had a lowercase 'i' (`invoice` not `Invoice`). Fixed by running `ls -la ~/Desktop/` to check exact filenames, then re-running with the correct name.
+
+### 3) What is Still Incomplete
+- I didn't finish reading the complete TII invoice content (was cut off while scrolling)
+- The actual cross-checking of invoices against bank statements hasn't been done yet
+- No discrepancies have been formally identified yet
+- No files have been moved to the "problematic" folder yet
+
+### 4) Recommended Approach for Future Agent
+- **Don't scroll through cat output** — it wastes steps. Instead, use `cat /tmp/bank_statement.txt` separately for each file, or better yet, use `cat /tmp/bank_statement.txt /tmp/invoice_243729.txt /tmp/invoice_ges.txt /tmp/invoice_tii.txt | head -500` or pipe to `less`.
+- **Combine all commands in fewer steps** to preserve step budget.
+- The 4 text files are already extracted at `/tmp/`. The next subtask should:
+  1. `cat` each file individually to review contents
+  2. Compare invoice amounts against bank statement transactions (540.00 vs 500.00 for Staples is already a discrepancy)
+  3. Move non-matching invoices to `~/Desktop/problematic/` (which already exists)
+- Key observation: The bank statement shows a Staples charge of **540.00** but Invoice #243729 from Staples shows **US$500.00** — this is likely a discrepancy to flag.
+
+Subtask:
+Read the bank statement and invoice files to do a full cross-check. Run these commands in sequence:
+
+echo '=== BANK STATEMENT ===' && cat /tmp/bank_statement.txt && echo '=== INVOICE 243729 ===' && cat /tmp/invoice_243729.txt && echo '=== INVOICE GES ===' && cat /tmp/invoice_ges.txt && echo '=== INVOICE TII ===' && cat /tmp/invoice_tii.txt
+
+After reading all content, analyze the discrepancies between the bank statement transactions and the invoices. The bank statement covers 03/01/2022 to 03/31/2022 and has transactions including Office Supplies - Staples (540.00). Invoice #243729 from Staples shows $500.00. Compare all amounts and identify which invoices don't match.
+
+Then write the list of problematic invoice filenames to /tmp/problematic_list.txt

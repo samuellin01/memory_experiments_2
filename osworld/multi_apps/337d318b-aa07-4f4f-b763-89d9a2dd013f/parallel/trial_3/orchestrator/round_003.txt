@@ -1,0 +1,15 @@
+The text files are extracted. Now I need to read the full contents of the bank statement and all invoices to do a proper cross-check. Let me read them in parallel.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Read the bank statement and invoice files to do a full cross-check. Run these commands in sequence:\n\necho '=== BANK STATEMENT ===' && cat /tmp/bank_statement.txt && echo '=== INVOICE 243729 ===' && cat /tmp/invoice_243729.txt && echo '=== INVOICE GES ===' && cat /tmp/invoice_ges.txt && echo '=== INVOICE TII ===' && cat /tmp/invoice_tii.txt\n\nAfter reading all content, analyze the discrepancies between the bank statement transactions and the invoices. The bank statement covers 03/01/2022 to 03/31/2022 and has transactions including Office Supplies - Staples (540.00). Invoice #243729 from Staples shows $500.00. Compare all amounts and identify which invoices don't match.\n\nThen write the list of problematic invoice filenames to /tmp/problematic_list.txt",
+      "display": 2
+    },
+    {
+      "instruction": "Read the bank statement text file and display its full contents. Run: cat /tmp/bank_statement.txt\n\nAlso display the TII invoice: cat /tmp/invoice_tii.txt\n\nWrite the complete contents of both files to /tmp/full_review.txt by running: cat /tmp/bank_statement.txt /tmp/invoice_tii.txt > /tmp/full_review.txt",
+      "display": 3
+    }
+  ]
+}
