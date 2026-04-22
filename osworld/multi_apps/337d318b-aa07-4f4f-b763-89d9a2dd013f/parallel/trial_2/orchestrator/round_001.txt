@@ -1,0 +1,17 @@
+I can see there are files on the desktop: a bank statement PDF and three invoice PDFs. I need to first extract the content from all these files to understand what data they contain, then cross-check and identify discrepancies.
+
+Let me start by extracting text from all the PDFs in parallel.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Extract text content from the PDF file '/home/user/Desktop/Bank-Statement.pdf' using pdftotext or similar tool. Save the extracted text to /tmp/bank_statement.txt. Then display the contents with 'cat /tmp/bank_statement.txt'.",
+      "display": 2
+    },
+    {
+      "instruction": "Extract text content from all invoice PDF files on the desktop. Run these commands:\n1. pdftotext '/home/user/Desktop/Invoice # 243729.pdf' /tmp/invoice_243729.txt\n2. pdftotext '/home/user/Desktop/Invoice # GES-20220215-82.pdf' /tmp/invoice_GES.txt\n3. pdftotext '/home/user/Desktop/Invoice TII-20220301-90.pdf' /tmp/invoice_TII.txt\nThen display all three files with cat.",
+      "display": 3
+    }
+  ]
+}

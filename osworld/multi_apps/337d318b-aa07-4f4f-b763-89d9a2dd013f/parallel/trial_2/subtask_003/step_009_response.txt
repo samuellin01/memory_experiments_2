@@ -1,0 +1,65 @@
+Now I have captured every line of the file (lines 1-112). Let me compile the complete bank statement data:
+
+**Complete Bank Statement Contents (112 lines):**
+
+**Header (Lines 1-49):**
+- Line 1: 231 Valley Farms Street
+- Line 2: Santa Monica, CA 90403
+- Line 3: firstcitizensbank@domain.com
+- Line 5: Account Number:
+- Line 7: 111-234-567-890
+- Line 9: Statement Date:
+- Line 11: 03/31/2022
+- Line 13: Period Covered:
+- Line 15: 03/01/2022 to 03/31/2022
+- Line 17: STATEMENT OF ACCOUNT
+- Line 19: Page 1 of 1
+- Line 21: John Smith
+- Line 23: Opening Balance:
+- Line 25: 175,800.00
+- Line 27: 2450 Courage St, STE 108
+- Line 29: Total Credit Amount:
+- Line 31: 4,297,400.00
+- Line 33: Brownsville, TX 78521
+- Line 35: Total Debit Amount:
+- Line 37: 94,000.00
+- Line 39: Closing Balance:
+- Line 41: 4,367,040.00
+- Line 43: Downtown Branch
+- Line 45: Account Type: Current Account
+- Line 46: Number of Transactions:
+- Line 48: 4
+
+**Transactions (Lines 50-98):**
+1. **22/3/1** (line 61) - Opening Balance (line 63)
+2. **22/3/1** (line 65) - Office Supplies - Staples (line 67) - Debit: 540.00 (line 69) - Balance: 175,300.00 (line 71) *(Note: 175,800 - 540 = 175,260, but statement shows 175,300)*
+3. **22/3/15** (line 73) - Solar Panels - Green Energy Solutions (line 75) - **NO amount listed!**
+4. **22/3/20** (line 77) - Laptop Computers - Tech Innovators (line 79) - amounts: 3,180.00 / 8,480.00 (lines 81-82) - Balances: 172,120.00 / 163,640.00 (lines 84-85)
+5. **22/3/31** (line 87) - Monthly Deposit (line 89)
+6. **22/3/31** (line 91) - Monthly Fees (line 93)
+7. **22/3/31** (line 95) - Closing Balance (line 97)
+- Line 98: --- End of Transactions ---
+
+**Summary (Lines 100-112):**
+- Line 100: 175,800.00 (Opening Balance)
+- Line 102: 4,297,400.00 (Total Credits)
+- Line 104: 4,461,040.00
+- Line 105: 94,000.00 (Total Debits)
+- Line 107: 4,367,040.00
+- Line 108: 4,367,040.00 (Closing Balance)
+- Line 110: © TemplateLab.com
+
+Key observation: The Solar Panels transaction (line 75) has **no amount** listed in the extracted text. The Monthly Deposit and Monthly Fees also don't show specific amounts in the transaction lines. The pdftotext extraction may have missed some columns due to PDF formatting.
+
+DONE - I have successfully viewed and captured every line (1-112) of `/tmp/bank_statement.txt`. The complete bank statement shows:
+
+**Transactions:**
+1. **22/3/1** - Opening Balance: 175,800.00
+2. **22/3/1** - Office Supplies (Staples) - Debit: 540.00, Balance: 175,300.00
+3. **22/3/15** - Solar Panels (Green Energy Solutions) - **No amount shown in extracted text**
+4. **22/3/20** - Laptop Computers (Tech Innovators) - amounts: 3,180.00 / 8,480.00, Balances: 172,120.00 / 163,640.00
+5. **22/3/31** - Monthly Deposit - **No amount shown**
+6. **22/3/31** - Monthly Fees - **No amount shown**
+7. **22/3/31** - Closing Balance: 4,367,040.00
+
+**Summary totals:** Opening Balance: 175,800.00, Total Credits: 4,297,400.00, Total Debits: 94,000.00, Closing Balance: 4,367,040.00. The file is 112 lines long and ends with "© TemplateLab.com".

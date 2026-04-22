@@ -1,0 +1,39 @@
+Now I can see the bank statement with proper column alignment. The layout is very clear. Let me capture all the key transaction data:
+
+**Bank Statement Transactions (with layout):**
+
+| Date | Description | Credit | Debit | Balance |
+|------|-------------|--------|-------|---------|
+| 22/3/1 | Opening Balance | | | 175,800.00 |
+| 22/3/1 | Office Supplies - Staples | | 540.00 | 175,300.00 |
+| 22/3/15 | Solar Panels - Green Energy Solutions | | 3,180.00 | 172,120.00 |
+| 22/3/20 | Laptop Computers - Tech Innovators | | 8,480.00 | 163,640.00 |
+| 22/3/31 | Monthly Deposit | 4,297,400.00 | | 4,461,040.00 |
+| 22/3/31 | Monthly Fees | | 94,000.00 | 4,367,040.00 |
+| 22/3/31 | Closing Balance | | | 4,367,040.00 |
+
+**Summary:**
+- Opening Balance: 175,800.00
+- Total Credit Amount: 4,297,400.00
+- Total Debit Amount: 94,000.00
+- Closing Balance: 4,367,040.00
+
+**Bank statement debit amounts for the three invoices:**
+1. **Office Supplies - Staples**: Debit **540.00**
+2. **Solar Panels - Green Energy Solutions**: Debit **3,180.00**
+3. **Laptop Computers - Tech Innovators**: Debit **8,480.00**
+
+**Now comparing with invoice amounts (from previous extraction):**
+1. **Invoice #243729 (Staples)**: Balance Due **$500.00** → Bank shows **$540.00** → ❌ **DISCREPANCY ($40 difference)**
+2. **Invoice #GES-20220215-82 (Green Energy Solutions)**: Balance Due **$3,180.00** → Bank shows **$3,180.00** → ✅ **MATCH**
+3. **Invoice #TII-20220301-90 (Tech Innovators)**: Invoice Total **$8,480.00** → Bank shows **$8,480.00** → ✅ **MATCH**
+
+Also notable: The bank statement balance after the Staples transaction shows 175,300.00, but 175,800.00 - 540.00 = 175,260.00, not 175,300.00. This is another discrepancy in the Staples entry.
+
+DONE - Successfully extracted the bank statement with layout preservation using `pdftotext -layout` and saved to `/tmp/bank_statement_layout.txt`. The properly aligned output clearly shows all transaction columns (Date, Description, Credit, Debit, Balance). The key debit amounts from the bank statement are:
+
+1. **Office Supplies - Staples**: **$540.00** (Invoice says $500.00 — **DISCREPANCY**)
+2. **Solar Panels - Green Energy Solutions**: **$3,180.00** (Invoice says $3,180.00 — **MATCH**)
+3. **Laptop Computers - Tech Innovators**: **$8,480.00** (Invoice says $8,480.00 — **MATCH**)
+
+The Staples invoice (#243729) is the problematic one with a $40 discrepancy between the invoice amount ($500.00) and the bank statement debit ($540.00). Additionally, the balance after the Staples debit (175,300.00) doesn't match the expected calculation (175,800.00 - 540.00 = 175,260.00).
