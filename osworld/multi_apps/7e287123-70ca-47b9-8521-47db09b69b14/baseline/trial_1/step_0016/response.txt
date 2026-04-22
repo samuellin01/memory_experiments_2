@@ -1,0 +1,14 @@
+Now I see the issue. The discipline names span multiple lines (10 items) but the data values only have 4 items. This means the discipline names wrap across lines. The actual disciplines are:
+
+0: Engineering (total/header) → value index 0 = 38
+1: Civil Engineering → value index 1 = 41 (but wait, this doesn't align right)
+
+Actually, looking more carefully at the discipline text:
+- "Engineering" = panel header
+- "Civil Engineering," = discipline 1
+- "Surveying, Building & Construction" = discipline 2
+- "Computing Science & Information Technology" = discipline 3
+- "Electrical & Electronic Engineering" = discipline 4
+- "Mechanical, Production & Industrial Engineering" = discipline 5
+
+But the data has only 4 values (38, 41, 36, 57). So the "Engineering" header row is not included in the data. Let me think... maybe the values correspond to the sub-disciplines differently. Let me check the text extraction more carefully.
