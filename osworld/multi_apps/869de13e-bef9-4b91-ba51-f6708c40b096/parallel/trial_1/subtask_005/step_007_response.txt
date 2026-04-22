@@ -1,0 +1,13 @@
+Now I can see the current state. The first batch of paper moves did NOT work - all the PDF files are still on the Desktop. The issue is that the first `cd ~/Desktop` command ran from `~` but then the `&&` chain with the `mv` commands failed because it was looking for the wrong DOC filename. Wait, actually looking at the output, it says "Papers moved successfully" was printed, which means the first 5 papers WERE moved. But the current listing still shows them... 
+
+Actually wait - looking more carefully at the current `ls -1` output, I see:
+- `1802.05365.pdf` and `1909.10351.pdf` are still there
+- But `1706.03762.pdf` is NOT in the current listing
+- `GLUE...pdf` is still there
+- `paper01.pdf` is still there
+
+Hmm, that's odd. Let me look again... Actually I see the listing shows all the files still present. The "Papers moved successfully" message was printed because the `&&` chain succeeded up to that point, but then the DOC move failed. But wait - the `echo` was BEFORE the DOC move in the chain... No, looking at my original command, the DOC move was the last `mv` before the `echo`. Since the DOC move failed, the `echo` wouldn't have printed. But it DID print "Papers moved successfully"...
+
+Let me re-read the command output more carefully. The command was chained with `&&`, and the error shows `mv: cannot stat 'DOC_24809037127180686884.pdf'` and then the echo "Papers moved successfully" was NOT printed (the next line is just the error). So the first 5 papers were moved successfully, but the DOC move failed. But the current `ls` still shows them... 
+
+Actually wait - I need to scroll up. The first `ls -1` output at the top of the screen was from BEFORE the moves. The CURRENT listing (after `---`) just shows `DOC_24809037127180686684.pdf`. So the papers WERE moved! Now I need to use tab completion to get the exact DOC filename:

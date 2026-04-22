@@ -1,0 +1,20 @@
+I can see from the primary display that some files have already been moved (the PDF papers are gone from the desktop - moved to Paper_reading by display 3). But several files still remain on the desktop. I also now know that:
+- `DOC_24809037127180686884.pdf` is about "SCHOOLWORK" - a school competition document → **Miscellaneous**
+- `paper01.pdf` is the BERT paper → **Paper_reading** (already confirmed from earlier)
+- The DOC filename from `ls` is `DOC_2480903712718068684.pdf` (not the one I used earlier)
+
+Looking at the primary display, files still on desktop include: `assignment_mark_frontpage.docx`, `2-if-for-array`, `2023_validation...xlsx`, `07-cluster-kMean (1).ppt`, `IA_Format.docx`, `Family Status Equality...pdf`, `DOC_2480903712718...pdf`, `assign1-data-python3`, `cco-return-to-school...xlsx`, and `school-survey-u...`.
+
+Let me now move all remaining files. I need to be careful with exact filenames.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Open a terminal and run these commands to move all remaining files on the desktop into their proper folders. Use exact filenames from ls output. Run each command separately:\n\ncd ~/Desktop\n\n# First check what's still on desktop\nls -1 ~/Desktop/\n\n# Move coding projects to Projects\nmv ~/Desktop/2-if-for-array ~/Desktop/Projects/ 2>/dev/null; echo \"2-if-for-array: $?\"\nmv ~/Desktop/assign1-data-python3 ~/Desktop/Projects/ 2>/dev/null; echo \"assign1-data-python3: $?\"\n\n# Move academic papers to Paper_reading\nmv ~/Desktop/1706.03762.pdf ~/Desktop/Paper_reading/ 2>/dev/null; echo \"1706: $?\"\nmv ~/Desktop/1802.05365.pdf ~/Desktop/Paper_reading/ 2>/dev/null; echo \"1802: $?\"\nmv ~/Desktop/1909.10351.pdf ~/Desktop/Paper_reading/ 2>/dev/null; echo \"1909: $?\"\nmv ~/Desktop/paper01.pdf ~/Desktop/Paper_reading/ 2>/dev/null; echo \"paper01: $?\"\nmv \"$HOME/Desktop/GLUE: A MULTI-TASK BENCHMARK AND ANALYSIS.pdf\" ~/Desktop/Paper_reading/ 2>/dev/null; echo \"GLUE: $?\"\n\n# Move miscellaneous files\nmv \"$HOME/Desktop/07-cluster-kMean (1).ppt\" ~/Desktop/Miscellaneous/ 2>/dev/null; echo \"07-cluster: $?\"\nmv ~/Desktop/2023_validation_7bd855d8-463d-4ed5-93ca-5fe35145f733.xlsx ~/Desktop/Miscellaneous/ 2>/dev/null; echo \"2023_validation: $?\"\nmv ~/Desktop/assignment_mark_frontpage.docx ~/Desktop/Miscellaneous/ 2>/dev/null; echo \"assignment: $?\"\nmv ~/Desktop/cco-return-to-school-survey-underlying-data-tables.xlsx ~/Desktop/Miscellaneous/ 2>/dev/null; echo \"cco: $?\"\nmv ~/Desktop/DOC_2480903712718068684.pdf ~/Desktop/Miscellaneous/ 2>/dev/null; echo \"DOC: $?\"\nmv \"$HOME/Desktop/Family Status Equality-Eng (Aug 2021).pdf\" ~/Desktop/Miscellaneous/ 2>/dev/null; echo \"Family: $?\"\nmv ~/Desktop/IA_Format.docx ~/Desktop/Miscellaneous/ 2>/dev/null; echo \"IA: $?\"\n\n# Verify\necho '=== Remaining on Desktop ==='\nls -1 ~/Desktop/\necho '=== Paper_reading ==='\nls ~/Desktop/Paper_reading/\necho '=== Projects ==='\nls ~/Desktop/Projects/\necho '=== Miscellaneous ==='\nls ~/Desktop/Miscellaneous/",
+      "display": 2
+    }
+  ]
+}
+```
