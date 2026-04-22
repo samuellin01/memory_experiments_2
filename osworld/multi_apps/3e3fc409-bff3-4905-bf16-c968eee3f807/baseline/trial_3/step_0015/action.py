@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('pip install websocket-client 2>/dev/null; python3 '), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('-c "\nimport requests, json\nresp = requests.get(\'ht'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("tp://localhost:1337/json')\ntabs = resp.json()\nfor "), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('tab in tabs:\n    print(tab.get(\'url\',\'\')[:100])\n"\n'), shell=True, check=True)
+import time; time.sleep(0.05)
