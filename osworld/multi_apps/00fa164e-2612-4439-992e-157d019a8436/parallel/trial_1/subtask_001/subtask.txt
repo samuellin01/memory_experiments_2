@@ -1,0 +1,8 @@
+Context:
+Original task: I need to include the experiment results from "~/Documents/awesome-desktop/expe-results.xlsx" into the currently writing report. Specifically, extract the results of GPT-4 and insert a table into the "Main Results" section of my report. Remember to paste the table header, too.
+
+Progress so far:
+No subtasks completed yet.
+
+Subtask:
+Open the file ~/Documents/awesome-desktop/expe-results.xlsx using Python and extract: 1) The table header row, 2) All rows related to GPT-4. Save the results to /tmp/gpt4_results.txt showing the header and GPT-4 rows with their values. Use a command like: python3 -c "import openpyxl; wb=openpyxl.load_workbook('/home/user/Documents/awesome-desktop/expe-results.xlsx'); ws=wb.active; rows=list(ws.iter_rows(values_only=True)); print('HEADER:', rows[0]); [print('ROW:', r) for r in rows if r and any(str(c).find('GPT-4')>=0 for c in r if c)]" Also print ALL rows so we can see the full table structure.

@@ -1,0 +1,16 @@
+The table has been inserted with all the correct data. I can see from the screenshot that the table is in the right place under "5.2 Main Results" with the correct values. However, there are two issues to fix:
+
+1. The header cells were auto-capitalized (Model, Os, Calc, etc. instead of model, os, calc, etc.)
+2. The file needs to be saved
+
+I need to fix the capitalization. Let me use a Python UNO macro approach to fix the headers programmatically, which is more reliable than manual editing.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Create and run a Python script that uses UNO to fix the header capitalization in the LibreOffice Writer document. Run this in the terminal:\n\npython3 << 'EOF'\nimport subprocess, time\n\n# Use LibreOffice macro via command line\n# First, create a macro file\nmacro_content = '''\nimport uno\n\ndef fix_headers():\n    desktop = XSCRIPTCONTEXT.getDesktop()\n    doc = desktop.getCurrentComponent()\n    tables = doc.getTextTables()\n    \n    # Get the first (and likely only) table\n    table = tables.getByIndex(0)\n    \n    headers = ['model', 'os', 'calc', 'impress', 'writer', 'vlc', 'gimp', 'chrome', 'thunderbird', 'vscode', 'multi', 'avg']\n    \n    for i, header in enumerate(headers):\n        cell_name = chr(65 + i) + '1'  # A1, B1, C1, etc.\n        cell = table.getCellByName(cell_name)\n        cell.setString(header)\n    \n    # Save the document\n    doc.store()\n'''\n\nimport os\nmacro_dir = os.path.expanduser('~/.config/libreoffice/4/user/Scripts/python')\nos.makedirs(macro_dir, exist_ok=True)\nwith open(os.path.join(macro_dir, 'fix_table.py'), 'w') as f:\n    f.write(macro_content)\nprint('Macro file created at', os.path.join(macro_dir, 'fix_table.py'))\nEOF", "display": 2},
+    {"instruction": "In the LibreOffice Writer document, I need to fix the auto-capitalized headers in the table under '5.2 Main Results'. The headers currently read: Model, Os, Calc, Impress, Writer, Vlc, Gimp, Chrome, Thunderbird, Vscode, Multi, Avg. They should be lowercase: model, os, calc, impress, writer, vlc, gimp, chrome, thunderbird, vscode, multi, avg.\n\nPlease do the following:\n1. First, go to Tools > AutoCorrect Options, then in the Options tab, UNCHECK 'Capitalize first letter of every sentence'. Click OK.\n2. Then click on the first cell of the header row (which says 'Model')\n3. Select all text in that cell (Ctrl+A or double-click to select), then type 'model' (lowercase)\n4. Press Tab to move to next cell, select all text, type 'os'\n5. Continue with Tab for each cell: calc, impress, writer, vlc, gimp, chrome, thunderbird, vscode, multi, avg\n6. After fixing all headers, press Ctrl+S to save the file.\n\nIMPORTANT: Make sure to disable autocorrect FIRST before retyping the headers, otherwise they'll get capitalized again.", "display": 0}
+  ]
+}
+```

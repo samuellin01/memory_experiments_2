@@ -1,0 +1,15 @@
+This is a critical situation. The display 2 agent discovered that the document on disk has **0 tables** - meaning the table work done in LibreOffice was never saved. However, display 0 still has LibreOffice Writer open with the table (I can see it in the screenshot). I need to:
+
+1. First, make sure the display 0 agent saves the work and fixes remaining headers
+2. As a backup, prepare the python-docx approach on a secondary display
+
+Let me check - display 0 is still running a task to fix headers. But wait, the display 2 agent said LibreOffice was closed on its display - but that's display 2, not display 0. Display 0 should still have LibreOffice open. Let me continue fixing headers on display 0 and save.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the LibreOffice Writer document currently open, the cursor should be in the table under '5.2 Main Results'. The first cell already says 'model' (lowercase, correct). AutoCorrect capitalization has been disabled. I need you to fix the remaining 11 header cells from capitalized to lowercase.\n\nThe current header row reads: model | Os | Calc | Impress | Writer | Vlc | Gimp | Chrome | Thunderbird | Vscode | Multi | Avg\n\nDo this efficiently:\n1. Click on the cell that says 'Os' (second cell in the first row)\n2. Double-click to select the text 'Os', then type 'os'\n3. Press Tab to go to next cell, double-click 'Calc', type 'calc'\n4. Tab, double-click 'Impress', type 'impress'\n5. Tab, double-click 'Writer', type 'writer'\n6. Tab, double-click 'Vlc', type 'vlc'\n7. Tab, double-click 'Gimp', type 'gimp'\n8. Tab, double-click 'Chrome', type 'chrome'\n9. Tab, double-click the Thunderbird text, type 'thunderbird'\n10. Tab, double-click 'Vscode', type 'vscode'\n11. Tab, double-click 'Multi', type 'multi'\n12. Tab, double-click 'Avg', type 'avg'\n13. Finally, press Ctrl+S to save the document.\n\nAlternatively, you can use Find & Replace (Ctrl+H) with 'Other options' > 'Match case' checked to replace each word. But the Tab-through approach should be faster since autocorrect is already disabled.", "display": 0}
+  ]
+}
+```
