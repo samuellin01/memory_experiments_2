@@ -1,0 +1,20 @@
+
+
+Excellent! The script is running and I can see very useful information. Let me analyze what's visible:
+
+1. **Table structure for grf19.pdf**:
+   - Row 0: `['Panel / Subject Discipline', 'CityU', None, None, None, 'HKBU', None, None, None, 'LU', None, None, None, 'CUHK', None, None, None, 'EdUHK', None, None, None, 'PolyU', None, None, None, 'HKUST', None, None, None, 'HKU', None, None, None, 'Total', None, None, None]`
+   - Row 1: `[None, 'Application', None, 'Supported', None, ...]`
+   - Row 2: `[None, 'No', "Amt\n$'000", 'No', "Amt\n$'000", ...]`
+
+So the column structure is: For each institution (CityU, HKBU, LU, CUHK, EdUHK, PolyU, HKUST, HKU, Total), there are 4 columns: App No, App Amt, Supp No, Supp Amt.
+
+The institutions order is: CityU, HKBU, LU, CUHK, EdUHK, PolyU, HKUST, HKU, Total = 9 institutions × 4 columns = 36 columns + 1 for discipline name = 37 total.
+
+The "Total" columns start at index 33 (0-based from col 1: 8*4+1 = 33). So:
+- Total App No = col index 33
+- Total App Amt = col index 34
+- Total Supp No = col index 35
+- Total Supp Amt = col index 36
+
+Let me wait for the rest of the output.

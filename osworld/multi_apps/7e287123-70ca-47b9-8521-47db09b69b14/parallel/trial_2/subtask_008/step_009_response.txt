@@ -1,0 +1,9 @@
+
+
+Now I can see the critical issue. For 2019 and 2020, the CS index is 4, and all the values are empty strings (`''`). For 2021, 2022, and 2023, the CS index is 3 and the values are populated correctly.
+
+The problem is that for 2019 and 2020, the "Computing Science" discipline is at index 4 in the `\n`-split column 0, but the corresponding values in other columns might have a different structure. The values show all empty strings, which means the index mapping doesn't work the same way.
+
+Let me look at this more carefully. The col0 for 2019 likely has more disciplines (maybe "Information Technology" is on a separate line from "Computing Science &"), making the index 4, but the value columns might combine them differently.
+
+I need to investigate the raw PDF data for 2019 and 2020 more carefully. Let me write a new script to debug this.
