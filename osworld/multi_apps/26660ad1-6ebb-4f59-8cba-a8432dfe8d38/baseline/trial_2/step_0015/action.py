@@ -1,0 +1,1 @@
+pyautogui.moveTo(876, 430, duration=0.5)
