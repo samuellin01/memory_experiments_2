@@ -1,0 +1,15 @@
+Now I have all the verified addresses from the 本地宝 webpage. The HTML page was also downloaded to /tmp/bendibao_page.html. Let me now create the addresses file on display 2 and then use a Python script to write the content into the LibreOffice Writer document on display 0.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Open a terminal and run this command to create the addresses file:\n\npython3 << 'PYEOF'\naddresses = \"\"\"深圳市福田区24小时自助签注机地址：\n\n1. 深圳市福田区福强路3028号金沙嘴大厦（福田公安分局出入境智能服务区）\n2. 深圳市福田区天安数码城昌泰公寓一楼（福田公安分局天安所天安警务室智能服务点）\n3. 深圳市福田区滨河大道2033号（福田公安分局南园所智能服务点）\n4. 深圳市福田区上沙四十八栋一巷11号（福田公安分局沙头所上沙社区警务室智能服务点）\n5. 深圳市福田区北环大道与香蜜湖路交汇处香蜜原著警务室（福田公安分局香蜜湖所香蜜原著警务室智能服务点）\n\"\"\"\nwith open('/tmp/futian_addresses.txt', 'w', encoding='utf-8') as f:\n    f.write(addresses)\nprint('File saved')\nprint(addresses)\nPYEOF",
+      "display": 2
+    },
+    {
+      "instruction": "In the open LibreOffice Writer document (AllLocations.docx), dismiss any popup/notification that may be showing (there's a backup notification at the top). Then use the LibreOffice Writer macro facility to insert Chinese text into the document. Do the following:\n\n1. First dismiss any notification popups by clicking elsewhere or pressing Escape\n2. Go to Tools > Macros (or press Alt+F12) to open the macro editor\n3. Create and run a Basic macro with this code:\n\nSub InsertAddresses()\n    Dim oDoc As Object\n    Dim oText As Object\n    Dim oCursor As Object\n    oDoc = ThisComponent\n    oText = oDoc.getText()\n    oCursor = oText.createTextCursor()\n    \n    oText.insertString(oCursor, \"深圳市福田区24小时自助签注机地址：\" & Chr(13) & Chr(13), False)\n    oText.insertString(oCursor, \"1. 深圳市福田区福强路3028号金沙嘴大厦（福田公安分局出入境智能服务区）\" & Chr(13), False)\n    oText.insertString(oCursor, \"2. 深圳市福田区天安数码城昌泰公寓一楼（福田公安分局天安所天安警务室智能服务点）\" & Chr(13), False)\n    oText.insertString(oCursor, \"3. 深圳市福田区滨河大道2033号（福田公安分局南园所智能服务点）\" & Chr(13), False)\n    oText.insertString(oCursor, \"4. 深圳市福田区上沙四十八栋一巷11号（福田公安分局沙头所上沙社区警务室智能服务点）\" & Chr(13), False)\n    oText.insertString(oCursor, \"5. 深圳市福田区北环大道与香蜜湖路交汇处香蜜原著警务室（福田公安分局香蜜湖所香蜜原著警务室智能服务点）\" & Chr(13), False)\nEnd Sub\n\n4. Run the macro to insert the text\n5. After the text is inserted, save the document with Ctrl+S\n\nAlternatively, if the macro approach is too complex, you can use a Python script from the terminal to modify the document. Open a terminal (right-click desktop or use Activities) and run:\n\npython3 -c \"\nimport subprocess\nimport time\n# Use xdotool to type into LibreOffice\nimport os\nos.system('xdotool key Escape')\ntime.sleep(0.5)\n# Click in the document area\nos.system('xdotool mousemove 640 400 click 1')\ntime.sleep(0.5)\n# Use xdotool to type - but this may not work for Chinese\n# Better to use the macro approach\n\"\n\nThe macro approach via Tools > Macros is the most reliable way to insert Chinese text.",
+      "display": 0
+    }
+  ]
+}

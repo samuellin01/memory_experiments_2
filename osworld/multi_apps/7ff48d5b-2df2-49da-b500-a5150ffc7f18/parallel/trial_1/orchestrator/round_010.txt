@@ -1,0 +1,16 @@
+The document has been successfully modified with python-docx (confirmed on display 2 - the AllLocations.docx now contains all 5 addresses). Now I need to:
+1. Close the LibreOffice Basic IDE on display 0
+2. Close LibreOffice Writer
+3. Reopen the modified document so it shows the addresses
+
+The simplest approach: close LibreOffice entirely, then reopen the modified file.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "On this display, the LibreOffice Basic IDE is currently open with the code selected (shown in the screenshot). The Word document AllLocations.docx has already been modified externally with the 5 Chinese addresses using python-docx. You need to:\n\n1. Close LibreOffice completely. Press Alt+F4 to close the Basic IDE window. If prompted to save, click 'Don't Save' or 'No' or 'Discard'.\n2. If LibreOffice Writer is still open behind the IDE, close it too with Alt+F4. Again, don't save (we want the externally modified version).\n3. Wait a moment for LibreOffice to fully close.\n4. Then reopen the document by opening a terminal (you can use the file manager on the taskbar, or right-click desktop, or press Ctrl+Alt+T) and running: soffice --writer /home/user/Desktop/AllLocations.docx\n5. Verify the document shows the 5 Chinese addresses for 24-hour self-service visa machines in Futian District.\n6. The document should remain open in LibreOffice Writer.\n\nThe key goal: AllLocations.docx must be open in LibreOffice Writer showing the 5 addresses in Chinese.",
+      "display": 0
+    }
+  ]
+}
