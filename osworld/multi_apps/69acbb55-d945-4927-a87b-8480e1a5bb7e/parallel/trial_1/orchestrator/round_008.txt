@@ -1,0 +1,8 @@
+There's a disk space issue. The CUDA torch installation ran out of space. I need to clean up the broken nvidia/torch packages and install CPU-only torch instead. Let me fix this on display 3.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, complete the cleanup and reinstall with CPU-only torch. Run these commands one by one, waiting for each to finish:\n\n1. First wait for any running uninstall to complete, then run:\npip uninstall -y torch triton nvidia-cublas-cu13 nvidia-cuda-cupti-cu13 nvidia-cuda-nvrtc-cu13 nvidia-cuda-runtime-cu13 nvidia-cudnn-cu13 nvidia-cufft-cu13 nvidia-curand-cu13 nvidia-cusolver-cu13 nvidia-cusparse-cu13 nvidia-nccl-cu13 nvidia-nvjitlink-cu13 nvidia-nvtx-cu13 nvidia-cusparselt-cu13 nvidia-nvshmem-cu13 nvidia-cufile-cu13 2>/dev/null\n\n2. Remove any remaining nvidia directories:\nrm -rf /home/user/.local/lib/python3.10/site-packages/nvidia* /home/user/.local/lib/python3.10/site-packages/torch*\n\n3. Check disk space:\ndf -h /\n\n4. Install CPU-only torch:\npip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu\n\n5. Install sentence-transformers (needed for InstructorEmbedding):\npip install --no-cache-dir sentence-transformers\n\n6. Install remaining requirements:\npip install --no-cache-dir -r /home/user/instructor-embedding/requirements.txt\n\n7. Verify:\npython3 -c 'from InstructorEmbedding import INSTRUCTOR; print(\"InstructorEmbedding imported successfully\")'", "display": 3}
+  ]
+}
