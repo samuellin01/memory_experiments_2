@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('sudo du -sh /var/cache/apt/archives/ /var/log/ /sn'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ap/ /usr/lib/snapd/ 2>/dev/null && du -sh /root/.c'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ache/ 2>/dev/null\n'), shell=True, check=True)
+import time; time.sleep(0.05)
