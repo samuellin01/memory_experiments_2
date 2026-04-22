@@ -1,0 +1,11 @@
+Good, I now know the file is at `/home/user/Desktop/movies.xlsx` with headers: title, release_year, ratings, description. Let me extract the full list of seen movie titles and headers while waiting for the IMDB Top 30 scraping to complete.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Run this Python script in the terminal to extract all seen movie titles and save them, plus print the exact headers:\n\npython3 -c \"\nimport openpyxl\nwb = openpyxl.load_workbook('/home/user/Desktop/movies.xlsx')\nws = wb['seen_movies']\nheaders = [cell.value for cell in ws[1]]\nprint('Headers:', headers)\ntitles = []\nfor row in ws.iter_rows(min_row=2, values_only=True):\n    titles.append(row[0])\nprint('Total seen movies:', len(titles))\nfor t in sorted(titles):\n    print(t)\n\" > /tmp/seen_movies.txt 2>&1\ncat /tmp/seen_movies.txt",
+      "display": 2
+    }
+  ]
+}

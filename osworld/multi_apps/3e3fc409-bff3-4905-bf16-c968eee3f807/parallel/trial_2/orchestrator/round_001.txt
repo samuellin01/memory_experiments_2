@@ -1,0 +1,21 @@
+I need to:
+1. First, read the full list of movies from the Excel file to know what the user has already seen
+2. Get the IMDB Top 30 list
+3. Compare and find unseen movies released before 2024
+4. Create the 'unseen_movies' sheet
+
+Let me start by reading the Excel file and fetching the IMDB Top 30 list in parallel.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Read the full contents of the file /home/user/movies.xlsx using Python. Print all rows including headers from the 'seen_movies' sheet. Use openpyxl to read it. Print each row as a list. Run this in the terminal:\npython3 -c \"\nimport openpyxl\nwb = openpyxl.load_workbook('/home/user/movies.xlsx')\nws = wb['seen_movies']\nfor row in ws.iter_rows(values_only=True):\n    print(list(row))\nprint('Total rows:', ws.max_row)\n\"",
+      "display": 2
+    },
+    {
+      "instruction": "Open Google Chrome and go to https://www.imdb.com/chart/top/ to find the IMDB Top 250 movies list. I need the top 30 movies from this list. For each movie, note the title, release year, and IMDB rating/ranking. Scroll through and record the top 30 movies. Save the information (rank, title, year, rating) to /tmp/imdb_top30.txt, one movie per line.",
+      "display": 3
+    }
+  ]
+}

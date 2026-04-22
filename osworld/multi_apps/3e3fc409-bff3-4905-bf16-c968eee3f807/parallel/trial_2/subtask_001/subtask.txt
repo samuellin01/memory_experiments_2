@@ -1,0 +1,16 @@
+Context:
+Original task: I'm a huge movie fan and have kept a record of all the movies I've watched. I'm curious to find out if there are any films released before 2024 from the IMDB Top 30 list that I haven't seen yet. Help me create another sheet 'unseen_movies' in the opened Excel. This sheet should share the same headers and sort the results according to IMDB rankings from high to low.
+
+Progress so far:
+No subtasks completed yet.
+
+Subtask:
+Read the full contents of the file /home/user/movies.xlsx using Python. Print all rows including headers from the 'seen_movies' sheet. Use openpyxl to read it. Print each row as a list. Run this in the terminal:
+python3 -c "
+import openpyxl
+wb = openpyxl.load_workbook('/home/user/movies.xlsx')
+ws = wb['seen_movies']
+for row in ws.iter_rows(values_only=True):
+    print(list(row))
+print('Total rows:', ws.max_row)
+"

@@ -1,0 +1,11 @@
+The IMDB page is already loaded in Chrome on display 3. Let me use that browser to extract the top 30 via JavaScript, and also try a command-line approach on display 3 as backup.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Use the terminal to fetch the IMDB Top 250 page and extract the top 30 movies. Run this Python script:\n\npython3 << 'EOF'\nimport urllib.request\nimport json\nimport re\n\nurl = 'https://www.imdb.com/chart/top/'\nreq = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', 'Accept-Language': 'en-US,en;q=0.9'})\nresp = urllib.request.urlopen(req)\nhtml = resp.read().decode('utf-8')\n\n# Find JSON-LD data\npattern = r'<script type=\"application/ld\\+json\">(.*?)</script>'\nmatches = re.findall(pattern, html, re.DOTALL)\nfor m in matches:\n    try:\n        data = json.loads(m)\n        if 'itemListElement' in data:\n            items = data['itemListElement'][:30]\n            with open('/tmp/imdb_top30.txt', 'w') as f:\n                for item in items:\n                    rank = item.get('position', '')\n                    movie = item.get('item', {})\n                    name = movie.get('name', '')\n                    year = movie.get('datePublished', '')[:4] if movie.get('datePublished') else ''\n                    rating = ''\n                    if 'aggregateRating' in movie:\n                        rating = movie['aggregateRating'].get('ratingValue', '')\n                    desc = movie.get('description', '')\n                    line = f\"{rank}|{name}|{year}|{rating}|{desc}\"\n                    print(line)\n                    f.write(line + '\\n')\n            print('\\nSaved to /tmp/imdb_top30.txt')\n            break\n    except json.JSONDecodeError:\n        continue\nelse:\n    print('No JSON-LD found, trying alternative parsing...')\n    # Try to find in page script data\n    pattern2 = r'\"titleText\":\\{\"text\":\"([^\"]+)\"'\n    titles = re.findall(pattern2, html)[:30]\n    print(f'Found {len(titles)} titles via regex')\n    for t in titles:\n        print(t)\nEOF",
+      "display": 3
+    }
+  ]
+}
