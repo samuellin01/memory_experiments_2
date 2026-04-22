@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('cd ~/Desktop && mv 1706.03762.pdf 1802.05365.pdf 1'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('909.10351.pdf paper01.pdf "GLUE: A MULTI-TASK BENC'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('HMARK AND ANALYSIS.pdf" Paper_reading/\n'), shell=True, check=True)
+import time; time.sleep(0.05)

@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('echo "=== Miscellaneous ===" && ls ~/Desktop/Misce'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('llaneous/ && echo "=== Projects ===" && ls ~/Deskt'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('op/Projects/ && echo "=== Paper_reading ===" && ls'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote(' ~/Desktop/Paper_reading/\n'), shell=True, check=True)
+import time; time.sleep(0.05)
