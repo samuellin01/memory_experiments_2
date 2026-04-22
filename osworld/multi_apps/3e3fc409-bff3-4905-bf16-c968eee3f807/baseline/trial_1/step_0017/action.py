@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('curl -s -L "https://www.imdb.com/chart/top/" -H "U'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ser-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWe'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('bKit/537.36" -H "Accept-Language: en-US,en;q=0.9" '), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('-H "Accept: text/html" | wc -c\n'), shell=True, check=True)
+import time; time.sleep(0.05)
