@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('mkdir -p ~/Test/Speed && cat > ~/Test/Speed/result'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("s.txt << 'EOF'\nDOWNLOAD 572.34 Mbps\nUPLOAD 45.91 M"), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('bps\nPing 3 ms\nDownload_Latency 75 ms\nUpload_Latenc'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('y 13 ms\nEOF\n'), shell=True, check=True)
+import time; time.sleep(0.05)
