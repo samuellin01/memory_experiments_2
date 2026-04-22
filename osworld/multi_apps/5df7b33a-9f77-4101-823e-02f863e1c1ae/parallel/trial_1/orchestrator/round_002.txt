@@ -1,0 +1,22 @@
+Now I know the naming convention: `{chapter_number}. {chapter_title}.pdf`. I can see the chapter structure from the TOC sidebar. Let me get the exact chapter titles from the PDF bookmarks while I wait for display 3. Let me start extracting the exact chapter titles by reading the PDF's TOC more carefully.
+
+From the sidebar I can see:
+1. Symmetric ... (page 3) → already done as "1. Symmetric matrices and adjacency of a graph.pdf"
+2. Graph isom... (page 18)
+3. Graph polyn... (page 29)
+4. Covers and I... (page 44)
+5. Eigenvalues ... (page 56)
+6. Optimizatio... (page 66)
+7. Theta (page 79)
+8. The Laplacia... (page 87)
+
+I need the full chapter titles. Let me extract them from the PDF bookmarks.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Extract the full bookmark/outline titles from the PDF file ~/Desktop/book/'Spectral Graph Theory.pdf'. Use Python3 with PyPDF2 or pikepdf. Run something like:\npython3 -c \"\nimport subprocess\ntry:\n    import PyPDF2\n    reader = PyPDF2.PdfReader(open('/home/user/Desktop/book/Spectral Graph Theory.pdf', 'rb'))\n    outlines = reader.outline\n    def print_outlines(outlines, level=0):\n        for item in outlines:\n            if isinstance(item, list):\n                print_outlines(item, level+1)\n            else:\n                page_num = reader.get_destination_page_number(item)\n                print(f'{level} | Page {page_num+1} | {item.title}')\n    print_outlines(outlines)\nexcept Exception as e:\n    print(f'Error: {e}')\n\"\nAlternatively try pdftk dump_data or pdftotext to get chapter titles.", "display": 2}
+  ]
+}
+```

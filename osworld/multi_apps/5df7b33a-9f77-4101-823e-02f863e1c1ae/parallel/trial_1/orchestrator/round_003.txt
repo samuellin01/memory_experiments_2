@@ -1,0 +1,22 @@
+Now I have all the information needed. I need to split the PDF into chapters 2-8 (chapter 1 already exists). The page ranges are:
+
+- Chapter 1: pages 3-17 (already done)
+- Chapter 2: pages 18-28
+- Chapter 3: pages 29-43
+- Chapter 4: pages 44-55
+- Chapter 5: pages 56-65
+- Chapter 6: pages 66-78
+- Chapter 7: pages 79-86
+- Chapter 8: pages 87-100
+
+Let me split the work across both free displays for speed.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Use Python3 with PyPDF2 to split the PDF ~/Desktop/book/'Spectral Graph Theory.pdf' into chapters 2, 3, 4, and 5. Save them in ~/Desktop/book/ with these exact names and page ranges (PDF pages, 1-indexed):\n\n- '2. Graph isomorphism.pdf' → pages 18-28\n- '3. Graph polynomials.pdf' → pages 29-43\n- '4. Covers and Interlacing families.pdf' → pages 44-55\n- '5. Eigenvalues and the structure of graphs.pdf' → pages 56-65\n\nUse PyPDF2.PdfReader and PdfWriter. Remember page indices in PyPDF2 are 0-based, so page 18 in the PDF is index 17.", "display": 2},
+    {"instruction": "Use Python3 with PyPDF2 to split the PDF ~/Desktop/book/'Spectral Graph Theory.pdf' into chapters 6, 7, and 8. Save them in ~/Desktop/book/ with these exact names and page ranges (PDF pages, 1-indexed):\n\n- '6. Optimization for cliques and colourings.pdf' → pages 66-78\n- '7. Theta.pdf' → pages 79-86\n- '8. The Laplacian matrix.pdf' → pages 87-100\n\nUse PyPDF2.PdfReader and PdfWriter. Remember page indices in PyPDF2 are 0-based, so page 66 in the PDF is index 65. The total PDF has 100 pages, so chapter 8 goes to the end (page 100, index 99).", "display": 3}
+  ]
+}
+```

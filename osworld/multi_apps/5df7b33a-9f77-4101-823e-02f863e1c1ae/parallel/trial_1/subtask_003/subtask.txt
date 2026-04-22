@@ -1,0 +1,39 @@
+Context:
+Original task: I enjoy reading during my spare time, but this book is too bulky. Each time I open it, I have to find where I left off, which is a hassle. I'd like to divide the book into several PDFs, each containing a different chapter, and name them following the example I set with chapter one.
+
+Progress so far:
+1. [DONE] List all files in ~/Desktop/book/ directory to find the existing chapter 1 file and understand the naming convention. Run: ls -la ~/Desktop/book/
+   Result: DONE
+
+The `ls -la ~/Desktop/book/` command has been executed successfully. Here's what was found in the `~/Desktop/book/` directory:
+
+1. **`Spectral Graph Theory.pdf`** (788,761 bytes, dated Apr 15, 2022) — This is the original full book PDF.
+2. **`1. Symmetric matrices and adjacency of a graph.pdf`** (348,838 bytes, dated Mar 8, 2024) — This is the chapter 1 file that establishes the naming convention.
+
+**Naming convention identified:** The chapter files follow the pattern:
+`{chapter_number}. {chapter_title}.pdf`
+
+For example: `1. Symmetric matrices and adjacency of a graph.pdf`
+
+So subsequent chapters should be named similarly, e.g., `2. {Chapter 2 title}.pdf`, `3. {Chapter 3 title}.pdf`, etc.
+
+Subtask:
+Extract the full bookmark/outline titles from the PDF file ~/Desktop/book/'Spectral Graph Theory.pdf'. Use Python3 with PyPDF2 or pikepdf. Run something like:
+python3 -c "
+import subprocess
+try:
+    import PyPDF2
+    reader = PyPDF2.PdfReader(open('/home/user/Desktop/book/Spectral Graph Theory.pdf', 'rb'))
+    outlines = reader.outline
+    def print_outlines(outlines, level=0):
+        for item in outlines:
+            if isinstance(item, list):
+                print_outlines(item, level+1)
+            else:
+                page_num = reader.get_destination_page_number(item)
+                print(f'{level} | Page {page_num+1} | {item.title}')
+    print_outlines(outlines)
+except Exception as e:
+    print(f'Error: {e}')
+"
+Alternatively try pdftk dump_data or pdftotext to get chapter titles.
