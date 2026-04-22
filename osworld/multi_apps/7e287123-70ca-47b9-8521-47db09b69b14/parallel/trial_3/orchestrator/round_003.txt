@@ -1,0 +1,8 @@
+Good, I can see the PDFs contain tabular data with discipline categories. Let me use display 3 to quickly extract just the Computer Science related lines from the GRF PDFs while display 2 is still working on the full extraction.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Extract text from GRF PDFs for years 2019-2023 and search for Computer Science related data. Run these commands:\n\nfor year in 19 20 21 22 23; do\n    echo \"========== grf${year}.pdf ==========\"\n    pdftotext /home/user/Documents/Fundings/grf/grf${year}.pdf /tmp/grf${year}.txt\n    grep -i -B 2 -A 10 'computer' /tmp/grf${year}.txt\n    echo\ndone\n\nThen also show the full content of one file to understand the table structure:\necho '===== FULL CONTENT OF grf23.txt ====='\ncat /tmp/grf23.txt", "display": 3}
+  ]
+}

@@ -1,0 +1,21 @@
+Now I can see the full picture. Let me analyze the critical findings:
+
+**Key finding about the data structure:**
+- Col 0 disciplines (10 items): `['Engineering', 'Civil Engineering,', 'Surveying, Building &', 'Construction', 'Computing Science &', 'Information Technology', 'Electrical & Electronic', 'Engineering', 'Mechanical, Production &', 'Industrial Engineering']`
+- **Index 4**: "Computing Science &" and **Index 5**: "Information Technology" — these are actually ONE category "Computing Science & Information Technology" split across two lines
+- The data arrays have entries at different indices. Looking at the Total: `App_No=['183', '196', '151', '217']` and `Sup_No=['62', '64', '67', '85']`
+
+Wait — the Total App_No has only 4 values but there are 10 discipline name entries. This means the discipline names are split differently from the data values. Let me check more carefully.
+
+The existing Excel file shows:
+- 2019/2020: Applied=196, Supported=64, Rate=32.65%
+- Using CS_INDEX=1 from Total App_No=['183', '196', '151', '217'] → 196 ✓
+
+But wait — the Col 0 has 10 entries while the data columns have fewer entries. The data is grouped by major category, not sub-discipline. Let me verify which index truly corresponds to "Computing Science & Information Technology".
+
+Looking at Total: `App_No=['183', '196', '151', '217']` — 4 values. The Col 0 names suggest 4 Engineering sub-categories when properly merged:
+- Index 0: Engineering (total) = 183 apps
+- Index 1: Civil Eng, Surveying, Building & Construction = 196? No...
+- Actually: Index 0 = "Engineering" total, Index 1 = CS&IT, Index 2 = EE, Index 3 = Mechanical/Production
+
+But that doesn't match. Let me look at per-university data to cross-validate. The task says "CS departments of each school". Let me check if the existing data is correct by examining all years more carefully.

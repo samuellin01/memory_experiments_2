@@ -1,0 +1,29 @@
+Excellent! Now I can see the structure clearly. The categories split by `\n` in Col 0 are:
+
+1. 'Engineering' (group header)
+2. 'Civil Engineering,'
+3. 'Surveying, Building &'  
+4. 'Construction'
+5. 'Computing Science &'
+6. '' (blank - continuation of Computing Science)
+7. 'Information Technology'
+8. 'Electrical & Electronic'
+9. 'Engineering'
+10. 'Mechanical, Production &'
+11. 'Industrial Engineering'
+
+But the numeric columns only have 4 values each (for 4 sub-categories). So the mapping is:
+- Index 0: Civil Engineering, Surveying, Building & Construction
+- Index 1: Computing Science & Information Technology
+- Index 2: Electrical & Electronic Engineering  
+- Index 3: Mechanical, Production & Industrial Engineering
+
+Now I need to identify which columns are the "Total" #Applied and #Supported. Looking at the header row 0, the "Total" column group starts somewhere. Let me check: Col 33-36 are the last 4 columns. For the Total group, there should be 4 sub-columns: App_No, App_Amt, Sup_No, Sup_Amt.
+
+For grf19 Computing Science (index 1):
+- Col 33: '196' (Total Applied No)
+- Col 34: '230,685' (Total Applied Amt)
+- Col 35: '64' (Total Supported No)
+- Col 36: '41,237' (Total Supported Amt)
+
+This matches the earlier raw data! Let me now write the final script to extract and create the Excel file:

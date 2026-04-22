@@ -1,0 +1,46 @@
+Now I have all the data. Let me analyze the structure carefully:
+
+**Col0 discipline names** (for grf19, which has 10 items):
+`['Engineering', 'Civil Engineering,', 'Surveying, Building &', 'Construction', 'Computing Science &', 'Information Technology', 'Electrical & Electronic', 'Engineering', 'Mechanical, Production &', 'Industrial Engineering']`
+
+These are actually 4 sub-categories under "Engineering":
+- Index 0: **Engineering** (total/header) 
+- Index 1: Civil Engineering, Surveying, Building & Construction
+- Index 2: Computing Science & Information Technology  
+- Index 3: Electrical & Electronic Engineering, Mechanical, Production & Industrial Engineering
+
+Wait, but Total_App has 4 items: `['183', '196', '151', '217']`. Let me re-examine...
+
+Actually, looking at grf21-23 (9 Col0 items, 4 data items), the Col0 names are:
+`['Engineering', 'Civil Engineering, Surveying,', 'Building & Construction', 'Computing Science &', 'Information Technology', 'Electrical & Electronic', 'Engineering', 'Mechanical, Production &', 'Industrial Engineering']`
+
+This maps to 4 data rows:
+- Data[0] = Engineering total = 211/197/221/255
+- Data[1] = Computing Science & IT = 196/179/197/205/206
+- Wait no...
+
+Let me think again. The 4 data items map to:
+- [0]: Engineering (panel total)
+- [1]: Civil Engineering, Surveying, Building & Construction  
+- [2]: Computing Science & Information Technology
+- [3]: Electrical & Electronic Engineering / Mechanical, Production & Industrial Engineering
+
+But the existing Excel used **index 1**, which gives Total_App for grf19 = 196. Let me verify against the raw pdftotext data from earlier progress notes: "Computing Science & 41 40,113 10 6,284 13 12,082 5 3,086 0 0 0 0 43 56,500 14 9,479 2 1,312 1 487 30 33,793 14 9,028 42 57,401 13 8,179 25 29,484 7 4,693 **196** 230,685 **64** 41,237"
+
+So for grf19, CS&IT has Total Applied=196, Total Supported=64. And index 1 gives `['183', '196', '151', '217'][1]` = 196. ✓
+
+But wait — that means index 0 (183) is NOT the Engineering total, it's Civil Engineering. Let me re-examine. Looking at grf21-23 where Col0 has 9 items but data has 4 items:
+
+Col0: `['Engineering', 'Civil Engineering, Surveying,', 'Building & Construction', 'Computing Science &', 'Information Technology', 'Electrical & Electronic', 'Engineering', 'Mechanical, Production &', 'Industrial Engineering']`
+
+The mapping is:
+- Data[0] = "Civil Engineering, Surveying, Building & Construction" (3 Col0 entries after "Engineering" header)
+- Data[1] = "Computing Science & Information Technology" (2 Col0 entries)
+- Data[2] = "Electrical & Electronic Engineering" (2 Col0 entries)  
+- Data[3] = "Mechanical, Production & Industrial Engineering" (2 Col0 entries)
+
+**CS_INDEX = 1 is CORRECT!** The existing Excel file data is verified correct.
+
+Now let me check the task requirement again: "the pass rate of the GRF applications of the CS departments of **each school**". This means we need per-university data, not just totals! But the existing file only has totals. Let me also re-read: the headers should be "Year", "#Applied", "#Supported", "Success Rate" — which suggests a simple table. Perhaps "each school" means each university gets its own sheet or section.
+
+Let me re-read the original task: "organise the pass rate of the GRF applications of the CS departments of each school for 2019~2023". The headers "Year", "#Applied", "#Supported", "Success Rate" suggest one table per school. Let me create the proper file with per-university sheets.

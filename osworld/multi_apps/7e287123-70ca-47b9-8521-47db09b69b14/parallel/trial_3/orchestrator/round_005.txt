@@ -1,0 +1,16 @@
+Now I have crucial information. The task asks for "CS departments of each school" which means per-university data. The table has columns for universities: CUHK, CityU, EdUHK, HKBU, HKU, HKUST, LU, PolyU, and Total. Each has Application (No, Amt) and Supported (No, Amt) sub-columns.
+
+The raw data from pdfplumber's extract_text() for the "Computing Science &" row gives numbers in sequence. I need to use extract_tables() to get proper column mapping. Let me use display 3 to write a comprehensive Python script that extracts the structured table data and creates the Excel file.
+
+But wait - re-reading the task: "organise the pass rate of the GRF applications of the CS departments of each school for 2019~2023". The headers are "Year", "#Applied", "#Supported", "Success Rate" - this suggests one table per school, or a combined table. But the headers don't include "School" - so maybe it's one table with per-school rows grouped by year, or separate sheets per school.
+
+Actually, looking more carefully: "organise the pass rate of the GRF applications of the CS departments of each school" with headers "Year", "#Applied", "#Supported", "Success Rate" - this likely means separate sheets per university, each with 5 rows (2019-2023).
+
+Let me get the structured table data first.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this Python script to extract structured table data from all GRF PDFs (2019-2023) and print the Computing Science row with column headers. Write the script to /tmp/extract_grf.py and run it:\n\ncat > /tmp/extract_grf.py << 'PYEOF'\nimport pdfplumber\nimport json\n\nfor year in [19, 20, 21, 22, 23]:\n    filepath = f'/home/user/Documents/Fundings/grf/grf{year}.pdf'\n    print(f'\\n========== grf{year}.pdf (20{year}/20{year+1}) ==========')\n    with pdfplumber.open(filepath) as pdf:\n        page = pdf.pages[0]\n        tables = page.extract_tables()\n        for t_idx, table in enumerate(tables):\n            print(f'Table {t_idx}: {len(table)} rows x {len(table[0]) if table else 0} cols')\n            # Print header rows (first 4)\n            for r_idx in range(min(4, len(table))):\n                print(f'  Header row {r_idx}: {table[r_idx]}')\n            # Find Computing Science row\n            for r_idx, row in enumerate(table):\n                if row and any(cell and 'omputing' in str(cell) for cell in row):\n                    print(f'  Computing row {r_idx}: {row}')\n                    print(f'  Number of columns: {len(row)}')\nPYEOF\npython3 /tmp/extract_grf.py", "display": 3}
+  ]
+}

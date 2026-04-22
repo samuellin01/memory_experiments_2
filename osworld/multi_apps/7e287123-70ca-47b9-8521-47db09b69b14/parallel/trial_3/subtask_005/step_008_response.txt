@@ -1,0 +1,27 @@
+Now I can see the structure for grf19.pdf. The discipline names have 10 lines but the data has only 4 values per column. Looking at the disciplines:
+
+- Index 0: 'Engineering' (total for the section)
+- Index 1: 'Civil Engineering,' + 'Surveying, Building &' + 'Construction' = one discipline
+- Index 2: 'Computing Science &' + 'Information Technology' = one discipline  
+- Index 3: 'Electrical & Electronic' + 'Engineering' = one discipline
+- Index 4: 'Mechanical, Production &' + 'Industrial Engineering' = one discipline
+
+Wait, but there are only 4 data values. Let me check: Total App_No = ['183', '196', '151', '217']. The earlier raw text showed "196 230,685 64 41,237" for Computing Science in grf19. So:
+- Index 0: 183 = Engineering total
+- **Index 1: 196 = Computing Science & Information Technology**
+- Index 2: 151 = Electrical & Electronic Engineering
+- Index 3: 217 = Mechanical, Production & Industrial Engineering
+
+Wait, but 196 + 151 + 217 = 564, not 183. So Index 0 is NOT a total. Let me reconsider.
+
+Actually, looking at grf23 data: Total = ['255', '206', '161', '243']. And 206+161+243 = 610 ≠ 255. So these must be 4 separate sub-disciplines:
+- Index 0: Civil Engineering, Surveying, Building & Construction = 255 (grf23) / 183 (grf19)
+- **Index 1: Computing Science & Information Technology = 206 (grf23) / 196 (grf19)**
+- Index 2: Electrical & Electronic Engineering = 161 (grf23) / 151 (grf19)
+- Index 3: Mechanical, Production & Industrial Engineering = 243 (grf23) / 217 (grf19)
+
+This matches the earlier raw data. Computing Science is at **Index 1** in the data values.
+
+For grf19: Total Applied = 196, Total Supported = 64 → Success Rate = 64/196 * 100 = 32.65%
+
+Let me scroll down to see the other years and then create the final script.

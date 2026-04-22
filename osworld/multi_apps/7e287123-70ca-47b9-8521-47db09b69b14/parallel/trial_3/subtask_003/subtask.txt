@@ -1,0 +1,56 @@
+Context:
+Original task: I am an assistant professor of CS at HKU, I want to apply for the General Research Fund next year, I need to get some insights, so I need you to help me to organise the data. First please help me to organise the pass rate of the GRF applications of the CS departments of each school for 2019~2023 in percentage form with 2 decimal digits in a table, which I can use subsequently. Set the headers as "Year", "#Applied", "#Supported", and "Success Rate". The materials are saved under Documents/Fundings. And please save the result table as "GRF-p5y.xlsx" on my desktop.
+
+Progress so far:
+1. [DONE] List all files and subdirectories under /home/user/Documents/Fundings/ recursively. Show the full file names and structure. Run: find /home/user/Documents/Fundings/ -type f | sort
+   Result: DONE
+
+The recursive file listing under `/home/user/Documents/Fundings/` has been completed. Here is the full structure:
+
+**Directory: `/home/user/Documents/Fundings/ecs/`** (9 files)
+- ecs15.pdf
+- ecs16.pdf
+- ecs17.pdf
+- ecs18.pdf
+- ecs19.pdf
+- ecs20.pdf
+- ecs21.pdf
+- ecs22.pdf
+- ecs23.pdf
+
+**Directory: `/home/user/Documents/Fundings/grf/`** (10 files)
+- customer-information-sheet-for-inward-payments-to-hong-kong.pdf
+- grf15.pdf
+- grf16.pdf
+- grf17.pdf
+- grf18.pdf
+- grf19.pdf
+- grf20.pdf
+- grf21.pdf
+- grf22.pdf
+- grf23.pdf
+
+In total, there are 19 files across 2 subdirectories (`ecs/` and `grf/`). The GRF-related PDFs for years 2015–2023 are in the `grf/` folder (files grf15.pdf through grf23.pdf), and there's also an extra PDF file (`customer-information-sheet-for-inward-payments-to-hong-kong.pdf`) in the `grf/` directory. The ECS-related PDFs for years 2015–2023 are in the `ecs/` folder.
+
+Subtask:
+Extract text from the GRF PDF files for years 2019-2023. Run the following commands:
+
+pip install pdfplumber 2>/dev/null
+
+python3 -c "
+import pdfplumber
+import sys
+
+for year in [19, 20, 21, 22, 23]:
+    filepath = f'/home/user/Documents/Fundings/grf/grf{year}.pdf'
+    print(f'\n========== grf{year}.pdf ==========')
+    try:
+        with pdfplumber.open(filepath) as pdf:
+            for i, page in enumerate(pdf.pages):
+                text = page.extract_text()
+                if text:
+                    print(f'--- Page {i+1} ---')
+                    print(text)
+    except Exception as e:
+        print(f'Error: {e}')
+" 2>&1 | head -500

@@ -1,0 +1,8 @@
+The files are PDFs, so I need to extract text from them. Let me start extracting the GRF PDF contents for the years we need (2019-2023). I'll use display 2 to extract text from the GRF PDFs.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Extract text from the GRF PDF files for years 2019-2023. Run the following commands:\n\npip install pdfplumber 2>/dev/null\n\npython3 -c \"\nimport pdfplumber\nimport sys\n\nfor year in [19, 20, 21, 22, 23]:\n    filepath = f'/home/user/Documents/Fundings/grf/grf{year}.pdf'\n    print(f'\\n========== grf{year}.pdf ==========')\n    try:\n        with pdfplumber.open(filepath) as pdf:\n            for i, page in enumerate(pdf.pages):\n                text = page.extract_text()\n                if text:\n                    print(f'--- Page {i+1} ---')\n                    print(text)\n    except Exception as e:\n        print(f'Error: {e}')\n\" 2>&1 | head -500", "display": 2}
+  ]
+}
