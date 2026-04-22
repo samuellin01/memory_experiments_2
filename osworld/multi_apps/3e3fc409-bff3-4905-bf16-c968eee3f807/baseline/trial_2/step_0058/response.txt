@@ -1,0 +1,15 @@
+
+
+I can see the verification output:
+- **Sheets**: `['seen_movies', 'unseen_movies']` - Both sheets exist
+- **Rows: 15, Cols: 4** - 14 data rows + 1 header row, 4 columns
+- **Headers**: `['title', 'release_year', 'ratings', 'description']` - Same as seen_movies
+- First data row: `['Star Wars', 1977, 8.6, ...]` - Rank #30 (highest rank number first = sorted from high to low)
+
+The data looks correct! However, I notice the movie names have HTML entities like `&apos;` in some names. Let me check if this is an issue. Looking at the data:
+- "Star Wars" (1977) - rank 30
+- "La vita è bella" (1997) - rank 27
+- "Cidade de Deus" (2002) - rank 26
+- "The Green Mile" (1999) - rank 25
+
+The data is sorted by rank from high to low (30, 27, 26, 25...) which is correct. But I notice some movie names have `&apos;` instead of apostrophes. Let me fix this and also verify the descriptions don't have HTML entities.
