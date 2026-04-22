@@ -1,0 +1,26 @@
+The verification confirms everything is correct:
+
+- **Sheets**: `['seen_movies', 'unseen_movies']` - both sheets exist
+- **Rows in unseen_movies**: 11 (1 header + 10 data rows)
+- **Columns**: 4 (title, release year, ratings, description)
+- **Headers**: `('title', 'release year', 'ratings', 'description')` - matching the seen_movies sheet
+
+The 10 unseen movies are sorted by IMDB ranking from high to low:
+1. The Dark Knight (2008) - 9.1
+2. 12 Angry Men (1957) - 9.0
+3. The Good, the Bad and the Ugly (1966) - 8.8
+4. The Matrix (1999) - 8.7
+5. Interstellar (2014) - 8.7
+6. One Flew Over the Cuckoo's Nest (1975) - 8.6
+7. Seven (1995) - 8.6
+8. The Green Mile (1999) - 8.6
+9. City of God (2002) - 8.6
+10. Star Wars: Episode IV - A New Hope (1977) - 8.6
+
+DONE. Successfully created the `unseen_movies` sheet in `/home/user/Desktop/movies.xlsx`. The script:
+1. Read 150 seen movies from `/tmp/seen_movies.txt`
+2. Read the IMDB Top 30 from `/tmp/imdb_top30.txt`
+3. Identified 10 movies from the IMDB Top 30 that were NOT in the seen list and were released before 2024
+4. Created a new sheet `unseen_movies` with the same headers as `seen_movies` (title, release year, ratings, description)
+5. Added the 10 unseen movies sorted by IMDB ranking from high to low (rank 1 first)
+6. Saved the file to `/home/user/Desktop/movies.xlsx`

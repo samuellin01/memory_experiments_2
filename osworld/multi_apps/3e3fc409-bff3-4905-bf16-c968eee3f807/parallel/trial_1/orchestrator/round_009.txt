@@ -1,0 +1,19 @@
+Excellent! `/tmp/imdb_top30.txt` has been successfully created with all 30 IMDB top movies! Now I need to:
+1. Compare the IMDB Top 30 with the seen movies list
+2. Find unseen movies released before 2024
+3. Create the 'unseen_movies' sheet in the Excel file
+4. Sort by IMDB ranking (high to low, meaning rank 1 first)
+
+Let me now write a Python script to do the comparison and create the new sheet, then reload the file in LibreOffice on display 0.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write and run a Python script that:\n1. Reads /tmp/imdb_top30.txt (pipe-delimited: rank|title|year|rating|description)\n2. Reads /tmp/seen_movies.txt (one movie title per line)\n3. Finds IMDB Top 30 movies that are NOT in the seen list AND were released before 2024\n4. Opens /home/user/Desktop/movies.xlsx with openpyxl\n5. Creates a new sheet called 'unseen_movies' with the same headers as 'seen_movies' (title, release year, ratings, description)\n6. Adds the unseen movies sorted by IMDB ranking from high to low (rank 1 = highest ranking, so rank 1 first, then rank 2, etc.)\n7. Saves the file\n\nIMPORTANT: The comparison of movie titles should be case-insensitive and handle minor differences. The headers in the Excel are: title, release year, ratings, description.\n\nRun this:\ncat > /tmp/create_sheet.py << 'EOF'\nimport openpyxl\n\n# Read seen movies\nwith open('/tmp/seen_movies.txt', 'r') as f:\n    seen_movies = set(line.strip().lower() for line in f if line.strip())\nprint(f\"Seen movies: {len(seen_movies)}\")\n\n# Read IMDB top 30\nimdb_movies = []\nwith open('/tmp/imdb_top30.txt', 'r') as f:\n    header = f.readline()  # skip header\n    for line in f:\n        parts = line.strip().split('|')\n        if len(parts) >= 5:\n            rank = int(parts[0])\n            title = parts[1]\n            year = int(parts[2]) if parts[2].isdigit() else 0\n            rating = float(parts[3]) if parts[3] != 'N/A' else 0\n            desc = parts[4]\n            imdb_movies.append({'rank': rank, 'title': title, 'year': year, 'rating': rating, 'description': desc})\nprint(f\"IMDB Top 30: {len(imdb_movies)} movies\")\n\n# Find unseen movies released before 2024\nunseen = []\nfor m in imdb_movies:\n    if m['title'].lower() not in seen_movies and m['year'] < 2024:\n        unseen.append(m)\n        print(f\"  UNSEEN: {m['rank']}. {m['title']} ({m['year']}) - {m['rating']}\")\n    else:\n        status = 'seen' if m['title'].lower() in seen_movies else f'year={m[\"year\"]}'\n        print(f\"  skip: {m['rank']}. {m['title']} ({m['year']}) - {status}\")\n\n# Sort by ranking high to low (rank 1 is highest, so sort by rank ascending)\nunseen.sort(key=lambda x: x['rank'])\nprint(f\"\\nUnseen movies before 2024: {len(unseen)}\")\n\n# Open Excel and create new sheet\nwb = openpyxl.load_workbook('/home/user/Desktop/movies.xlsx')\nif 'unseen_movies' in wb.sheetnames:\n    del wb['unseen_movies']\nws = wb.create_sheet('unseen_movies')\n\n# Write headers (same as seen_movies)\nws['A1'] = 'title'\nws['B1'] = 'release year'\nws['C1'] = 'ratings'\nws['D1'] = 'description'\n\n# Write data\nfor i, m in enumerate(unseen, start=2):\n    ws[f'A{i}'] = m['title']\n    ws[f'B{i}'] = m['year']\n    ws[f'C{i}'] = m['rating']\n    ws[f'D{i}'] = m['description']\n\nwb.save('/home/user/Desktop/movies.xlsx')\nprint(f\"\\nSaved! Sheet 'unseen_movies' created with {len(unseen)} movies.\")\nEOF\n\npython3 /tmp/create_sheet.py",
+      "display": 2
+    }
+  ]
+}
+```

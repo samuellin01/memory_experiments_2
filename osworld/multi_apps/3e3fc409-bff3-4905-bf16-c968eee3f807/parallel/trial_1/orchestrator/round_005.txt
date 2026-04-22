@@ -1,0 +1,16 @@
+The curl approach failed due to IMDB's WAF, and the Chrome DevTools approach failed due to missing `--remote-allow-origins=*` flag. I need to restart Chrome with proper flags and extract the data. Let me try two approaches in parallel:
+
+1. On display 3: Kill Chrome, restart with proper flags, and extract data via CDP
+2. On display 2: Try an alternative approach - use selenium or just restart Chrome properly
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Kill all Chrome processes and restart Chrome with proper flags, then extract the IMDB Top 30 data. Run these commands in sequence:\n\n1. Kill Chrome:\npkill -f google-chrome; sleep 3\n\n2. Restart Chrome with all needed flags:\ngoogle-chrome --no-sandbox --disable-gpu --remote-debugging-port=9222 --remote-allow-origins=* --no-first-run --user-data-dir=/tmp/chrome-new 'https://www.imdb.com/chart/top/' &\nsleep 15\n\n3. Then run this Python script to extract data via CDP:\npython3 << 'PYEOF'\nimport json, websocket\n\n# Get the WebSocket URL\nimport urllib.request\nresp = urllib.request.urlopen('http://localhost:9222/json')\npages = json.loads(resp.read())\nws_url = None\nfor p in pages:\n    if 'imdb' in p.get('url', '').lower():\n        ws_url = p['webSocketDebuggerUrl']\n        break\nif not ws_url:\n    ws_url = pages[0]['webSocketDebuggerUrl']\nprint(f'Connecting to: {ws_url}')\n\nws = websocket.create_connection(ws_url)\n\n# Get the page HTML\nmsg = json.dumps({'id': 1, 'method': 'Runtime.evaluate', 'params': {'expression': 'document.documentElement.outerHTML', 'returnByValue': True}})\nws.send(msg)\nresult = json.loads(ws.recv())\nhtml = result['result']['result']['value']\nws.close()\n\nprint(f'HTML length: {len(html)}')\n\n# Save HTML for debugging\nwith open('/tmp/imdb_full.html', 'w') as f:\n    f.write(html)\n\n# Parse JSON-LD\nimport re\nld_match = re.search(r'<script type=\"application/ld\\+json\">(.*?)</script>', html, re.DOTALL)\nif ld_match:\n    jdata = json.loads(ld_match.group(1))\n    items = jdata.get('itemListElement', [])\n    print(f'Found {len(items)} items')\n    with open('/tmp/imdb_top30.txt', 'w') as f:\n        f.write('rank|title|year|rating|description\\n')\n        for i, item in enumerate(items[:30]):\n            movie = item.get('item', {})\n            name = movie.get('name', 'Unknown')\n            dp = movie.get('datePublished', '')\n            year = dp[:4] if dp else 'Unknown'\n            ro = movie.get('aggregateRating', {})\n            rating = ro.get('ratingValue', 'N/A')\n            desc = movie.get('description', 'N/A').replace('\\n', ' ').replace('|', '-')\n            f.write(f'{i+1}|{name}|{year}|{rating}|{desc}\\n')\n            print(f'{i+1}. {name} ({year}) - {rating}')\n    print('Saved to /tmp/imdb_top30.txt')\nelse:\n    print('No JSON-LD found, trying alternative parsing...')\n    # Try parsing from Next.js data\n    next_match = re.search(r'__NEXT_DATA__.*?>(.*?)</script>', html, re.DOTALL)\n    if next_match:\n        print('Found __NEXT_DATA__, length:', len(next_match.group(1)))\n        with open('/tmp/imdb_nextdata.json', 'w') as f:\n            f.write(next_match.group(1))\n        print('Saved raw next data for further parsing')\nPYEOF\n\n4. Verify: cat /tmp/imdb_top30.txt",
+      "display": 3
+    }
+  ]
+}
+```
