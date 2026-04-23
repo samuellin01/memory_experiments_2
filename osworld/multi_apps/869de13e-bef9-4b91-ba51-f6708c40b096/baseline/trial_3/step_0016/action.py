@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('mv ~/Desktop/1706.03762.pdf ~/Desktop/1909.10351.p'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('df ~/Desktop/1802.05365.pdf ~/Desktop/paper01.pdf '), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('~/Desktop/"GLUE: A MULTI-TASK BENCHMARK AND ANALYS'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('IS.pdf" ~/Desktop/Paper_reading/\n'), shell=True, check=True)
+import time; time.sleep(0.05)

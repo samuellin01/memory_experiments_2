@@ -1,0 +1,4 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ls ~/Desktop/2-if-for-array/ && echo "---" && ls ~'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('/Desktop/assign1-data_python3/\n'), shell=True, check=True)
+import time; time.sleep(0.05)
