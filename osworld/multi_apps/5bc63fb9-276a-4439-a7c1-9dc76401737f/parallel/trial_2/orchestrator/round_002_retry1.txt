@@ -1,0 +1,9 @@
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write and run a Python script to create a Word document. First install python-docx with: pip install python-docx\n\nThen create a file /tmp/create_doc.py with the following content and run it with python3 /tmp/create_doc.py:\n\nimport json\nfrom docx import Document\nfrom docx.enum.text import WD_COLOR_INDEX\nimport re\n\nwith open('/home/user/Desktop/llm_answers.json', 'r') as f:\n    data = json.load(f)\n\ngemini_responses = []\n\ndef extract_gemini(obj):\n    if isinstance(obj, dict):\n        for key, value in obj.items():\n            if key.upper() == 'GEMINI':\n                if isinstance(value, dict):\n                    if 'answer' in value:\n                        gemini_responses.append(value['answer'])\n                    elif 'text' in value:\n                        gemini_responses.append(value['text'])\n                elif isinstance(value, str):\n                    gemini_responses.append(value)\n            else:\n                extract_gemini(value)\n    elif isinstance(obj, list):\n        for item in obj:\n            extract_gemini(item)\n\nextract_gemini(data)\nprint(f'Found {len(gemini_responses)} GEMINI responses')\nfor i, r in enumerate(gemini_responses):\n    print(f'Response {i+1}: {r[:80]}...')\n\ndoc = Document()\nfor i, response in enumerate(gemini_responses):\n    parts = re.split(r'(Iliad)', response)\n    paragraph = doc.add_paragraph()\n    for part in parts:\n        run = paragraph.add_run(part)\n        if part == 'Iliad':\n            run.font.highlight_color = WD_COLOR_INDEX.YELLOW\n    if i < len(gemini_responses) - 1:\n        doc.add_paragraph()\n\ndoc.save('/home/user/Desktop/gemini_results.docx')\nprint('Document saved successfully')\n\nMake sure the script runs successfully and the output file is created at /home/user/Desktop/gemini_results.docx",
+      "display": 3
+    }
+  ]
+}

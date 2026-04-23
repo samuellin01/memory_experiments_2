@@ -1,0 +1,17 @@
+Now I have enough information about the JSON structure. I need to write a Python script that:
+1. Parses the JSON file
+2. Extracts all GEMINI response values
+3. Creates a Word document with each response as a paragraph, separated by blank lines
+4. Highlights all occurrences of "Iliad"
+
+Let me dispatch this to both secondary displays - one to write and run the script, and the other as backup.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write and run a Python script to create a Word document. Here are the exact steps:\n\n1. First install python-docx: pip install python-docx\n2. Then create and run this Python script:\n\n```python\nimport json\nfrom docx import Document\nfrom docx.shared import RGBColor\nfrom docx.enum.text import WD_COLOR_INDEX\nimport re\n\n# Load JSON\nwith open('/home/user/Desktop/llm_answers.json', 'r') as f:\n    data = json.load(f)\n\n# Extract all GEMINI responses\ngemini_responses = []\n\ndef extract_gemini(obj):\n    \"\"\"Recursively search for GEMINI keys and extract their answer/text values\"\"\"\n    if isinstance(obj, dict):\n        for key, value in obj.items():\n            if key.upper() == 'GEMINI':\n                # Found a GEMINI entry, extract the answer value\n                if isinstance(value, dict):\n                    if 'answer' in value:\n                        gemini_responses.append(value['answer'])\n                    elif 'text' in value:\n                        gemini_responses.append(value['text'])\n                elif isinstance(value, str):\n                    gemini_responses.append(value)\n            else:\n                extract_gemini(value)\n    elif isinstance(obj, list):\n        for item in obj:\n            extract_gemini(item)\n\nextract_gemini(data)\n\nprint(f'Found {len(gemini_responses)} GEMINI responses')\nfor i, r in enumerate(gemini_responses):\n    print(f'Response {i+1}: {r[:100]}...')\n\n# Create Word document\ndoc = Document()\n\nfor i, response in enumerate(gemini_responses):\n    # Split text by 'Iliad' to add highlighting\n    parts = re.split(r'(Iliad)', response)\n    \n    paragraph = doc.add_paragraph()\n    for part in parts:\n        run = paragraph.add_run(part)\n        if part == 'Iliad':\n            run.font.highlight_color = WD_COLOR_INDEX.YELLOW\n    \n    # Add empty paragraph as separator (except after last response)\n    if i < len(gemini_responses) - 1:\n        doc.add_paragraph()\n\ndoc.save('/home/user/Desktop/gemini_results.docx')\nprint('Document saved to /home/user/Desktop/gemini_results.docx')\n```\n\nSave this script to /tmp/create_doc.py and run it with: python3 /tmp/create_doc.py\n\nMake sure it completes successfully and the file is saved.",
+      "display": 3
+    }
+  ]
+}
