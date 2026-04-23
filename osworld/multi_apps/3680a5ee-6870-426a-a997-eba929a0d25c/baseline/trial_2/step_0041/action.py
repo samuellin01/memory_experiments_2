@@ -1,0 +1,1 @@
+pyautogui.click(189, 12)

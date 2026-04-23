@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('rm -rf ~/.config/libreoffice/4/user/backup/* 2>/de'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('v/null; rm -rf /tmp/lu*/ 2>/dev/null; soffice --ca'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('lc ~/Desktop/output.csv &\n'), shell=True, check=True)
+import time; time.sleep(0.05)

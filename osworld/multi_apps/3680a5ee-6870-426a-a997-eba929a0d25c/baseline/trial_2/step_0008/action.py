@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("paste -d',' /tmp/file1.csv /tmp/file2.csv | awk -F"), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("',' 'NR==1{print $1$2} NR>1{print $1$2}' > ~/Deskt"), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('op/output.csv\n'), shell=True, check=True)
+import time; time.sleep(0.05)

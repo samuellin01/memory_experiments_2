@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('WID=$(xdotool search --class "libreoffice" 2>/dev/'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('null | tail -1); echo "Window ID: $WID"; xdotool w'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('indowactivate $WID 2>/dev/null; xdotool windowrais'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('e $WID 2>/dev/null\n'), shell=True, check=True)
+import time; time.sleep(0.05)
