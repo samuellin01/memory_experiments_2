@@ -1,0 +1,29 @@
+Context:
+Original task: I have a collection of MP3s with blank meta data, but already named with their artists and titles. I've heard that Picard or Kid3 may help, but I'm unfamiliar with them. Can you help me to fix the meta data "title" and "artist"?
+
+Progress so far:
+1. [DONE] In the terminal, write and run a Python script (or use a command-line tool like id3v2, eyeD3, or mid3v2) to set the ID3 tags for all MP3 files in ~/Music/. The filenames follow the pattern 'Artist - Title.mp3'. For each file, parse the artist and title from the filename and write them as ID3 metadata tags. Here are the files:
+
+1. 'Cheng Xiang - Missing You.mp3' → artist='Cheng Xiang', title='Missing You'
+2. 'Chen Shaohua - Red Daughter.mp3' → artist='Chen Shaohua', title='Red Daughter'
+3. 'Han Baoyi - Tears of Dancing Girl.mp3' → artist='Han Baoyi', title='Tears of Dancing Girl'
+4. 'Huang An - I Know Missing is Painful.mp3' → artist='Huang An', title='I Know Missing is Painful'
+5. 'Zhou Xuan - Nights in Shanghai.mp3' → artist='Zhou Xuan', title='Nights in Shanghai'
+
+First check what tools are available (id3v2, eyeD3, mid3v2, python3-mutagen, kid3-cli). Install what's needed if not present. Then set the tags. After setting tags, verify them by reading back the metadata of each file.
+   Result: 
+
+The script ran successfully. All 5 MP3 files have been tagged and verified:
+
+1. **Chen Shaohua - Red Daughter.mp3**: artist='Chen Shaohua', title='Red Daughter'
+2. **Cheng Xiang - Missing You.mp3**: artist='Cheng Xiang', title='Missing You'
+3. **Han Baoyi - Tears of Dancing Girl.mp3**: artist='Han Baoyi', title='Tears of Dancing Girl'
+4. **Huang An - I Know Missing is Painful.mp3**: artist='Huang An', title='I Know Missing is Painful'
+5. **Zhou Xuan - Nights in Shanghai.mp3**: artist='Zhou Xuan', title='Nights in Shanghai'
+
+The verification section confirms all tags were written correctly and can be read back properly.
+
+DONE. Successfully set ID3 metadata tags (artist and title) for all 5 MP3 files in ~/Music/ using Python with the mutagen library. The artist and title were parsed from each filename's "Artist - Title.mp3" pattern and written as TPE1 (artist) and TIT2 (title) ID3 tags. Verification confirmed all tags were correctly saved.
+
+Subtask:
+Open Kid3 application on this display. If it's not installed yet, first install it with 'sudo apt-get install -y kid3' from a terminal. Then launch Kid3 and open the folder ~/Music/ so that all 5 MP3 files are visible in Kid3's file list. Make sure Kid3 is open and showing the Music folder contents with the MP3 files listed.

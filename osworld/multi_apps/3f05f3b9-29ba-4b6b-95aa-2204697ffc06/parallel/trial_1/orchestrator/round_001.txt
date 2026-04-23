@@ -1,0 +1,20 @@
+I can see 5 MP3 files in ~/Music with the naming pattern "Artist - Title.mp3". I need to:
+
+1. First, write the metadata (artist and title) to each file based on the filenames
+2. Then open Kid3 on the primary display to show the completed work
+
+Let me start by writing a script to fix the metadata and check what tools are available.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, write and run a Python script (or use a command-line tool like id3v2, eyeD3, or mid3v2) to set the ID3 tags for all MP3 files in ~/Music/. The filenames follow the pattern 'Artist - Title.mp3'. For each file, parse the artist and title from the filename and write them as ID3 metadata tags. Here are the files:\n\n1. 'Cheng Xiang - Missing You.mp3' → artist='Cheng Xiang', title='Missing You'\n2. 'Chen Shaohua - Red Daughter.mp3' → artist='Chen Shaohua', title='Red Daughter'\n3. 'Han Baoyi - Tears of Dancing Girl.mp3' → artist='Han Baoyi', title='Tears of Dancing Girl'\n4. 'Huang An - I Know Missing is Painful.mp3' → artist='Huang An', title='I Know Missing is Painful'\n5. 'Zhou Xuan - Nights in Shanghai.mp3' → artist='Zhou Xuan', title='Nights in Shanghai'\n\nFirst check what tools are available (id3v2, eyeD3, mid3v2, python3-mutagen, kid3-cli). Install what's needed if not present. Then set the tags. After setting tags, verify them by reading back the metadata of each file.",
+      "display": 2
+    },
+    {
+      "instruction": "Check if Kid3 is installed on the system. Run 'which kid3' and 'dpkg -l | grep kid3' in a terminal. If it's not installed, install it with 'sudo apt-get install -y kid3'. Just make sure it's available for later use.",
+      "display": 3
+    }
+  ]
+}
