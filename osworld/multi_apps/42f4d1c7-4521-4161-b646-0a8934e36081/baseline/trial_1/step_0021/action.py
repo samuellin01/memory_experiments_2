@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('file ~/Desktop/resized.png && identify ~/Desktop/r'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('esized.png 2>/dev/null || python3 -c "from PIL imp'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("ort Image; img=Image.open('/home/user/Desktop/resi"), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('zed.png\'); print(img.size)"\n'), shell=True, check=True)
+import time; time.sleep(0.05)
