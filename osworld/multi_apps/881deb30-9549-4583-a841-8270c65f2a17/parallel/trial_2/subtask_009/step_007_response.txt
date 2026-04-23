@@ -1,0 +1,11 @@
+Now I can see the structure clearly. The header shows:
+- Line 1: `P anel / Subject Discipline`, `C ityU`, `HKBU`, `LU`
+- Line 2: `C UHK`, `HKIEd`, `P olyU`, `HKUST`
+- Line 3: `HKU`, `Total`
+
+And the Total section has 3 data lines:
+- Line 63 (Total): `77  56,905  35  19,746  25  16,037  11  6,284  7  4,758  5  2,2..` → CityU, HKBU, LU
+- Line 64: `57  59  55,840  27  17,677  55  40,061  17  10,221  77  58,944  24  14,497  16  20,005  7  5,...` → CUHK, HKIEd, PolyU, HKUST
+- Line 65: `995  62  59,627  25  15,185  378  312,177  151  91,862` → HKU, Total
+
+The data is split across 3 lines matching the header layout. Each university gets 4 numbers (AppNo, AppAmt, SuppNo, SuppAmt). But line 63 seems to start with the word "Total" and then has numbers. Let me use `cat -A` to see the full lines without wrapping.

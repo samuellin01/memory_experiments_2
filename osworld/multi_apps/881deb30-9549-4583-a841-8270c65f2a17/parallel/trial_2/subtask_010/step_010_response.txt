@@ -1,0 +1,7 @@
+I can see the issue. The script is extracting data but the pass rates are very different from the previous extraction. For example, for ecs15 (2015/16):
+- CityU: App=56905, Supp=19746, Rate=34.7% (these are amounts in $'000, not counts!)
+- The previous correct extraction showed CityU 2015/16: App=77, Supp=35, Rate=45.5%
+
+The problem is that the column offset is wrong - it's picking up the Amount columns instead of the Number columns. The table structure has columns like: [uni_name_col, App_No, App_Amt, Supp_No, Supp_Amt], but the script is using `col_start+1` for App and `col_start+3` for Supp, which gets App_Amt and Supp_Amt instead of App_No and Supp_No.
+
+Let me check the actual table structure and fix the script:

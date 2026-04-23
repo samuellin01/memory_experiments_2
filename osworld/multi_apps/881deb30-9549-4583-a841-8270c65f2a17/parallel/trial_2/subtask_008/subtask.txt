@@ -1,0 +1,409 @@
+Context:
+Original task: I want to find a faculty job in Hong Kong, so I am more curious about the "Early Career Scheme" of those schools is better to apply, please help me to count all the documents in the ecs pdf files in my hand, and organize the pass rate of each school by year into table!
+
+Progress so far:
+1. [MAX_STEPS] Extract text from all PDF files in /home/user/Documents/Fundings/ecs/ directory. For each PDF (ecs15.pdf through ecs23.pdf), run: for f in /home/user/Documents/Fundings/ecs/ecs*.pdf; do echo "=== $f ==="; pdftotext "$f" - 2>/dev/null | head -200; done > /tmp/ecs_preview.txt. Then examine the output to understand the structure of these documents. Also count total pages in each PDF using pdfinfo. Save page counts to /tmp/ecs_pages.txt
+   Result: ## Summary
+
+### 1) What was successfully completed:
+- **Listed all PDF files**: Found 9 PDFs in `/home/user/Documents/Fundings/ecs/`: ecs15.pdf through ecs23.pdf
+- **Text extraction saved to `/tmp/ecs_preview.txt`**: Ran `pdftotext` on all 9 PDFs with first 200 lines each
+- **Page counts saved to `/tmp/ecs_pages.txt`**: All 9 PDFs have exactly **1 page each**
+- **Document structure identified**: 
+  - Each PDF is titled like "2015/2016 Early Career Scheme" (ecs15 = 2015/2016, etc.)
+  - They are "Annex B: Breakdown of Applications from Institutions and Summary of Grants Approved"
+  - Data is organized by **Panel/Subject Discipline** (Biology & Medicine, Humanities & Social Sciences, Physical Sciences, Mathematics, Business Studies, Engineering subcategories)
+  - Columns contain university data: **CityU, HKBU, LU (Lingnan), CUHK, PolyU, HKUST, HKU** plus **Total**
+  - Each university has: **Application No**, **Application Amt**, **Supported No**, **Supported Amt** (in $'000)
+
+### 2) Approaches tried:
+- **`pdftotext` (default)**: Extracted text but lost table structure completely - numbers and labels were separated and jumbled
+- **`pdftotext -layout`**: **This worked much better** - preserved column alignment and made the tabular data readable with numbers aligned under their respective university columns
+- **`pdfinfo`**: Worked well for page counts
+
+### 3) What is still incomplete:
+- Only examined ecs15.pdf in detail with `-layout`; haven't examined ecs16-ecs23 structures
+- The `-layout` preview file (`/tmp/ecs_preview.txt`) was created with default `pdftotext` (no `-layout`), so it's not very useful
+- Need to re-extract all PDFs with `-layout` flag for proper parsing
+- Haven't yet extracted the actual numerical data (Application No, Supported No) per university per year
+
+### 4) Recommended approach for future agent:
+1. **Re-extract with layout**: `for f in /home/user/Documents/Fundings/ecs/ecs*.pdf; do echo "=== $f ==="; pdftotext -layout "$f" - 2>/dev/null; done > /tmp/ecs_layout.txt`
+2. **Examine each file's full layout output** to map column positions to university names
+3. **Look for the "Total" row** in each PDF - it contains aggregate Application No and Supported No per university, which gives the pass rate (Supported/Application)
+4. **Consider using Python with tabula-py or camelot** for more reliable table extraction since these are single-page tabular PDFs
+5. **Key data to extract per year per school**: Application Number and Supported Number → Pass Rate = Supported/Application
+6. The files should be processed efficiently in a single script rather than examining one at a time
+
+DONE - Extracted text previews from all 9 ECS PDFs (ecs15-ecs23) saved to `/tmp/ecs_preview.txt`, page counts saved to `/tmp/ecs_pages.txt` (all 1 page each). Document structure identified: each PDF contains a table of Early Career Scheme applications and approvals by university and subject discipline. The `-layout` flag for pdftotext is essential for readable extraction.
+2. [MAX_STEPS] Extract text from the later PDF files. Run these commands: for f in /home/user/Documents/Fundings/ecs/ecs20.pdf /home/user/Documents/Fundings/ecs/ecs21.pdf /home/user/Documents/Fundings/ecs/ecs22.pdf /home/user/Documents/Fundings/ecs/ecs23.pdf; do echo "=== $f ==="; pdftotext "$f" - 2>/dev/null; done > /tmp/ecs_later.txt. Then examine the content to understand the structure - look for university names, number of applications, number of funded projects, pass rates.
+   Result: ## Summary
+
+### 1) What was successfully completed
+- **Extraction command executed successfully**: The command extracted text from all 4 PDF files (ecs20.pdf, ecs21.pdf, ecs22.pdf, ecs23.pdf) and saved the output to `/tmp/ecs_later.txt` (5692 lines).
+- **File structure identified**: 
+  - ecs20.pdf: lines 1-1430
+  - ecs21.pdf: lines 1431-2863
+  - ecs22.pdf: lines 2864-4277
+  - ecs23.pdf: lines 4278-5692
+- **Document structure understood**: Each PDF contains "Early Career Scheme" data titled "Breakdown of Applications from Institutions and Summary of Grants Approved" organized by Panel/Subject Discipline.
+- **University names found**: CityU, HKBU, LU (Lingnan), EdUHK, HKU, and likely others (PolyU, CUHK, HKUST, etc.)
+- **Key sections identified**: Subject totals (Biology & Medicine Total, Business Studies Total, Engineering Total, Sciences Total, Physical Sciences Total) and overall "Total" sections exist in each PDF.
+- **Column headers identified**: Application (No, Amt), Supported (No, Amt), with amounts in $'000.
+
+### 2) Approaches tried
+- **pdftotext extraction**: Worked but produced text with spacing issues (e.g., "C ityU" instead of "CityU", "Bio lo g y & Med ic ine" instead of "Biology & Medicine"). The tabular data was flattened into separate lines, making parsing difficult.
+- **grep for key terms**: Successfully found "Total" lines and "Notes" lines to identify section boundaries.
+- **sed for examining specific line ranges**: Effective for understanding structure but time-consuming given the complexity.
+
+### 3) What is still incomplete
+- **Did not fully extract the numerical data** (applications, supported counts) per university from the "Total" sections of each PDF.
+- **Did not identify pass rates** (supported/applications ratio) per school per year.
+- **Did not examine the structure of the overall Total sections** in detail to understand how numbers map to universities.
+
+### 4) Recommended approach for future agent
+- **Use `pdftotext -layout`** instead of plain `pdftotext` to preserve the tabular layout, which would make it much easier to parse columns (application numbers, supported numbers) aligned with university names.
+- **Focus on the "Total" sections** (around lines 2225, 2845, 3648/4261, 5636) which should contain aggregate numbers per university across all disciplines.
+- **Alternatively, use Python with `tabula-py` or `camelot`** to extract tables directly from the PDFs, which would be far more reliable than parsing flattened text.
+- **Consider using `pdftotext -layout` and then parsing with Python/awk** to extract rows containing university abbreviations (CityU, HKBU, LU, EdUHK, HKU, CUHK, PolyU, HKUST) from the Total sections, grabbing the application count and supported count columns.
+- The output file `/tmp/ecs_later.txt` is ready for further processing.
+
+DONE — Extracted text from ecs20.pdf, ecs21.pdf, ecs22.pdf, and ecs23.pdf into `/tmp/ecs_later.txt`. Identified the document structure (Early Career Scheme breakdown by institution and subject discipline) with university names, application counts, and supported counts. The file is ready for detailed parsing to extract pass rates per school per year.
+3. [MAX_STEPS] First, extract all PDFs with layout mode to see the full content. Run: for f in /home/user/Documents/Fundings/ecs/ecs*.pdf; do echo "=== $(basename $f) ==="; pdftotext -layout "$f" -; echo; done > /tmp/ecs_all_layout.txt. Then view the full content of /tmp/ecs_all_layout.txt to understand the exact structure, especially the 'Total' rows and column headers for each file. Pay special attention to which universities appear and their column order. Save the complete output so we can see it all.
+   Result: ## Summary
+
+### 1) What was successfully completed:
+- **Extracted all 9 PDFs with layout mode** to `/tmp/ecs_all_layout.txt` (599 lines total)
+- **File path**: `/tmp/ecs_all_layout.txt` contains the complete layout-preserved text from all 9 PDFs (ecs15.pdf through ecs23.pdf)
+- **Viewed lines 1-350** of the 599-line file, covering ecs15.pdf through ecs20.pdf (partial)
+
+### Key structural findings:
+- **ecs15.pdf** (2015/2016): Universities: CUHK, CityU, HKIEd, HKBU, LU, PolyU, HKU, HKUST. Total row shows 3 lines of data per section (Application No, Application Amt; Supported No, Supported Amt; then a combined total line)
+- **ecs16.pdf** (2016/2017): Same structure, Total row at ~line 100
+- **ecs17.pdf** (2017/2018): Same structure, Total row at ~line 160  
+- **ecs18.pdf** (2018/2019): Same structure, Total row at ~line 240
+- **ecs19.pdf** (2019/2020): Same structure, Total row at ~line 290
+- **ecs20.pdf** (2020/2021): **"HKIEd" changed to "EdUHK"**, otherwise same structure
+- Each PDF has a "Total" row with 3 lines: first line has Application numbers per university, second has Supported numbers, third has combined totals
+
+### 2) Approaches tried:
+- **`pdftotext -layout`** worked well for preserving column alignment
+- **`sed -n` with line ranges** worked well for viewing chunks of the file
+- **`wc -l`** confirmed 599 total lines
+
+### 3) What is still incomplete:
+- **Lines 351-599 not viewed** — ecs20.pdf (partial), ecs21.pdf, ecs22.pdf, and ecs23.pdf still need examination
+- **Actual numerical extraction not done** — need to parse the Total rows to get Application No and Supported No per university per year
+- **Pass rate calculation not done** — Pass Rate = Supported No / Application No per university per year
+- **Final table not created**
+
+### 4) Recommended approach for future agent:
+1. **First, quickly view the remaining lines**: `sed -n '351,599p' /tmp/ecs_all_layout.txt` to see ecs20-ecs23
+2. **Extract just the Total rows** with context: `grep -n -A3 "^Total" /tmp/ecs_all_layout.txt` — this will show the key data lines
+3. **Use a Python script** for reliable parsing — the layout text has inconsistent spacing, so using Python with regex to extract numbers from the Total rows would be most reliable. The script should:
+   - Identify each file's year from the header
+   - Identify the university column order from the header (note HKIEd→EdUHK name change around 2016/2017)
+   - Extract the Total section's first line (Application No per university) and second line (Supported No per university)
+   - Calculate pass rate = Supported/Application for each university-year combination
+4. **Alternative**: Use `tabula-py` or `camelot` Python libraries for direct table extraction from PDFs, which would handle column alignment automatically
+5. **Key gotcha**: The column order and university names may vary between years (HKIEd vs EdUHK), so each file's header must be checked independently
+
+DONE — Successfully extracted all 9 ECS PDF files with layout mode to `/tmp/ecs_all_layout.txt` and examined the structure for ecs15-ecs20 (lines 1-350 of 599). The file contains complete text from all PDFs with preserved column alignment. Lines 351-599 (ecs20-ecs23) still need viewing, and the actual numerical data extraction and pass rate calculations remain to be done.
+4. [MAX_STEPS] Write and execute a Python script at /tmp/extract_ecs.py to extract layout text from all ECS PDFs. The script should:
+1. For each PDF in /home/user/Documents/Fundings/ecs/ecs15.pdf through ecs23.pdf, run pdftotext -layout to extract text and save each to /tmp/ecs_YY_layout.txt
+2. Print the full content of each layout file so we can see the structure
+
+Run: python3 -c "
+import subprocess, re
+for y in range(15, 24):
+    f = f'/home/user/Documents/Fundings/ecs/ecs{y}.pdf'
+    result = subprocess.run(['pdftotext', '-layout', f, '-'], capture_output=True, text=True)
+    outfile = f'/tmp/ecs_{y}_layout.txt'
+    with open(outfile, 'w') as fout:
+        fout.write(result.stdout)
+    print(f'Saved {outfile} ({len(result.stdout)} chars)')
+"
+
+Then examine /tmp/ecs_15_layout.txt fully to understand the Total row structure and column positions. Look at the last ~10 lines which should contain the overall Total with Application No and Supported No per university.
+   Result: ## Summary
+
+### 1) What was successfully completed
+- **All 9 layout text files extracted and saved:**
+  - `/tmp/ecs_15_layout.txt` (8841 chars)
+  - `/tmp/ecs_16_layout.txt` (9686 chars)
+  - `/tmp/ecs_17_layout.txt` (9652 chars)
+  - `/tmp/ecs_18_layout.txt` (9032 chars)
+  - `/tmp/ecs_19_layout.txt` (9154 chars)
+  - `/tmp/ecs_20_layout.txt` (9249 chars)
+  - `/tmp/ecs_21_layout.txt` (9160 chars)
+  - `/tmp/ecs_22_layout.txt` (8946 chars)
+  - `/tmp/ecs_23_layout.txt` (8996 chars)
+
+- **Document structure identified for ecs_15_layout.txt:**
+  - 70 lines total, key data lines are ~305 characters wide
+  - Header (line 6): Universities listed as `C ityU`, `HKBU`, `LU`, `HKUST`, `HKIEd`, `P olyU`, `HKU`, plus `Total` column
+  - Line 7 has: `C UHK`, `HKIEd`, `P olyU`, `HKUST`, `HKU`, `Total`
+  - **Total section at line 63** contains 3 rows of numbers: the first row has Application No and Supported No per university, and subsequent rows have more data (Amt values)
+  - Each data section has 3 lines: first for one set of universities (CityU onwards), second for another set, third for HKU/Total
+  - Line 63 Total row example: `Total    77  56,905  35  19,746   25  16,037  11  6,284   7  4,758  5  2,257` (continues with more universities)
+
+### 2) Approaches tried
+- **`pdftotext -layout`** via Python subprocess: **Worked well** - preserved column alignment and produced readable tabular output
+- **`cat -A`** to see line endings: Helped confirm line structure
+- **`repr()` of lines**: Helped see exact content but terminal wrapping (80-char width) made 305-char lines hard to read
+- **`grep -n "Total"`**: Effectively located the Total row at line 63
+- **`head -8`**: Successfully showed header structure with university names
+
+### 3) What is still incomplete
+- **Did not print the full content** of all 9 layout files (only examined ecs_15 in detail)
+- **Did not map column positions** to university names (was about to do this when steps ran out)
+- **Did not extract numerical data** (Application No, Supported No) per university per year
+- **Did not verify structure consistency** across ecs16-ecs23 (university names may change, e.g., HKIEd → EdUHK in later years)
+
+### 4) Recommended approach for future agent
+1. **Don't spend time examining files visually in terminal** - the 305-char wide lines wrap and waste steps. Instead, write a single comprehensive Python script.
+
+2. **Write a Python script** (`/tmp/extract_ecs.py`) that:
+   - Reads each `/tmp/ecs_YY_layout.txt` file
+   - Finds the header line containing university names (look for line containing "P anel / Subject Discipline" or "C ityU")
+   - Finds the "Total" line (search for line starting with "Total")
+   - The Total section has 3 data lines after the "Total" label - these contain Application No, Application Amt, Supported No, Supported Amt for each university
+   - Uses **positional column parsing** based on the header line to extract numbers aligned under each university
+   - Note: University names have spaces in pdftotext output (e.g., "C ityU", "P olyU", "C UHK") and HKIEd becomes EdUHK in later years
+
+3. **Key insight**: The data is in a fixed-width format. Use the column positions of university names in the header to determine where each university's Application No and Supported No fall in the Total rows. Consider using Python's string slicing based on detected positions.
+
+4. **Alternative approach**: Use `tabula-py` or `camelot` Python libraries for direct PDF table extraction, which would be much more reliable than parsing fixed-width text from pdftotext.
+
+DONE - Extracted layout text from all 9 ECS PDFs (ecs15-ecs23) and saved to `/tmp/ecs_15_layout.txt` through `/tmp/ecs_23_layout.txt`. Identified document structure including Total row location (line 63 in ecs15) and university column layout. Full numerical extraction still pending.
+5. [MAX_STEPS] Create and run a Python script at /tmp/parse_ecs.py that does the following:
+
+1. First, view the complete content of /tmp/ecs_all_layout.txt by running: cat /tmp/ecs_all_layout.txt
+2. Then, specifically grep for the Total rows: grep -n -B1 -A5 '^T o t al\|^Total' /tmp/ecs_all_layout.txt
+3. Also grep for the header lines showing university names: grep -n 'CityU\|C ityU\|CUHK\|C UHK' /tmp/ecs_all_layout.txt
+
+The goal is to see the exact text patterns for the Total rows and university header rows across all 9 files, so we can write a reliable parser. Save all output to /tmp/ecs_grep_results.txt and review it.
+   Result: ## Summary
+
+### 1) What was successfully completed:
+- **File `/tmp/ecs_all_layout.txt`** (599 lines) contains the complete layout-preserved text extracted from all 9 PDFs (ecs15.pdf through ecs23.pdf)
+- **File `/tmp/ecs_grep_results.txt`** contains grep results for Total rows, university headers, and file separators
+- **File `/tmp/ecs_full_content.txt`** is a copy of the full layout text
+- **File separators identified** (line numbers for each PDF):
+  - ecs15.pdf: lines 1-71
+  - ecs16.pdf: lines 72-138
+  - ecs17.pdf: lines 139-207
+  - ecs18.pdf: lines 208-275
+  - ecs19.pdf: lines 276-343
+  - ecs20.pdf: lines 344-411
+  - ecs21.pdf: lines 412-474
+  - ecs22.pdf: lines 475-537
+  - ecs23.pdf: lines 538-599
+- **Key structural findings**:
+  - ecs15: Universities: CUHK, CityU, HKIEd, HKBU, LU, PolyU, HKUST, HKU (+ Total)
+  - ecs20+: HKIEd changed to EdUHK
+  - Total rows have 3 data lines: Line 1 = Application No + Application Amt per university; Line 2 = Supported No + Supported Amt; Line 3 = combined totals
+  - Total row patterns: "Total" (clean) or "T o t al" (spaced)
+
+### 2) Approaches tried:
+- **`pdftotext -layout`**: Worked well for preserving column alignment — this is the correct approach
+- **grep with patterns**: Successfully identified Total rows and university headers across all files
+- **sed for line ranges**: Effective for examining specific sections
+- **pip3 install tabula-py pdfplumber**: Started but did not complete before steps ran out
+- **Did NOT create `/tmp/parse_ecs.py`** — the subtask's main deliverable was not completed
+
+### 3) What is still incomplete:
+- **The Python script `/tmp/parse_ecs.py` was never created or run** — this was the primary goal
+- **Numerical data not extracted** from Total rows
+- **Pass rates not calculated** (Supported No / Application No per university per year)
+- **Final table not produced**
+- Only viewed ecs15.pdf header/Total in detail; ecs21-ecs23 Total rows not fully examined
+
+### 4) Recommended approach for future agent:
+1. **Skip the exploratory grep phase** — the structure is already well understood from `/tmp/ecs_all_layout.txt`
+2. **Use pdfplumber directly on the PDFs** (install with `pip3 install pdfplumber`) — it handles table extraction much better than parsing pdftotext output
+3. **Write a Python script that**:
+   - For each PDF, uses `pdfplumber.open(f).pages[0].extract_table()` to get the table
+   - Identifies the "Total" row (last data row)
+   - Extracts Application No (column pattern: No, Amt, No, Amt for each university) and Supported No
+   - Calculates pass rate = Supported No / Application No
+4. **Alternative simpler approach**: Parse `/tmp/ecs_all_layout.txt` directly:
+   - For each file section, find the line starting with "Total" or "T o t al"
+   - The first data line after has Application numbers; the second has Supported numbers
+   - Numbers alternate: No, Amt, No, Amt... for each university in column order
+   - Extract every other number (the "No" values, skipping "Amt" values)
+5. **Key mapping** — University column order from headers: typically CityU, HKBU, LU, CUHK, EdUHK/HKIEd, PolyU, HKUST, HKU (verify per file)
+6. **Year mapping**: ecs15=2015/16, ecs16=2016/17, ..., ecs23=2023/24
+6. [MAX_STEPS] Create a Python script at /tmp/build_table.py with the following content and run it. The script reads the layout text files already extracted at /tmp/ecs_15_layout.txt through /tmp/ecs_23_layout.txt, finds the Total rows, extracts numbers, and prints them for debugging.
+
+Write this exact content to /tmp/build_table.py:
+
+import re
+
+def extract_numbers(line):
+    return [int(x.replace(',','')) for x in re.findall(r'[0-9][0-9,]*', line)]
+
+for y in range(15, 24):
+    filepath = f'/tmp/ecs_{y}_layout.txt'
+    with open(filepath) as f:
+        lines = f.readlines()
+    year_label = f'20{y}/20{y+1}'
+    total_line_idx = None
+    for i, line in enumerate(lines):
+        if line.strip().startswith('Total') and i > 20:
+            total_line_idx = i
+    print(f'=== ecs{y} ({year_label}) === Total at line {total_line_idx}')
+    if total_line_idx:
+        for i in range(total_line_idx, min(total_line_idx+3, len(lines))):
+            print(f'  Line {i}: {lines[i].rstrip()}')
+            print(f'  Numbers: {extract_numbers(lines[i])}')
+    # Also print header lines (first 10 lines)
+    print('  Header lines:')
+    for i in range(min(10, len(lines))):
+        stripped = lines[i].strip()
+        if stripped:
+            print(f'    Line {i}: {stripped[:120]}')
+
+Then run: python3 /tmp/build_table.py
+
+Examine the output to see the Total row numbers and header structure for ALL 9 files.
+   Result: ## Summary
+
+### 1) What was successfully completed
+- **Created and ran `/tmp/build_table.py`** - the script was written exactly as specified and executed successfully
+- **Output saved to `/tmp/build_output.txt`** - contains the full debugging output from all 9 PDF files
+- **Total line locations identified for 6 of 9 files:**
+  - ecs15 (2015/2016): Total at line 62
+  - ecs16 (2016/2017): Total at line 58
+  - ecs17 (2017/2018): Total at line 60
+  - ecs21 (2021/2022): Total at line 54
+  - ecs22 (2022/2023): Total at line 54
+  - ecs23 (2023/2024): Total at line 53
+- **Numbers extracted for working files** - e.g., ecs23 Total line numbers: `[188, 79754, 31, 20869, 55, 45689, 14, 12857, 30, 16914, 14, 6293, 85, 77778, 27, 21062, 22, 16208, 5, 4054, 71, 60702, 29, 19697, 58, 57047, 27, 22680, 116, 116541, 40, 32421, 525, 470633, 187, 139933]`
+- **Header structure identified** for all files showing university column order (CityU, HKBU, LU, CUHK/C UHK, HKIEd/EdUHK, PolyU, HKUST, HKU, Total)
+- **Layout text files** already exist at `/tmp/ecs_15_layout.txt` through `/tmp/ecs_23_layout.txt`
+
+### 2) Approaches tried - what worked vs didn't
+- **`line.strip().startswith('Total')` detection**: Worked for 6 files but **failed for ecs18, ecs19, ecs20** - likely because `pdftotext -layout` introduces spaces in "Total" (e.g., "T otal" or "To tal") in those specific PDFs
+- **Redirecting output to file then grepping**: Worked well for quickly seeing summary results
+- **Scrolling through terminal output**: Inefficient - wasted several steps trying to find the right scroll position
+
+### 3) What is still incomplete
+- **ecs18 (2018/2019), ecs19 (2019/2020), ecs20 (2020/2021)** - Total rows not found; need to investigate the actual text (likely "T otal" or similar spacing issue)
+- **No actual data extraction** of Application No and Supported No per university per year
+- **No pass rate calculation** (Supported No / Application No)
+- **No final table created**
+- **Column-to-university mapping** not yet programmatically determined
+
+### 4) Recommended approach for future agent
+1. **First, fix the Total detection** - run `grep -in "total" /tmp/ecs_18_layout.txt` (and ecs19, ecs20) to see how "Total" is rendered. Use a regex like `re.search(r'T\s*o\s*t\s*a\s*l', line)` to handle spaces within the word.
+2. **Don't scroll through terminal** - always redirect output to files and use `cat`/`grep`/`head`/`tail` to examine specific parts.
+3. **Use a comprehensive Python script** that:
+   - Detects Total rows with flexible regex (handling spaces in "Total")
+   - For each file, reads the full line at the Total row position (lines are ~300 chars wide)
+   - Uses column positions from the header to map numbers to universities
+   - Each university has 4 numbers: Application No, Application Amt, Supported No, Supported Amt
+   - Pass rate = Supported No / Application No
+4. **Alternative approach**: Use `tabula-py` (`pip install tabula-py`) for direct PDF table extraction, which would bypass all the text parsing issues entirely. This would be much more reliable.
+5. **Key insight**: The numbers in the Total row follow the pattern [AppNo, AppAmt, SuppNo, SuppAmt] repeated for each university then a grand total. So for N universities, there are 4*N + 4 numbers (including the total column).
+
+Subtask:
+Write a complete Python script to /tmp/make_table.py and run it. This script must:
+
+1. Read each /tmp/ecs_YY_layout.txt file (YY from 15 to 23)
+2. Find the Total line using flexible regex (handle 'Total', 'T o t al', 'T otal', etc.)
+3. Extract all numbers from the Total line (3 lines of data starting from Total)
+4. The numbers follow pattern: for each university, 4 numbers = AppNo, AppAmt, SuppNo, SuppAmt. Last 4 numbers are the grand Total column.
+5. University order is: CityU, HKBU, LU, CUHK, HKIEd/EdUHK, PolyU, HKUST, HKU, Total (9 groups × 4 = 36 numbers)
+6. Calculate pass rate = SuppNo / AppNo for each university
+7. Save to /tmp/ecs_pass_rates.csv and also create /home/user/Documents/Fundings/ecs/ecs_pass_rates.xlsx using openpyxl
+
+Here is the exact script to write to /tmp/make_table.py:
+
+import re
+import csv
+
+def extract_numbers(text):
+    return [int(x.replace(',','')) for x in re.findall(r'[0-9][0-9,]*', text)]
+
+unis = ['CityU', 'HKBU', 'LU', 'CUHK', 'HKIEd/EdUHK', 'PolyU', 'HKUST', 'HKU', 'Total']
+
+data = {}  # year -> {uni: (app_no, supp_no, rate)}
+
+for y in range(15, 24):
+    filepath = f'/tmp/ecs_{y}_layout.txt'
+    with open(filepath) as f:
+        lines = f.readlines()
+    year_label = f'20{y}/{y+1}'
+    
+    # Find Total line with flexible regex
+    total_idx = None
+    for i, line in enumerate(lines):
+        if i > 15 and re.search(r'T\s*o\s*t\s*a\s*l', line.strip()[:20]):
+            total_idx = i
+    
+    if total_idx is None:
+        print(f'WARNING: No Total found for ecs{y}')
+        continue
+    
+    # Combine the Total line and next 2 lines
+    combined = ''
+    for i in range(total_idx, min(total_idx+3, len(lines))):
+        combined += ' ' + lines[i]
+    
+    nums = extract_numbers(combined)
+    print(f'ecs{y} ({year_label}): Total at line {total_idx}, {len(nums)} numbers')
+    print(f'  Numbers: {nums}')
+    
+    # Each university has 4 numbers: AppNo, AppAmt, SuppNo, SuppAmt
+    # 9 groups (8 unis + Total) = 36 numbers
+    year_data = {}
+    for idx, uni in enumerate(unis):
+        base = idx * 4
+        if base + 3 < len(nums):
+            app_no = nums[base]
+            supp_no = nums[base + 2]
+            rate = supp_no / app_no if app_no > 0 else 0
+            year_data[uni] = (app_no, supp_no, rate)
+            print(f'  {uni}: App={app_no}, Supp={supp_no}, Rate={rate:.1%}')
+    
+    data[year_label] = year_data
+
+# Write CSV
+with open('/tmp/ecs_pass_rates.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    header = ['Year'] + [u for u in unis if u != 'Total']
+    writer.writerow(header)
+    for y in range(15, 24):
+        year_label = f'20{y}/{y+1}'
+        if year_label in data:
+            row = [year_label]
+            for uni in unis:
+                if uni != 'Total' and uni in data[year_label]:
+                    app, supp, rate = data[year_label][uni]
+                    row.append(f'{rate:.1%}')
+                elif uni != 'Total':
+                    row.append('N/A')
+            writer.writerow(row)
+
+print('\nCSV saved to /tmp/ecs_pass_rates.csv')
+
+# Also print the table
+print('\n=== PASS RATE TABLE ===')
+print(f'{"Year":<12}', end='')
+for u in unis:
+    if u != 'Total':
+        print(f'{u:<15}', end='')
+print()
+for y in range(15, 24):
+    yl = f'20{y}/{y+1}'
+    if yl in data:
+        print(f'{yl:<12}', end='')
+        for u in unis:
+            if u != 'Total' and u in data[yl]:
+                print(f'{data[yl][u][2]:<15.1%}', end='')
+            elif u != 'Total':
+                print(f'{"N/A":<15}', end='')
+        print()
+
+Run: python3 /tmp/make_table.py 2>&1 | tee /tmp/make_table_output.txt

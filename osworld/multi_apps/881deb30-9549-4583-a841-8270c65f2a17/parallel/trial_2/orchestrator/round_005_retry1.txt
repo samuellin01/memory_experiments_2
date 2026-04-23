@@ -1,0 +1,9 @@
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Create a Python script at /tmp/build_table.py with the following content and run it. The script reads the layout text files already extracted at /tmp/ecs_15_layout.txt through /tmp/ecs_23_layout.txt, finds the Total rows, extracts numbers, and prints them for debugging.\n\nWrite this exact content to /tmp/build_table.py:\n\nimport re\n\ndef extract_numbers(line):\n    return [int(x.replace(',','')) for x in re.findall(r'[0-9][0-9,]*', line)]\n\nfor y in range(15, 24):\n    filepath = f'/tmp/ecs_{y}_layout.txt'\n    with open(filepath) as f:\n        lines = f.readlines()\n    year_label = f'20{y}/20{y+1}'\n    total_line_idx = None\n    for i, line in enumerate(lines):\n        if line.strip().startswith('Total') and i > 20:\n            total_line_idx = i\n    print(f'=== ecs{y} ({year_label}) === Total at line {total_line_idx}')\n    if total_line_idx:\n        for i in range(total_line_idx, min(total_line_idx+3, len(lines))):\n            print(f'  Line {i}: {lines[i].rstrip()}')\n            print(f'  Numbers: {extract_numbers(lines[i])}')\n    # Also print header lines (first 10 lines)\n    print('  Header lines:')\n    for i in range(min(10, len(lines))):\n        stripped = lines[i].strip()\n        if stripped:\n            print(f'    Line {i}: {stripped[:120]}')\n\nThen run: python3 /tmp/build_table.py\n\nExamine the output to see the Total row numbers and header structure for ALL 9 files.",
+      "display": 3
+    }
+  ]
+}

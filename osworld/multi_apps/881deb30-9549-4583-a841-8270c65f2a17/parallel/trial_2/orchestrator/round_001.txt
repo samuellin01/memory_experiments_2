@@ -1,0 +1,17 @@
+I can see there are 9 PDF files (ecs15.pdf through ecs23.pdf) in `/home/user/Documents/Fundings/ecs/`. These appear to be Early Career Scheme funding results from Hong Kong's Research Grants Council for years 2015-2023. I need to extract data from all of them to build a pass rate table by school and year.
+
+Let me start by extracting text from these PDFs in parallel across the secondary displays, while keeping the primary display free for the final result.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Extract text from all PDF files in /home/user/Documents/Fundings/ecs/ directory. For each PDF (ecs15.pdf through ecs23.pdf), run: for f in /home/user/Documents/Fundings/ecs/ecs*.pdf; do echo \"=== $f ===\"; pdftotext \"$f\" - 2>/dev/null | head -200; done > /tmp/ecs_preview.txt. Then examine the output to understand the structure of these documents. Also count total pages in each PDF using pdfinfo. Save page counts to /tmp/ecs_pages.txt",
+      "display": 2
+    },
+    {
+      "instruction": "Extract text from the later PDF files. Run these commands: for f in /home/user/Documents/Fundings/ecs/ecs20.pdf /home/user/Documents/Fundings/ecs/ecs21.pdf /home/user/Documents/Fundings/ecs/ecs22.pdf /home/user/Documents/Fundings/ecs/ecs23.pdf; do echo \"=== $f ===\"; pdftotext \"$f\" - 2>/dev/null; done > /tmp/ecs_later.txt. Then examine the content to understand the structure - look for university names, number of applications, number of funded projects, pass rates.",
+      "display": 3
+    }
+  ]
+}

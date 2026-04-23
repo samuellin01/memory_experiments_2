@@ -1,0 +1,9 @@
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write and execute a Python script at /tmp/extract_ecs.py to extract layout text from all ECS PDFs. The script should:\n1. For each PDF in /home/user/Documents/Fundings/ecs/ecs15.pdf through ecs23.pdf, run pdftotext -layout to extract text and save each to /tmp/ecs_YY_layout.txt\n2. Print the full content of each layout file so we can see the structure\n\nRun: python3 -c \"\nimport subprocess, re\nfor y in range(15, 24):\n    f = f'/home/user/Documents/Fundings/ecs/ecs{y}.pdf'\n    result = subprocess.run(['pdftotext', '-layout', f, '-'], capture_output=True, text=True)\n    outfile = f'/tmp/ecs_{y}_layout.txt'\n    with open(outfile, 'w') as fout:\n        fout.write(result.stdout)\n    print(f'Saved {outfile} ({len(result.stdout)} chars)')\n\"\n\nThen examine /tmp/ecs_15_layout.txt fully to understand the Total row structure and column positions. Look at the last ~10 lines which should contain the overall Total with Application No and Supported No per university.",
+      "display": 3
+    }
+  ]
+}

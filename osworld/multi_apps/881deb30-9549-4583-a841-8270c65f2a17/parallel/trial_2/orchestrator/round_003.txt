@@ -1,0 +1,11 @@
+Good, I now know the structure well. Let me write a comprehensive Python script to extract the data from all PDFs and create the table. I'll use display 3 while display 2 finishes the layout extraction.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write and execute a Python script to extract ECS pass rate data from all PDFs. Create the file /tmp/extract_ecs.py with the following content and run it:\n\n```python\nimport subprocess\nimport re\nimport csv\n\n# Extract layout text from each PDF\nfiles = [f'/home/user/Documents/Fundings/ecs/ecs{y}.pdf' for y in range(15, 24)]\n\nfor f in files:\n    year = re.search(r'ecs(\\d+)', f).group(1)\n    result = subprocess.run(['pdftotext', '-layout', f, '-'], capture_output=True, text=True)\n    outfile = f'/tmp/ecs_{year}_layout.txt'\n    with open(outfile, 'w') as fout:\n        fout.write(result.stdout)\n    print(f'Saved {outfile} ({len(result.stdout)} chars)')\n\n# Now let's examine each file to find the Total rows\nfor y in range(15, 24):\n    print(f'\\n=== ecs{y} ===')\n    with open(f'/tmp/ecs_{y}_layout.txt') as f:\n        content = f.read()\n    print(content)\n```\n\nRun: python3 /tmp/extract_ecs.py > /tmp/ecs_debug.txt 2>&1\nThen examine /tmp/ecs_debug.txt and also look at the individual layout files, especially /tmp/ecs_15_layout.txt to understand the exact column structure and Total row format.",
+      "display": 3
+    }
+  ]
+}
