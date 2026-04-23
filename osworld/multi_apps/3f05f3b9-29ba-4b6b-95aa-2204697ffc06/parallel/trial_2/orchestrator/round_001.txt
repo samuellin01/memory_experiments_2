@@ -1,0 +1,17 @@
+I can see 5 MP3 files in ~/Music with the naming pattern "Artist - Title.mp3". I need to write the artist and title metadata from the filenames into the MP3 tags. Let me first use a script to do this efficiently, then open Kid3 on the primary display to show the results.
+
+Let me start by writing a script to update the metadata and checking what tools are available.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Open a terminal and run the following commands to install python3-mutagen (if not already installed) and then run a Python script to update MP3 metadata. Run:\n\nsudo apt-get install -y python3-mutagen\n\nThen run this Python script:\n\npython3 -c \"\nimport os, glob\nfrom mutagen.id3 import ID3, TIT2, TPE1, ID3NoHeaderError\n\nmusic_dir = os.path.expanduser('~/Music')\nfor f in glob.glob(os.path.join(music_dir, '*.mp3')):\n    basename = os.path.splitext(os.path.basename(f))[0]\n    parts = basename.split(' - ', 1)\n    if len(parts) == 2:\n        artist, title = parts[0].strip(), parts[1].strip()\n    else:\n        artist, title = '', basename.strip()\n    try:\n        tags = ID3(f)\n    except ID3NoHeaderError:\n        tags = ID3()\n    tags.delall('TPE1')\n    tags.delall('TIT2')\n    tags.add(TPE1(encoding=3, text=artist))\n    tags.add(TIT2(encoding=3, text=title))\n    tags.save(f)\n    print(f'Tagged: {artist} - {title}')\n\"\n\nVerify the tags were written by running:\npython3 -c \"\nimport os, glob\nfrom mutagen.id3 import ID3\nfor f in sorted(glob.glob(os.path.expanduser('~/Music/*.mp3'))):\n    tags = ID3(f)\n    print(os.path.basename(f), '|', tags.get('TPE1'), '|', tags.get('TIT2'))\n\"",
+      "display": 2
+    },
+    {
+      "instruction": "Check if Kid3 is installed by running: which kid3 && echo 'INSTALLED' || echo 'NOT INSTALLED'. If it's not installed, install it with: sudo apt-get install -y kid3",
+      "display": 3
+    }
+  ]
+}

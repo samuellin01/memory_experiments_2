@@ -1,0 +1,67 @@
+Context:
+Original task: I have a collection of MP3s with blank meta data, but already named with their artists and titles. I've heard that Picard or Kid3 may help, but I'm unfamiliar with them. Can you help me to fix the meta data "title" and "artist"?
+
+Progress so far:
+1. [DONE] Open a terminal and run the following commands to install python3-mutagen (if not already installed) and then run a Python script to update MP3 metadata. Run:
+
+sudo apt-get install -y python3-mutagen
+
+Then run this Python script:
+
+python3 -c "
+import os, glob
+from mutagen.id3 import ID3, TIT2, TPE1, ID3NoHeaderError
+
+music_dir = os.path.expanduser('~/Music')
+for f in glob.glob(os.path.join(music_dir, '*.mp3')):
+    basename = os.path.splitext(os.path.basename(f))[0]
+    parts = basename.split(' - ', 1)
+    if len(parts) == 2:
+        artist, title = parts[0].strip(), parts[1].strip()
+    else:
+        artist, title = '', basename.strip()
+    try:
+        tags = ID3(f)
+    except ID3NoHeaderError:
+        tags = ID3()
+    tags.delall('TPE1')
+    tags.delall('TIT2')
+    tags.add(TPE1(encoding=3, text=artist))
+    tags.add(TIT2(encoding=3, text=title))
+    tags.save(f)
+    print(f'Tagged: {artist} - {title}')
+"
+
+Verify the tags were written by running:
+python3 -c "
+import os, glob
+from mutagen.id3 import ID3
+for f in sorted(glob.glob(os.path.expanduser('~/Music/*.mp3'))):
+    tags = ID3(f)
+    print(os.path.basename(f), '|', tags.get('TPE1'), '|', tags.get('TIT2'))
+"
+   Result: The verification confirms all tags were written correctly. Here's a summary of the results:
+
+| File | Artist (TPE1) | Title (TIT2) |
+|------|--------------|-------------|
+| Chen Shaohua - Red Daughter.mp3 | Chen Shaohua | Red Daughter |
+| Cheng Xiang - Missing You.mp3 | Cheng Xiang | Missing You |
+| Han Baoyi - Tears of Dancing Girl.mp3 | Han Baoyi | Tears of Dancing Girl |
+| Huang An - I Know Missing is Painful.mp3 | Huang An | I Know Missing is Painful |
+| Zhou Xuan - Nights in Shanghai.mp3 | Zhou Xuan | Nights in Shanghai |
+
+All 5 MP3 files in `~/Music/` now have their artist and title metadata correctly populated based on their filenames.
+
+DONE. Successfully completed the subtask:
+1. Installed `python3-mutagen` package via apt-get.
+2. Ran a Python script using mutagen to parse each MP3 filename (in "Artist - Title" format) and write the corresponding TPE1 (artist) and TIT2 (title) ID3 tags.
+3. Verified all 5 MP3 files in `~/Music/` now have correct artist and title metadata tags.
+2. [DONE] Check if Kid3 is installed by running: which kid3 && echo 'INSTALLED' || echo 'NOT INSTALLED'. If it's not installed, install it with: sudo apt-get install -y kid3
+   Result: Kid3 is now successfully installed. The verification command shows:
+- `/usr/bin/kid3` - the path to the Kid3 binary
+- `INSTALLED` - confirming it's properly installed
+
+DONE. Kid3 was not initially installed on the system. I installed it using `sudo apt-get install -y kid3`, and verified the installation was successful. Kid3 (version 3.9.1-1) is now available at `/usr/bin/kid3` and ready to be used for editing MP3 metadata.
+
+Subtask:
+Open Kid3 on this display by launching it from the terminal or application menu. Once Kid3 is open, navigate to and open the ~/Music folder so that all 5 MP3 files are visible in Kid3's file list. You can do this by running 'kid3 ~/Music' from a terminal, or by opening Kid3 and then using File > Open to navigate to ~/Music. Make sure the files are loaded and visible in Kid3's interface.

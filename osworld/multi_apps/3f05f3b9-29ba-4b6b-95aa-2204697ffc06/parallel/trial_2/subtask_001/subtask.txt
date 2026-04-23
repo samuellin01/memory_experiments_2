@@ -1,0 +1,45 @@
+Context:
+Original task: I have a collection of MP3s with blank meta data, but already named with their artists and titles. I've heard that Picard or Kid3 may help, but I'm unfamiliar with them. Can you help me to fix the meta data "title" and "artist"?
+
+Progress so far:
+No subtasks completed yet.
+
+Subtask:
+Open a terminal and run the following commands to install python3-mutagen (if not already installed) and then run a Python script to update MP3 metadata. Run:
+
+sudo apt-get install -y python3-mutagen
+
+Then run this Python script:
+
+python3 -c "
+import os, glob
+from mutagen.id3 import ID3, TIT2, TPE1, ID3NoHeaderError
+
+music_dir = os.path.expanduser('~/Music')
+for f in glob.glob(os.path.join(music_dir, '*.mp3')):
+    basename = os.path.splitext(os.path.basename(f))[0]
+    parts = basename.split(' - ', 1)
+    if len(parts) == 2:
+        artist, title = parts[0].strip(), parts[1].strip()
+    else:
+        artist, title = '', basename.strip()
+    try:
+        tags = ID3(f)
+    except ID3NoHeaderError:
+        tags = ID3()
+    tags.delall('TPE1')
+    tags.delall('TIT2')
+    tags.add(TPE1(encoding=3, text=artist))
+    tags.add(TIT2(encoding=3, text=title))
+    tags.save(f)
+    print(f'Tagged: {artist} - {title}')
+"
+
+Verify the tags were written by running:
+python3 -c "
+import os, glob
+from mutagen.id3 import ID3
+for f in sorted(glob.glob(os.path.expanduser('~/Music/*.mp3'))):
+    tags = ID3(f)
+    print(os.path.basename(f), '|', tags.get('TPE1'), '|', tags.get('TIT2'))
+"
