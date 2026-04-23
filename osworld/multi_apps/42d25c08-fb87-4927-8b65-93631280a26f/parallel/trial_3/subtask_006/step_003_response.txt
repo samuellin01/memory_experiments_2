@@ -1,0 +1,18 @@
+The results are now clearly visible. Here's the summary:
+
+**Results:**
+- `---pandoc---` → (empty, not found)
+- `---ebook-convert---` → (empty, not found)
+- `---calibredb---` → (empty, not found)
+- `---dpkg pandoc---` → `dpkg-query: no packages found matching pandoc`
+- `---dpkg calibre---` → `dpkg-query: no packages found matching calibre`
+
+**Conclusion:** Neither **pandoc** nor **calibre** (ebook-convert/calibredb) is installed on this system. None of the `which` commands returned any paths, and `dpkg` confirms that neither package is installed.
+
+This means the backup options are not available out of the box. The conversion will need to rely on one of the two tools already found in the browser tabs:
+1. **txt2epub** (GitHub - kevinboone/txt2epub) - a C-based command-line utility that would need to be compiled from source
+2. **noveldown** (GitHub - potatoeggy/noveldown) - a Python-based tool that could be installed via pip
+
+Alternatively, pandoc or calibre could be installed via `apt` if needed.
+
+DONE. I checked for pandoc and calibre (ebook-convert) on the system. **Neither pandoc nor calibre is installed.** All `which` commands returned empty results, and `dpkg -l` confirmed "no packages found matching pandoc" and "no packages found matching calibre." These backup tools would need to be installed first (e.g., via `sudo apt install pandoc` or `sudo apt install calibre`) before they could be used for txt-to-epub conversion.
