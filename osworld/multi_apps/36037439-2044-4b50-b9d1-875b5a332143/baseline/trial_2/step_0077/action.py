@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('https://translate.google.com/translate?sl=en&tl=fr'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('&u=https://scholar.google.com/citations?user=qRAQ5'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('BsAAAAJ%26hl=en\n'), shell=True, check=True)
+import time; time.sleep(0.05)
