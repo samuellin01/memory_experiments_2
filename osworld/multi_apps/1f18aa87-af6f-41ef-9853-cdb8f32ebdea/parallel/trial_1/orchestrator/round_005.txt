@@ -1,0 +1,30 @@
+Now I have all the information I need. Let me analyze the correct answers:
+
+**Test 2 Multiple Choice:**
+1. b) I enjoy reading books. (correct gerund usage)
+2. a) If I had known, I would have told you. (correct conditional perfect)
+3. a) If I were you, I would have taken the opportunity that was offered. (correct subjunctive)
+4. a) The cake, which was made by my mother, was eaten by me. (correct passive voice)
+5. d) You, who are in the hospital, mustn't smoke. (correct modal verb usage)
+
+So Test 2 answers: **baaad**
+
+**Test 3 Multiple Choice:**
+1. a) I have been studying English for five years. (correct perfect progressive)
+2. a) By next year, I will have completed my degree. (correct future perfect)
+3. a) If I were to win the lottery, I would buy a house. (correct subjunctive)
+4. a) The proposal was turned down by the committee. (correct passive with phrasal verb)
+5. a) If I could fly, I would travel the world. (correct modal in hypothetical)
+
+So Test 3 answers: **aaaaa**
+
+Now I need to update the Answer.docx file. Let me write a script to do this and then open it on display 0.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Open a terminal and run the following Python script to update the Answer.docx file on the Desktop. The script should find the paragraph after 'Grammar test 2:' and set its text to 'baaad', and find the paragraph after 'Grammar test 3:' and set its text to 'aaaaa'.\n\nRun this command:\n\npython3 << 'EOF'\nfrom docx import Document\n\ndoc = Document('/home/user/Desktop/Answer.docx')\n\nparagraphs = doc.paragraphs\nfor i, p in enumerate(paragraphs):\n    print(f'{i}: \"{p.text}\"')\n\n# Find and update\nfor i, p in enumerate(paragraphs):\n    if p.text.strip() == 'Grammar test 2:':\n        # The next paragraph should get the answer\n        if i+1 < len(paragraphs):\n            paragraphs[i+1].text = 'baaad'\n            print(f'Set test 2 answer to baaad')\n    if p.text.strip() == 'Grammar test 3:':\n        if i+1 < len(paragraphs):\n            paragraphs[i+1].text = 'aaaaa'\n            print(f'Set test 3 answer to aaaaa')\n\ndoc.save('/home/user/Desktop/Answer.docx')\nprint('File saved successfully')\n\n# Verify\ndoc2 = Document('/home/user/Desktop/Answer.docx')\nfor p in doc2.paragraphs:\n    print(f'  \"{p.text}\"')\nEOF", "display": 3}
+  ]
+}
+```
