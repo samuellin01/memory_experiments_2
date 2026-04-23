@@ -1,0 +1,1 @@
+pyautogui.doubleClick(1843, 795)
