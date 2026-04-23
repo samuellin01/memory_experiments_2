@@ -1,0 +1,16 @@
+Now I can see the Computing Science line clearly:
+```
+Computing Science & 41 40,113 10 6,284 13 12,082 5 3,086 0 0 0 0 43 56,500 14 9,479 2 1,312 1 487 30 33,793 14 9,028 42 57,401 13 8,179 25 29,484 7 4,693 196 230,685 64 41,237
+```
+
+The structure is: discipline name, then for each of 9 entities (CityU, HKBU, LU, CUHK, EduHK, PolyU, HKUST, HKU, Total), 4 values: App_No, App_Amt, Supp_No, Supp_Amt.
+
+Wait, but the task says "CS departments of each school" - I think this means the overall CS discipline data (Total column). The headers "Year", "#Applied", "#Supported", "Success Rate" suggest one row per year with aggregate data.
+
+Let me verify: The Total values at the end are: 196 230,685 64 41,237. So 196 applied, 64 supported. Success rate = 64/196 = 32.65%.
+
+Now let me also consider: maybe "CS departments of each school" means per-school breakdown? But the headers only have Year, #Applied, #Supported, Success Rate - which is a single row per year. So it must be the total/aggregate for CS.
+
+Wait, re-reading the task again: "organise the pass rate of the GRF applications of the CS departments of each school" - maybe they want a table per school? But the headers suggest a simple table. Let me re-read... "organise the pass rate of the GRF applications of the CS departments of each school for 2019~2023 in a table". The headers are "Year", "#Applied", "#Supported", "Success Rate" - this is clearly one row per year. So it must be the total across all schools.
+
+Let me now write a comprehensive script to extract the data from all 5 years (2019-2023).

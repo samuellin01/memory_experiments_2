@@ -1,0 +1,20 @@
+Now I can see the full structure clearly:
+
+- Line 0: ID
+- Line 1: "2019 / 2020 General Research Fund Annex A"
+- Line 2: Title
+- Line 3: "Panel / Subject Discipline CityU HKBU LU CUHK EduHK PolyU HKUST HKU Total"
+- Line 4: "Application Supported Application Supported..." (for each university)
+- Line 5: "No Amt No Amt No Amt..." (columns: No, Amt for Application and Supported)
+
+So each university has 4 columns: Application No, Application Amt, Supported No, Supported Amt. Plus the first column is the discipline name.
+
+The universities in order are: CityU, HKBU, LU, CUHK, EduHK, PolyU, HKUST, HKU, Total
+
+That's 9 entities × 4 columns = 36 data columns + 1 discipline column = 37 columns total.
+
+Now I need to understand the task better. The user says "CS departments of each school" - meaning they want the data for CS (Computing Science) across ALL schools, not just HKU. Let me re-read: "organise the pass rate of the GRF applications of the CS departments of each school for 2019~2023".
+
+Wait, re-reading: "pass rate of the GRF applications of the CS departments of each school" - this could mean the aggregate CS data across all schools (the Total column), or per-school data. But the output format has "Year", "#Applied", "#Supported", "Success Rate" - which suggests one row per year, so it's likely the total across all schools.
+
+Let me extract the Computing Science row data. Let me write a Python script to do this properly.
