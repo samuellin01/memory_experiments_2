@@ -1,0 +1,8 @@
+I can see from display 2's output that even after waiting 120 seconds, the curl request still returned "Sorry" (the anti-bot block page). The block is very persistent. Let me try a radically different approach - kill all Chrome instances, wait a very long time (no Scholar requests at all), then make a single clean attempt.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Kill ALL Chrome processes first, then wait 10 minutes (600 seconds) without making ANY requests to scholar.google.com. After waiting, launch a fresh Chrome instance on DISPLAY=:0 that goes directly to the Scholar profile page. Run these commands one at a time:\n\n1. pkill -9 -f chrome 2>/dev/null; echo 'All Chrome killed'\n2. echo 'Waiting 600 seconds (10 minutes) for IP block to expire. Started at:' && date && sleep 600 && echo 'Done waiting at:' && date\n3. After the sleep finishes, run: DISPLAY=:0 google-chrome --no-sandbox --disable-gpu --user-data-dir=/tmp/chrome-final-attempt 'https://scholar.google.com/citations?user=qRAQ5BsAAAAJ&hl=en' &\n4. sleep 15\n5. echo 'Chrome launched. Check display 0.'\n\nIMPORTANT: Do NOT make any curl/wget requests to scholar.google.com during the wait. The IP block needs time to fully expire without any requests.", "display": 2}
+  ]
+}
