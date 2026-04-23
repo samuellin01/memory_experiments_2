@@ -1,0 +1,36 @@
+Context:
+Original task: I have a collection of MP3s with blank meta data, but already named with their artists and titles. I've heard that Picard or Kid3 may help, but I'm unfamiliar with them. Can you help me to fix the meta data "title" and "artist"?
+
+Progress so far:
+1. [DONE] Write and run a Python script that fixes the ID3 metadata for all MP3 files in ~/Music/. The files are named in the format 'Artist - Title.mp3'. For each file, parse the filename to extract the artist (before ' - ') and title (after ' - ', without .mp3), then write those as ID3 tags (artist and title) to the file. Use the mutagen library if available, or eyeD3, or id3v2 command-line tool. First check what's available. If mutagen is not installed, try: pip3 install mutagen. Here are the files:
+- Cheng Xiang - Missing You.mp3
+- Chen Shaohua - Red Daughter.mp3
+- Han Baoyi - Tears of Dancing Girl.mp3
+- Huang An - I Know Missing is Painful.mp3
+- Zhou Xuan - Nights in Shanghai.mp3
+   Result: 
+
+All 5 MP3 files have been successfully tagged with the correct artist and title metadata. Here's a summary of the verification:
+
+- **Chen Shaohua - Red Daughter.mp3**: Artist: Chen Shaohua, Title: Red Daughter
+- **Cheng Xiang - Missing You.mp3**: Artist: Cheng Xiang, Title: Missing You
+- **Han Baoyi - Tears of Dancing Girl.mp3**: Artist: Han Baoyi, Title: Tears of Dancing Girl
+- **Huang An - I Know Missing is Painful.mp3**: Artist: Huang An, Title: I Know Missing is Painful
+- **Zhou Xuan - Nights in Shanghai.mp3**: Artist: Zhou Xuan, Title: Nights in Shanghai
+
+DONE. Successfully wrote a Python script (`~/fix_metadata.py`) that uses the mutagen library to parse the "Artist - Title.mp3" filename format and write ID3 tags (TPE1 for artist, TIT2 for title) to all 5 MP3 files in ~/Music/. The script was executed and all tags were verified to be correctly written.
+2. [DONE] Check if Kid3 is installed on the system. Run 'which kid3' and 'which kid3-cli' and 'dpkg -l | grep kid3' in a terminal. If it's not installed, install it with 'sudo apt-get update && sudo apt-get install -y kid3'. Report what you find.
+   Result: Kid3 has been successfully installed. Here's what the verification shows:
+
+- **`which kid3`** → `/usr/bin/kid3` — Kid3 GUI is available
+- **`which kid3-cli`** → No output (kid3-cli is not installed separately, but the GUI version is available)
+- **`dpkg -l | grep kid3`** shows two packages installed:
+  - **kid3** (3.9.1-1, amd64) — KDE audio tag editor
+  - **kid3-core** (3.9.1-1, amd64) — Audio tag editor core libraries and data
+
+DONE
+
+**Summary:** Kid3 was not initially installed on the system. I ran `which kid3`, `which kid3-cli`, and `dpkg -l | grep kid3` to confirm it was absent. I then installed it using `sudo apt-get update && sudo apt-get install -y kid3`. The installation completed successfully. Kid3 version 3.9.1-1 (both `kid3` and `kid3-core` packages) is now installed at `/usr/bin/kid3`. Note that `kid3-cli` (the command-line-only version) was not included in this installation — only the GUI version (`kid3`) and its core libraries (`kid3-core`) were installed. If the CLI-only tool is needed, it can be installed separately with `sudo apt-get install -y kid3-cli`.
+
+Subtask:
+Open Kid3 on this display by running 'kid3 ~/Music' from a terminal or by launching it from the application menu. Once Kid3 opens, it should show the ~/Music directory with all 5 MP3 files. Select all the files in the file list so the metadata (artist and title tags) is visible in Kid3's tag editor panel. Make sure the Kid3 window is visible and showing the files with their metadata.

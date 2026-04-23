@@ -1,0 +1,11 @@
+Kid3 has been successfully installed. Here's what the verification shows:
+
+- **`which kid3`** → `/usr/bin/kid3` — Kid3 GUI is available
+- **`which kid3-cli`** → No output (kid3-cli is not installed separately, but the GUI version is available)
+- **`dpkg -l | grep kid3`** shows two packages installed:
+  - **kid3** (3.9.1-1, amd64) — KDE audio tag editor
+  - **kid3-core** (3.9.1-1, amd64) — Audio tag editor core libraries and data
+
+DONE
+
+**Summary:** Kid3 was not initially installed on the system. I ran `which kid3`, `which kid3-cli`, and `dpkg -l | grep kid3` to confirm it was absent. I then installed it using `sudo apt-get update && sudo apt-get install -y kid3`. The installation completed successfully. Kid3 version 3.9.1-1 (both `kid3` and `kid3-core` packages) is now installed at `/usr/bin/kid3`. Note that `kid3-cli` (the command-line-only version) was not included in this installation — only the GUI version (`kid3`) and its core libraries (`kid3-core`) were installed. If the CLI-only tool is needed, it can be installed separately with `sudo apt-get install -y kid3-cli`.
