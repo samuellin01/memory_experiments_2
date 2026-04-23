@@ -1,0 +1,11 @@
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write and run a Python script to set the image /tmp/frame_0008.png as the background of the second slide (index 1) of the PowerPoint file /home/user/Desktop/Robotic_Workshop_Infographics.pptx. Use python-pptx library. Save this script to /tmp/set_bg.py and run it. Here is the script content:\n\nfrom pptx import Presentation\nfrom pptx.oxml.ns import qn\nimport lxml.etree as etree\n\nprs = Presentation('/home/user/Desktop/Robotic_Workshop_Infographics.pptx')\nslide = prs.slides[1]\n\nimage_path = '/tmp/frame_0008.png'\nimage_part, rId = slide.part.get_or_add_image_part(image_path)\n\nbg = slide.background\nbg_elem = bg._element\n\nfor child in list(bg_elem):\n    bg_elem.remove(child)\n\nbgPr = etree.SubElement(bg_elem, qn('p:bgPr'))\nblipFill = etree.SubElement(bgPr, qn('a:blipFill'))\nblipFill.set('dpi', '0')\nblipFill.set('rotWithShape', '1')\nblip = etree.SubElement(blipFill, qn('a:blip'))\nblip.set(qn('r:embed'), rId)\nstretch = etree.SubElement(blipFill, qn('a:stretch'))\nfillRect = etree.SubElement(stretch, qn('a:fillRect'))\neffectLst = etree.SubElement(bgPr, qn('a:effectLst'))\n\nprs.save('/home/user/Desktop/Robotic_Workshop_Infographics.pptx')\nprint('Done setting background')\n\nWrite this to /tmp/set_bg.py and execute it with python3. If python-pptx is not installed, install it first with pip3 install python-pptx.",
+      "display": 3
+    }
+  ]
+}
+```
