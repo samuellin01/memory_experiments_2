@@ -1,0 +1,19 @@
+Context:
+Original task: Hey, my friend has just sent me a web novel, but in txt files. Could you please help me to convert it to epub format for easy reading on my mobile and kindle? I have found several tools to obtain an epub file, opened in the browser. But I'm not sure which one helps. Please help me to do this and ensure to name the file with novel's title.
+
+Progress so far:
+1. [DONE] Check what's installed on the system that could help convert txt to epub. Run: which calibre; which ebook-convert; which pandoc; pip list 2>/dev/null | grep -i epub; apt list --installed 2>/dev/null | grep -i epub
+   Result: The command has completed. Here are the results:
+
+- **`which calibre`** — not found (Calibre is NOT installed)
+- **`which ebook-convert`** — not found (ebook-convert is NOT installed)
+- **`which pandoc`** — not found (Pandoc is NOT installed)
+- **`pip list | grep -i epub`** — no Python epub packages found
+- **`apt list --installed | grep -i epub`** — only **libepubgen-0.1-1** (version 0.1.1-1ubuntu5, amd64) is installed, which is a library dependency (not a standalone conversion tool)
+
+**Summary:** None of the common command-line tools for converting txt to epub (Calibre/ebook-convert, Pandoc) are currently installed on the system. The only epub-related package is `libepubgen`, which is a low-level C++ library used by other applications (like LibreOffice) and not directly usable for txt-to-epub conversion. The task mentions tools "opened in the browser," so a web-based converter may be open in Chrome, or one of these tools (calibre, pandoc, or a Python epub library) will need to be installed to perform the conversion.
+
+DONE. The system check reveals that no standalone txt-to-epub conversion tools (calibre, ebook-convert, pandoc, or Python epub packages) are installed. Only `libepubgen-0.1-1` (a low-level library) is present. To convert txt to epub, a tool like Calibre (`ebook-convert`), Pandoc, or a browser-based converter will need to be used.
+
+Subtask:
+Install pandoc for converting txt to epub. Run: sudo apt-get update && sudo apt-get install -y pandoc

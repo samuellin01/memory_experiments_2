@@ -1,0 +1,49 @@
+Context:
+Original task: Hey, my friend has just sent me a web novel, but in txt files. Could you please help me to convert it to epub format for easy reading on my mobile and kindle? I have found several tools to obtain an epub file, opened in the browser. But I'm not sure which one helps. Please help me to do this and ensure to name the file with novel's title.
+
+Progress so far:
+1. [DONE] Check what's installed on the system that could help convert txt to epub. Run: which calibre; which ebook-convert; which pandoc; pip list 2>/dev/null | grep -i epub; apt list --installed 2>/dev/null | grep -i epub
+   Result: The command has completed. Here are the results:
+
+- **`which calibre`** — not found (Calibre is NOT installed)
+- **`which ebook-convert`** — not found (ebook-convert is NOT installed)
+- **`which pandoc`** — not found (Pandoc is NOT installed)
+- **`pip list | grep -i epub`** — no Python epub packages found
+- **`apt list --installed | grep -i epub`** — only **libepubgen-0.1-1** (version 0.1.1-1ubuntu5, amd64) is installed, which is a library dependency (not a standalone conversion tool)
+
+**Summary:** None of the common command-line tools for converting txt to epub (Calibre/ebook-convert, Pandoc) are currently installed on the system. The only epub-related package is `libepubgen`, which is a low-level C++ library used by other applications (like LibreOffice) and not directly usable for txt-to-epub conversion. The task mentions tools "opened in the browser," so a web-based converter may be open in Chrome, or one of these tools (calibre, pandoc, or a Python epub library) will need to be installed to perform the conversion.
+
+DONE. The system check reveals that no standalone txt-to-epub conversion tools (calibre, ebook-convert, pandoc, or Python epub packages) are installed. Only `libepubgen-0.1-1` (a low-level library) is present. To convert txt to epub, a tool like Calibre (`ebook-convert`), Pandoc, or a browser-based converter will need to be used.
+2. [DONE] Open Google Chrome and check all open tabs to see what tools/websites are already open for converting txt to epub.
+   Result: Now I can see both tabs that are open in Google Chrome:
+
+**Tab 1 (current):** GitHub repository **potatoeggy/noveldown** - "Webnovel downloader and converter to EPUB (with metadata!) as a Python library and command line application." This is a webnovel downloader/converter tool.
+
+**Tab 2:** GitHub repository **kevinboone/txt2epub** - "A command-line utility for Linux, for making EPUB documents from plain text files."
+
+Let me also note the key details:
+- The txt files are located at `/home/user/Documents/Novels/Pass Through/` with files Chapter0.txt through Chapter4.txt
+- The novel title appears to be "Pass Through" (based on the folder name)
+
+DONE
+
+Here's a summary of what I found:
+
+**Google Chrome has 2 tabs open with the following tools/websites:**
+
+1. **Tab 1: potatoeggy/noveldown** (https://github.com/potatoeggy/noveldown) - A Python library and command-line application described as a "Webnovel downloader and converter to EPUB (with metadata!)". Latest version v1.3.1.
+
+2. **Tab 2: kevinboone/txt2epub** (https://github.com/kevinboone/txt2epub) - A command-line utility for Linux specifically for "making EPUB documents from plain text files". Latest version v0.0.4.
+
+**Additional context from the file manager:**
+- The novel's txt files (Chapter0.txt through Chapter4.txt) are located at `/home/user/Documents/Novels/Pass Through/`
+- The novel title appears to be **"Pass Through"** based on the folder name.
+
+Subtask:
+Clone and build the txt2epub tool from GitHub. Run the following commands:
+cd /tmp
+git clone https://github.com/kevinboone/txt2epub.git
+cd txt2epub
+make
+echo 'Build complete'
+ls -la txt2epub

@@ -1,0 +1,53 @@
+I now have all the information needed about the txt2epub tool. Here's a summary of the help output:
+
+**txt2epub Usage:** `Usage /tmp/txt2epub/txt2epub [options]`
+
+**Key options:**
+- `-a, --author A` — set book author (default: unknown)
+- `-c, --cover-image F` — use image file F as the cover
+- `-f, --first-lines` — first line is chapter heading
+- `-l, --language A` — set book language (default: en)
+- `-t, --title A` — set book title (default: filename)
+- `-o, --output-file` — EPUB output filename
+- `-r, --remove-pagenum` — try to remove page numbers
+- `-p, --para-indent` — Paragraph indent replaces blank line
+- `-x, --extra-para` — Every input line is a paragraph
+- `--ignore-indent` — don't break paragraph on indent
+- `--ignore-markdown` — do not respect Markdown formatting
+- `--loglevel N` — log verbosity, 0 (default) - 3
+- `-v, --version` — show version information
+
+**Important flag for our use case:** `-f, --first-lines` — "first line is chapter heading" — this is perfect since each chapter file starts with a line like "Chapter 1 Passing through the book", "Chapter 2 Change", etc.
+
+DONE
+
+Here's a complete summary of the txt2epub README and help:
+
+**Tool:** `txt2epub` — a command-line utility for Linux for making EPUB documents from plain text files.
+
+**Example usage from README:**
+```
+txt2epub -o dickens_great_expectations.epub \
+    --author "Dickens, Charles" --title "Great Expectations" \
+    --cover-image ge.jpg \
+    chapter01.txt chapter02.txt chapter03.txt ...
+```
+
+**All available options:**
+| Option | Description |
+|---|---|
+| `-a, --author A` | Set book author (default: unknown) |
+| `-c, --cover-image F` | Use image file F as the cover |
+| `-f, --first-lines` | First line is chapter heading |
+| `-t, --title A` | Set book title (default: filename) |
+| `-o, --output-file` | EPUB output filename |
+| `-l, --language A` | Set book language (default: en) |
+| `-r, --remove-pagenum` | Try to remove page numbers |
+| `-p, --para-indent` | Paragraph indent replaces blank line |
+| `-x, --extra-para` | Every input line is a paragraph |
+| `--ignore-indent` | Don't break paragraph on indent |
+| `--ignore-markdown` | Do not respect Markdown formatting |
+| `--loglevel N` | Log verbosity, 0-3 |
+| `-v, --version` | Show version information |
+
+**Key recommendation for the conversion:** Use the `-f` flag (first line is chapter heading) since each txt file starts with a chapter heading line. Use `-t "Passing through the book"` for the title and `-o "Passing through the book.epub"` for the output filename.
