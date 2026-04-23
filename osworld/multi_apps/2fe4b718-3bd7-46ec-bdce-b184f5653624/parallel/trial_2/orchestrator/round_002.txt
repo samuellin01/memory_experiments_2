@@ -1,0 +1,13 @@
+Good, the video file is confirmed (640x360, 30fps, 30.5 seconds). Display 2 is still extracting frames with VLC. Let me wait for that to complete before proceeding.
+
+However, I realize VLC's scene filter can be tricky. Let me also prepare an alternative approach using ffmpeg on display 3 in case VLC doesn't extract frames properly.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "As a backup frame extraction method, use ffmpeg to extract frames from ~/Desktop/src.mp4. Extract frames from the 5-second clip starting at second 3 (to second 8) at 10 fps (to keep the GIF reasonable size). Run:\n\nmkdir -p /tmp/frames_ffmpeg && ffmpeg -ss 3 -i /home/user/Desktop/src.mp4 -t 5 -vf fps=10 /tmp/frames_ffmpeg/frame%05d.png\n\nThen list the files: ls -la /tmp/frames_ffmpeg/ | head -60",
+      "display": 3
+    }
+  ]
+}

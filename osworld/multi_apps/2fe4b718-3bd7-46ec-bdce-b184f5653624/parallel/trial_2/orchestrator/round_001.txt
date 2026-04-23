@@ -1,0 +1,20 @@
+I'll break this task into steps:
+
+1. **Extract frames from the video** using VLC (5-second clip starting at 00:03, i.e., seconds 3-8)
+2. **Import frames into GIMP and export as animated GIF**
+
+Let me start by extracting frames from the video using VLC on a secondary display, and also check the video file exists.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Extract frames from the video file ~/Desktop/src.mp4 using VLC. Create a directory /tmp/frames/ first. Use VLC command line to extract frames from the 5-second clip starting at 00:03 (3 seconds) to 00:08 (8 seconds). Run this command in the terminal:\n\nmkdir -p /tmp/frames && vlc file:///home/user/Desktop/src.mp4 --start-time=3 --stop-time=8 --video-filter=scene --scene-path=/tmp/frames --scene-prefix=frame --scene-format=png --scene-ratio=1 --rate=1 --no-audio --play-and-exit vlc://quit\n\nWait for VLC to finish processing. Then list the files in /tmp/frames/ to see how many frames were extracted. If VLC opens a GUI window, that's fine - let it process and close. If the command doesn't work well, try alternative: use cvlc (headless VLC) instead of vlc.",
+      "display": 2
+    },
+    {
+      "instruction": "Check that the file ~/Desktop/src.mp4 exists by running: ls -la ~/Desktop/src.mp4 && ffprobe ~/Desktop/src.mp4 2>&1 | head -20. This will confirm the file exists and show its properties.",
+      "display": 3
+    }
+  ]
+}
