@@ -1,0 +1,9 @@
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Run the following commands in the terminal. First install python-docx, then create and run a Python script to generate the Word document.\n\nStep 1: Run: pip3 install python-docx\n\nStep 2: Create the file /tmp/create_docx.py with this exact content (use cat with heredoc):\n\ncat << 'PYEOF' > /tmp/create_docx.py\nimport json\nfrom docx import Document\nfrom docx.shared import RGBColor\nimport re\n\nwith open('/home/user/Desktop/llm_answers.json', 'r') as f:\n    data = json.load(f)\n\ngemini_responses = []\n\ndef extract_gemini(obj):\n    if isinstance(obj, dict):\n        for key, value in obj.items():\n            if key == 'GEMINI':\n                if isinstance(value, dict):\n                    if 'answer' in value:\n                        gemini_responses.append(value['answer'])\n                    else:\n                        for v in value.values():\n                            if isinstance(v, str):\n                                gemini_responses.append(v)\n                elif isinstance(value, str):\n                    gemini_responses.append(value)\n            else:\n                extract_gemini(value)\n    elif isinstance(obj, list):\n        for item in obj:\n            extract_gemini(item)\n\nextract_gemini(data)\nprint(f'Found {len(gemini_responses)} GEMINI responses')\n\ndoc = Document()\nfor i, response in enumerate(gemini_responses):\n    parts = re.split(r'(Iliad)', response)\n    paragraph = doc.add_paragraph()\n    for part in parts:\n        run = paragraph.add_run(part)\n        if part == 'Iliad':\n            run.font.highlight_color = 7\n    if i < len(gemini_responses) - 1:\n        doc.add_paragraph()\n\ndoc.save('/home/user/Desktop/gemini_results.docx')\nprint('Document saved successfully')\nPYEOF\n\nStep 3: Run: python3 /tmp/create_docx.py",
+      "display": 2
+    }
+  ]
+}
