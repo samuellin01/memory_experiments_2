@@ -1,0 +1,18 @@
+Now I have all the data I need:
+- **Name:** Yann LeCun
+- **All citations:** 465,628
+- **h-index:** 171
+- **i10-index:** 464
+- **Top Cited Work:** "Deep learning"
+- **PDF Link:** https://www.cs.toronto.edu/~hinton/absps/NatureDeepReview.pdf
+
+Now I need to append this row to the spreadsheet and open it on the primary display. Let me do both tasks.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, run this Python script to append Yann LeCun's data to the researchers.xlsx file:\n\npython3 << 'PYEOF'\nimport openpyxl\n\n# The file is at /home/user/Desktop/researchers.xlsx\nwb = openpyxl.load_workbook('/home/user/Desktop/researchers.xlsx')\nws = wb.active\n\n# Append Yann LeCun's row\n# Columns: Name, All citations, h-index, i10-index, Top Cited Work, PDF Link of Top Cited Work\nws.append([\n    'Yann LeCun',\n    465628,\n    171,\n    464,\n    'Deep learning',\n    'https://www.cs.toronto.edu/~hinton/absps/NatureDeepReview.pdf'\n])\n\nwb.save('/home/user/Desktop/researchers.xlsx')\nprint('Successfully appended Yann LeCun to researchers.xlsx')\n\n# Verify\nwb2 = openpyxl.load_workbook('/home/user/Desktop/researchers.xlsx')\nws2 = wb2.active\nfor row in ws2.iter_rows(values_only=True):\n    print(row)\nPYEOF", "display": 3}
+  ]
+}
+```
