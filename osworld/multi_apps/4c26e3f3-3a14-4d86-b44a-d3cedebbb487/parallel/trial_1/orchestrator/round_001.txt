@@ -1,0 +1,16 @@
+I can see a LibreOffice Impress presentation is open on display 0. I need to:
+1. First, extract the image from the second slide
+2. Then enhance its brightness
+3. Save it as "background.png" on the Desktop
+
+Let me start by examining the second slide to identify and extract the image. I'll work in parallel - one agent to click on slide 2 and extract the image, and another to prepare for image processing.
+
+First, let me click on the second slide to see what image is there, and also figure out the file path of the presentation.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In LibreOffice Impress, click on the second slide (slide 2) in the slide panel on the left side. Then right-click on the image in the main editing area of slide 2 and look for an option to save/export the image. If you can right-click the image and select 'Save Image' or 'Export Image', save it to /tmp/slide2_image.png. If that's not available, try selecting the image and copying it.", "display": 0},
+    {"instruction": "Find the PowerPoint file that is currently open in LibreOffice Impress. It's called 'PPT-Template_widescreen.pptx'. Search for it using: find / -name 'PPT-Template_widescreen.pptx' 2>/dev/null. Then, extract images from it. A .pptx file is a ZIP archive. Unzip it to /tmp/pptx_extracted/ using: mkdir -p /tmp/pptx_extracted && find / -name 'PPT-Template_widescreen.pptx' 2>/dev/null -exec unzip -o {} -d /tmp/pptx_extracted/ \\; Then list the images in /tmp/pptx_extracted/ppt/media/ to see what images are available.", "display": 2}
+  ]
+}

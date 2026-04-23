@@ -1,0 +1,10 @@
+I can see from the primary display that `/tmp/slide2_image.png` exists (1,394,428 bytes - same size as `image3.png` from the pptx extraction). The file was successfully saved. Display 3 is still working on the brightness enhancement. Let me wait for it to complete.
+
+Looking at the display 0 screenshot, I can see the terminal shows the file exists. Display 3 should be processing the brightness enhancement now. Let me wait for it.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this command in the terminal to enhance the brightness of the slide 2 image and save it to the Desktop:\n\npython3 -c \"\nfrom PIL import Image, ImageEnhance\nimg = Image.open('/tmp/slide2_image.png')\nenhancer = ImageEnhance.Brightness(img)\nimg_bright = enhancer.enhance(1.5)\nimg_bright.save('/home/user/Desktop/background.png')\nprint('Done')\n\"\n\nThen verify with: ls -la /home/user/Desktop/background.png\n\nIf PIL/Pillow is not installed, first run: pip3 install Pillow\n\nAlternatively, if Python doesn't work, use ImageMagick: convert /tmp/slide2_image.png -brightness-contrast 30x0 /home/user/Desktop/background.png", "display": 2}
+  ]
+}
