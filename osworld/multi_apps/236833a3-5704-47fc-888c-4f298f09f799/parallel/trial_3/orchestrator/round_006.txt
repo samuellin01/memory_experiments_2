@@ -1,0 +1,10 @@
+Good, the data is confirmed. Display 2 is working on the docx update script. Let me also quickly validate the JSON and check the paper order on display 3 while we wait.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this command to quickly validate the JSON data and show all paper titles in order:\n\npython3 -c \"import json; data=json.load(open('/tmp/paper_details.json')); print(f'Total papers: {len(data)}'); [print(f'{i+1}. [{p.get(\\\"paper_id\\\", \\\"?\\\")]}: {p[\\\"title\\\"]}') for i,p in enumerate(data)]\"", "display": 3}
+  ]
+}
+```

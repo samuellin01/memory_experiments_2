@@ -1,0 +1,10 @@
+Let me use a more reliable approach - curl and HTML parsing to get the paper list, and use display 2 for this since the browser approach was problematic.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, run the following command to download the Hugging Face daily papers page and extract paper titles and links:\n\ncurl -s 'https://huggingface.co/papers?date=2024-03-01' > /tmp/hf_page.html\n\nThen run this Python script to extract paper information:\n\npython3 -c \"\nimport re\nwith open('/tmp/hf_page.html', 'r') as f:\n    html = f.read()\n\n# Find all paper links and titles - they appear as <a href='/papers/XXXX.XXXXX'> with h3 tags\npattern = r'<a[^>]*href=\\\"/papers/([^\\\"]+)\\\"[^>]*>\\s*<h3[^>]*>([^<]+)</h3>'\nmatches = re.findall(pattern, html)\n\nif not matches:\n    # Try alternative pattern\n    pattern = r'href=\\\"/papers/([\\d.]+)\\\"'\n    paper_ids = re.findall(pattern, html)\n    paper_ids = list(set(paper_ids))\n    print(f'Found {len(paper_ids)} paper IDs:')\n    for pid in paper_ids:\n        print(pid)\n    with open('/tmp/paper_ids.txt', 'w') as f:\n        for pid in paper_ids:\n            f.write(pid + '\\\\n')\nelse:\n    print(f'Found {len(matches)} papers:')\n    for arxiv_id, title in matches:\n        print(f'{arxiv_id}: {title}')\n    with open('/tmp/paper_ids.txt', 'w') as f:\n        for arxiv_id, title in matches:\n            f.write(arxiv_id + '\\\\n')\n\"\n\nAfter extracting the paper IDs, save them to /tmp/paper_ids.txt (one per line). Then check the file contents with: cat /tmp/paper_ids.txt", "display": 2}
+  ]
+}
+```
