@@ -1,8 +1,0 @@
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('python3 -c "\nfrom docx import Document\nfrom docx.s'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('hared import Inches\ndoc = Document()\ndoc.add_pictu'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("re('/home/user/Desktop/temp_image.png')\ndoc.save('"), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('/home/user/Desktop/image.docx\')\nprint(\'Done!\')\n"\n'), shell=True, check=True)
-import time; time.sleep(0.05)
