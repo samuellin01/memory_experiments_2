@@ -1,0 +1,11 @@
+I need to first understand the structure of the existing files. Let me read the answer doc, the grammar tests, and understand the format. I'll do this in parallel on the secondary displays.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Read the contents of the Answer.docx file on the desktop. Run: cd ~/Desktop && python3 -c \"from docx import Document; doc = Document('Answer.docx'); [print(p.text) for p in doc.paragraphs]\" If that doesn't work, try finding the file in the 'Grammar test' folder or elsewhere. Print the full content.", "display": 2},
+    {"instruction": "List all files in the 'Grammar test' folder on the desktop and read the contents of all grammar test files. Run: ls ~/Desktop/'Grammar test'/ && echo '---' && for f in ~/Desktop/'Grammar test'/*; do echo \"=== $f ===\"; python3 -c \"from docx import Document; doc = Document('$f'); [print(p.text) for p in doc.paragraphs]\"; done", "display": 3}
+  ]
+}
+```

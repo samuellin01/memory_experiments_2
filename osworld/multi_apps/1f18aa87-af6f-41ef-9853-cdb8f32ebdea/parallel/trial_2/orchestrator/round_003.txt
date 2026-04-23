@@ -1,0 +1,10 @@
+Let me save all test contents to files so I can read them completely. I'll use display 3 to dump all test files to text files.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this Python script to save all grammar test contents to text files:\n\npython3 << 'EOF'\nfrom docx import Document\n\nfor i in [1, 2, 3]:\n    doc = Document(f'/home/user/Desktop/Grammer test {i}.docx')\n    with open(f'/tmp/test{i}.txt', 'w') as f:\n        for p in doc.paragraphs:\n            f.write(p.text + '\\n')\n    print(f'Test {i} saved to /tmp/test{i}.txt')\nEOF\n\nThen display the contents:\ncat /tmp/test2.txt\necho '========================'\ncat /tmp/test3.txt", "display": 3}
+  ]
+}
+```

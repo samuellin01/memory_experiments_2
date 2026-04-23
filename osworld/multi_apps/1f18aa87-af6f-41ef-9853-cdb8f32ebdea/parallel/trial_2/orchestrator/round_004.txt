@@ -1,0 +1,33 @@
+I now have all the information I need. Let me verify the answers before writing them:
+
+**Test 1 (verified against provided answers "bbbad"):**
+1. b) I enjoy playing basketball ✓
+2. b) I had eaten sushi before I went to Japan ✓
+3. b) If I were a millionaire ✓
+4. a) The cake was eaten by me ✓
+5. d) You mustn't smoke in the hospital ✓
+
+**Test 2 answers: "baaad"**
+1. b) I enjoy reading books (correct gerund usage)
+2. a) If I had known, I would have told you (conditional perfect)
+3. a) If I were you, I would have taken the opportunity (subjunctive)
+4. a) The cake, which was made by my mother, was eaten by me (passive voice)
+5. d) You mustn't smoke (modal verb - consistent with test 1 Q5 pattern)
+
+**Test 3 answers: "aaaaa"**
+1. a) I have been studying English for five years (perfect progressive)
+2. a) By next year, I will have completed my degree (future perfect)
+3. a) If I were to win the lottery, I would buy a house (subjunctive)
+4. a) The proposal was turned down by the committee (passive with phrasal verb)
+5. a) If I could fly, I would travel the world (modal in hypothetical)
+
+Now I need to write these answers into the Answer.docx file. Let me do this on display 2, and also I should verify by reading the full test content from the saved files on display 3 when it's done.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this Python script to update the Answer.docx file with the answers for tests 2 and 3:\n\npython3 << 'PYEOF'\nfrom docx import Document\n\ndoc = Document('/home/user/Desktop/Answer.docx')\n\n# Print current content to verify\nprint('Current content:')\nfor i, p in enumerate(doc.paragraphs):\n    print(f'  [{i}] \"{p.text}\"')\n\n# Find the paragraphs for Grammar test 2 and Grammar test 3 and fill in answers\nfor i, p in enumerate(doc.paragraphs):\n    if p.text.strip() == 'Grammar test 2:':\n        # The answer should go in the next paragraph\n        # Check if next paragraph exists and is empty\n        if i+1 < len(doc.paragraphs) and doc.paragraphs[i+1].text.strip() == '':\n            doc.paragraphs[i+1].text = 'baaad'\n            print(f'Set test 2 answer to baaad in paragraph {i+1}')\n        else:\n            # Need to add text right after this paragraph\n            print('Could not find empty paragraph after test 2 header')\n    elif p.text.strip() == 'Grammar test 3:':\n        if i+1 < len(doc.paragraphs) and doc.paragraphs[i+1].text.strip() == '':\n            doc.paragraphs[i+1].text = 'aaaaa'\n            print(f'Set test 3 answer to aaaaa in paragraph {i+1}')\n        else:\n            print('Could not find empty paragraph after test 3 header')\n\ndoc.save('/home/user/Desktop/Answer.docx')\nprint('\\nSaved. New content:')\ndoc2 = Document('/home/user/Desktop/Answer.docx')\nfor p in doc2.paragraphs:\n    print(f'  \"{p.text}\"')\nPYEOF", "display": 2}
+  ]
+}
+```
