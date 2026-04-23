@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ls ~/Desktop/ && ls ~/*.xlsx ~/*.pdf 2>/dev/null &'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('& find ~ -maxdepth 2 -name "*.pdf" -o -name "*.xls'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('x" 2>/dev/null\n'), shell=True, check=True)
+import time; time.sleep(0.05)
