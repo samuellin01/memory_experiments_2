@@ -1,0 +1,13 @@
+
+
+Now I have the full picture. Let me analyze the bug:
+
+- **`SNAKE_SIZE = 10`**, **`WIDTH = 600`**, **`HEIGHT = 400`**
+- **Snake** starts at `(WIDTH // 2, HEIGHT // 2)` = `(300, 200)` — this is grid-aligned (divisible by 10) ✓
+- **Snake moves** in steps of `SNAKE_SIZE` (10) — so snake positions are always multiples of 10 ✓
+- **Food `__init__`** (line 8 of food.py): `self.position = (random.randint(0, WIDTH-SNAKE_SIZE), random.randint(0, HEIGHT-SNAKE_SIZE))` — This generates ANY random pixel position (e.g., `(137, 253)`), NOT grid-aligned! ✗
+- **Food `respawn`** (lines 16-17): Uses `random.randint(0, (WIDTH - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE` — This IS grid-aligned ✓
+
+The bug is in the food's `__init__` method. The initial food position is not snapped to the grid, so the snake can never land on it. The fix is to make `__init__` use the same grid-aligned calculation as `respawn`.
+
+Let me fix `food.py`:

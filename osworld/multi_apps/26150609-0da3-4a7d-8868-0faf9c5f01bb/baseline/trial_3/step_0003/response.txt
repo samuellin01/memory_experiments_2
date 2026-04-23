@@ -1,0 +1,10 @@
+
+
+Now I can see the issue! In `food.py`:
+
+- **`__init__`** (line 8): `self.position = (random.randint(0, WIDTH-SNAKE_SIZE), random.randint(0, HEIGHT-SNAKE_SIZE))` — This generates random pixel coordinates, NOT grid-aligned positions.
+- **`respawn`** (lines 16-17): `self.position = (random.randint(0, (WIDTH - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE, random.randint(0, (HEIGHT - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE)` — This correctly snaps to grid positions.
+
+So the initial food position is not grid-aligned, meaning the snake (which moves in grid steps) can never land exactly on the food's position. The fix is to make `__init__` use the same grid-aligned positioning as `respawn`.
+
+Let me also check `snake.py` and `settings.py` to confirm.

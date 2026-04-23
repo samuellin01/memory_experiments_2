@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('        self.position = (random.randint(0, (WIDTH '), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('- SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE,\n       '), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('                         random.randint(0, (HEIGHT'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote(' - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE)'), shell=True, check=True)
+import time; time.sleep(0.05)
