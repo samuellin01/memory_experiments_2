@@ -1,0 +1,11 @@
+Let me do a programmatic verification of the PDFs on display 3 while waiting for display 2 to finish.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Run this Python script to verify the generated PDFs have correct data:\n\npython3 << 'PYEOF'\nfrom PyPDF2 import PdfReader\nimport os\n\nnames = ['John Doe', 'Emily Johnson', 'Michael Brown', 'Linda Green', 'David Wilson', 'Sophia Carter', 'Alex Lee']\n\nfor name in names:\n    path = f'/home/user/Desktop/{name}.pdf'\n    if not os.path.exists(path):\n        print(f'MISSING: {path}')\n        continue\n    reader = PdfReader(path)\n    fields = reader.get_fields()\n    filled = {k: str(v.get('/V', '')) for k, v in fields.items() if v.get('/V')}\n    print(f'\\n=== {name} ===')\n    for k, v in sorted(filled.items()):\n        print(f'  {k}: {v}')\nPYEOF",
+      "display": 3
+    }
+  ]
+}

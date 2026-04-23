@@ -1,0 +1,134 @@
+Context:
+Original task: Transfer the data from our 'Employee Performance Evaluation Summary' Excel sheet into our standardized PDF evaluation forms. Each employee's evaluation data should be accurately filled into the designated fields of the PDF form. It's crucial that the final PDF documents retain a uniform and professional look, ready for distribution to our staff or for filing purposes. Furthermore, please ensure that each PDF file is named according to the employee's name as it appears in the Excel document. This will greatly streamline our evaluation process and enhance our efficiency in managing employee performance records. Oh, use "√" as mark on characters.
+
+Progress so far:
+1. [MAX_STEPS] Examine the PDF form template visible in Document Viewer. I need to understand its exact structure and field layout. The PDF seems to be a review/evaluation template with fields for Employee Information (Employee Name, Employee ID, Date of Current Review, Position Held, Department, Date of Last Review, Reviewer Name, Reviewer Title, Date Submitted) and a Characteristics section with qualities rated as Unsatisfactory/Satisfactory/Good/Excellent. List ALL fields and the exact layout. Also find the file path of this PDF. Check in the home directory, Desktop, Documents, Downloads folders. Write findings to /tmp/pdf_template_info.txt
+   Result: ## Summary
+
+### 1) What was successfully completed:
+
+**File paths found:**
+- PDF template: `/home/user/Desktop/review_template.pdf`
+- Excel file: `/home/user/Desktop/Employee Performance Evaluation Summary.xlsx`
+
+**PDF structure extracted via `pdftotext -layout`:**
+
+The PDF is titled **"SIMPLE PERFORMANCE REVIEW TEMPLATE"** and is a single-page (612x792 pts, letter size) AcroForm PDF created from Excel.
+
+**EMPLOYEE INFORMATION section fields (Row 1):**
+- EMPLOYEE NAME
+- EMPLOYEE ID
+- DATE OF CURRENT REVIEW
+
+**Employee Information (Row 2):**
+- POSITION HELD
+- DEPARTMENT
+- DATE OF LAST REVIEW
+
+**Employee Information (Row 3):**
+- REVIEWER NAME
+- REVIEWER TITLE
+- DATE SUBMITTED
+
+**CHARACTERISTICS section:**
+- Header row: QUALITY | UNSATISFACTORY | SATISFACTORY | GOOD | EXCELLENT
+- First quality listed: "Works to Full Potential"
+- Then 16 more qualities:
+  1. Quality of Work
+  2. Work Consistency
+  3. Communication
+  4. Independent Work
+  5. Takes Initiative
+  6. Group Work
+  7. Productivity
+  8. Creativity
+  9. Honesty
+  10. Integrity
+  11. Coworker Relations
+  12. Client Relations
+  13. Technical Skills
+  14. Dependability
+  15. Punctuality
+  16. Attendance
+
+**PDF metadata:** Form type is AcroForm (has fillable form fields), 1 page, PDF 1.6, created Mon Jun 1 2020, modified Mon Mar 4 2024.
+
+### 2) Approaches tried:
+- **`find` command** — worked to locate files
+- **`pdftotext -layout`** — worked well to extract text layout
+- **`pdfinfo`** — worked to get metadata (confirmed AcroForm)
+- **`pdftk dump_data_fields`** — failed (pdftk not installed)
+- **PyPDF2** — failed (not installed), started `pip3 install` but ran out of steps
+
+### 3) What is still incomplete:
+- **AcroForm field names and coordinates** were NOT extracted. We know the PDF has AcroForm fields but couldn't enumerate their exact programmatic names, types, or bounding box coordinates.
+- The output file `/tmp/pdf_template_info.txt` was **NOT written** yet.
+- The PDF was not visually opened to confirm exact cell/checkbox layout.
+
+### 4) Recommended approach for a future agent:
+
+1. **Install tools first:** Run `pip3 install PyPDF2 pikepdf openpyxl` immediately before doing anything else.
+2. **Extract AcroForm fields** using PyPDF2:
+   ```python
+   from PyPDF2 import PdfReader
+   reader = PdfReader('/home/user/Desktop/review_template.pdf')
+   fields = reader.get_fields()
+   for name, field in fields.items():
+       print(name, field)
+   ```
+   Also inspect annotations on page 0 for widget coordinates:
+   ```python
+   page = reader.pages[0]
+   for annot in page['/Annots']:
+       obj = annot.get_object()
+       print(obj.get('/T'), obj.get('/FT'), obj.get('/Rect'))
+   ```
+3. **Write findings to `/tmp/pdf_template_info.txt`** with all field names, types, coordinates, and the characteristics list.
+4. **Open the PDF visually** (`evince` or Document Viewer) to confirm checkbox positions if the programmatic extraction is unclear.
+5. The key information needed for the overall task is: exact AcroForm field names (so they can be programmatically filled) and the coordinate positions of the rating checkboxes for each characteristic quality.
+
+Subtask:
+Run the following commands in the terminal. First install required packages, then extract PDF form field information:
+
+pip3 install PyPDF2 openpyxl reportlab 2>&1 | tail -5
+
+Then run this Python script to extract PDF form fields:
+
+python3 << 'PYEOF'
+from PyPDF2 import PdfReader
+import json
+
+reader = PdfReader('/home/user/Desktop/review_template.pdf')
+
+fields = reader.get_fields()
+result = {}
+if fields:
+    for name, field in fields.items():
+        result[name] = {
+            'type': str(field.get('/FT', '')),
+            'value': str(field.get('/V', '')),
+            'rect': str(field.get('/Rect', '')),
+        }
+
+page = reader.pages[0]
+annots_info = []
+if '/Annots' in page:
+    for annot in page['/Annots']:
+        obj = annot.get_object()
+        annots_info.append({
+            'T': str(obj.get('/T', '')),
+            'FT': str(obj.get('/FT', '')),
+            'Rect': str(obj.get('/Rect', '')),
+            'V': str(obj.get('/V', '')),
+            'AS': str(obj.get('/AS', '')),
+        })
+
+with open('/tmp/pdf_fields.json', 'w') as f:
+    json.dump({'fields': result, 'annotations': annots_info}, f, indent=2)
+
+print('Fields:', len(result))
+print('Annotations:', len(annots_info))
+for a in annots_info:
+    print(f"  {a['T']}: type={a['FT']}, rect={a['Rect']}")
+PYEOF
+

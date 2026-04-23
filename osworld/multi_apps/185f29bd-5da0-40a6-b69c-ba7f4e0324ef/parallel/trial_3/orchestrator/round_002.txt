@@ -1,0 +1,11 @@
+Good, I have the PDF template structure. Now let me extract the PDF form fields and read the Excel data. Let me dispatch tasks to both free displays.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Run the following commands in the terminal. First install required packages, then extract PDF form field information:\n\n```\npip3 install PyPDF2 openpyxl reportlab 2>&1 | tail -5\n```\n\nThen run this Python script:\n```python\npython3 -c \"\nfrom PyPDF2 import PdfReader\nimport json\n\nreader = PdfReader('/home/user/Desktop/review_template.pdf')\n\n# Get form fields\nfields = reader.get_fields()\nresult = {}\nif fields:\n    for name, field in fields.items():\n        result[name] = {\n            'type': str(field.get('/FT', '')),\n            'value': str(field.get('/V', '')),\n            'rect': str(field.get('/Rect', '')),\n        }\n\n# Also get annotations from page\npage = reader.pages[0]\nannots_info = []\nif '/Annots' in page:\n    for annot in page['/Annots']:\n        obj = annot.get_object()\n        annots_info.append({\n            'T': str(obj.get('/T', '')),\n            'FT': str(obj.get('/FT', '')),\n            'Rect': str(obj.get('/Rect', '')),\n            'V': str(obj.get('/V', '')),\n            'AP': str(obj.get('/AP', ''))[:100],\n            'AS': str(obj.get('/AS', '')),\n            'MK': str(obj.get('/MK', '')),\n        })\n\nwith open('/tmp/pdf_fields.json', 'w') as f:\n    json.dump({'fields': result, 'annotations': annots_info}, f, indent=2)\n\nprint('Fields:', len(result))\nprint('Annotations:', len(annots_info))\nfor name in sorted(result.keys()):\n    print(f'  {name}: {result[name][\"type\"]}')\n\" 2>&1\n```\n\nAlso dump the full field details:\n```\ncat /tmp/pdf_fields.json\n```",
+      "display": 3
+    }
+  ]
+}
