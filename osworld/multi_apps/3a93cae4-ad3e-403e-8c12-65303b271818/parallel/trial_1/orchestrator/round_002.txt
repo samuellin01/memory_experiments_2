@@ -1,0 +1,11 @@
+Now I understand the spreadsheet structure. I can see there are many merged cell ranges. The existing "Lec 1" is at B2 with merged range B2:B3 (spanning 2 rows for 2 hours). I need to add "Lec 2 (12:00-14:00)" at D5, merged D5:D6 to span 2 hours, matching the pattern of the existing lecture. Let me also check the formatting by writing a Python script to do this properly.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Run the following Python script in the terminal to modify the Course Timetable spreadsheet. The script needs to: 1) Load the file, 2) Check merged cells involving D5 and D6, unmerge them if needed, 3) Write 'Lec 2 (12:00-14:00)' to cell D5, 4) Merge D5:D6, 5) Copy formatting from B2 (the existing Lec 1 cell) to D5 if possible, 6) Save the file.\n\nRun this command:\npython3 << 'EOF'\nimport openpyxl\nfrom copy import copy\n\npath = '/home/user/Desktop/Course Timetable.xlsx'\nwb = openpyxl.load_workbook(path)\nws = wb.active\n\n# Check and unmerge any merged ranges that include D5 or D6\nranges_to_remove = []\nfor mr in ws.merged_cells.ranges:\n    for row in range(mr.min_row, mr.max_row + 1):\n        for col in range(mr.min_col, mr.max_col + 1):\n            if (row == 5 and col == 4) or (row == 6 and col == 4):\n                ranges_to_remove.append(str(mr))\n                break\n        else:\n            continue\n        break\n\nfor r in set(ranges_to_remove):\n    ws.unmerge_cells(r)\n    print(f'Unmerged: {r}')\n\n# Write the lecture text\nws['D5'] = 'Lec 2 (12:00-14:00)'\n\n# Copy formatting from B2 if it has any\nsrc = ws['B2']\ndst = ws['D5']\nif src.font:\n    dst.font = copy(src.font)\nif src.fill:\n    dst.fill = copy(src.fill)\nif src.border:\n    dst.border = copy(src.border)\nif src.alignment:\n    dst.alignment = copy(src.alignment)\n\n# Merge D5:D6 for the 2-hour block\nws.merge_cells('D5:D6')\nprint('Merged D5:D6')\n\nwb.save(path)\nprint('File saved successfully')\nEOF",
+      "display": 3
+    }
+  ]
+}
