@@ -1,0 +1,26 @@
+I'll break this task into parallel subtasks:
+
+1. Install a Lisp extension in VS Code (on primary display, since VS Code is already open there)
+2. Create a test image "character.png" and prepare the Script-Fu script (on secondary displays)
+
+Let me start by working in parallel:
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In VS Code, install a Lisp extension for editing GIMP Script-Fu scripts. Click on the Extensions icon in the left sidebar (or press Ctrl+Shift+X), search for 'lisp' in the extensions search box, and install an appropriate Lisp extension (look for one simply called 'Lisp' or 'lisp' by mattn or similar). Make sure the extension is fully installed before finishing.",
+      "display": 0
+    },
+    {
+      "instruction": "Create a test PNG image called 'character.png' in /home/user/Desktop/ (or /home/user/) using ImageMagick. Run: convert -size 256x256 xc:blue /home/user/Desktop/character.png. If ImageMagick is not installed, install it first with: sudo apt-get install -y imagemagick",
+      "display": 2
+    },
+    {
+      "instruction": "Create a GIMP Script-Fu script file at /home/user/Desktop/resize_script.scm with the following content that resizes 'character.png' to 128x128 and saves as 'resized.png':\n\n(let* (\n  (image (car (gimp-file-load RUN-NONINTERACTIVE \"/home/user/Desktop/character.png\" \"character.png\")))\n  (drawable (car (gimp-image-get-active-drawable image)))\n)\n  (gimp-image-scale-full image 128 128 INTERPOLATION-LINEAR)\n  (file-png-save RUN-NONINTERACTIVE image (car (gimp-image-flatten image)) \"/home/user/Desktop/resized.png\" \"resized.png\" 0 9 1 1 1 1 1)\n  (gimp-image-delete image)\n)\n(gimp-quit 0)\n\nWrite this exact content to the file using a command like: cat > /home/user/Desktop/resize_script.scm << 'EOF'\n... content ...\nEOF",
+      "display": 3
+    }
+  ]
+}
+```

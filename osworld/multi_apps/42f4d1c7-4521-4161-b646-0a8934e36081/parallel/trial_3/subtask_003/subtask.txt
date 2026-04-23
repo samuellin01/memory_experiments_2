@@ -1,0 +1,22 @@
+Context:
+Original task: Configure VS Code to edit GIMP script-fu scripts effectively by installing lisp extension. Test by writing code to resize the image "character.png" to 128 * 128 as "resized.png".
+
+Progress so far:
+No subtasks completed yet.
+
+Subtask:
+Create a GIMP Script-Fu script file at /home/user/Desktop/resize_script.scm with the following content that resizes 'character.png' to 128x128 and saves as 'resized.png':
+
+(let* (
+  (image (car (gimp-file-load RUN-NONINTERACTIVE "/home/user/Desktop/character.png" "character.png")))
+  (drawable (car (gimp-image-get-active-drawable image)))
+)
+  (gimp-image-scale-full image 128 128 INTERPOLATION-LINEAR)
+  (file-png-save RUN-NONINTERACTIVE image (car (gimp-image-flatten image)) "/home/user/Desktop/resized.png" "resized.png" 0 9 1 1 1 1 1)
+  (gimp-image-delete image)
+)
+(gimp-quit 0)
+
+Write this exact content to the file using a command like: cat > /home/user/Desktop/resize_script.scm << 'EOF'
+... content ...
+EOF
