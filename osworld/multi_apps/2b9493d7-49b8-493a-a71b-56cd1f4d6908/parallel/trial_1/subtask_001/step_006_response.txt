@@ -1,0 +1,8 @@
+The verification command `pgrep -a soffice; pgrep -a swriter` returned no output, confirming that there are no LibreOffice Writer (or any soffice/swriter) processes still running. All LibreOffice Writer processes have been successfully killed.
+
+DONE. I successfully force-quit LibreOffice Writer by running the following commands in the terminal:
+1. `killall soffice.bin` - killed the main LibreOffice binary process
+2. `pkill -f swriter` - killed any swriter-specific processes
+3. `pkill -f 'soffice'` - killed any remaining soffice processes
+
+Verification with `pgrep -a soffice; pgrep -a swriter` confirmed no LibreOffice processes remain running. No other applications were affected.
