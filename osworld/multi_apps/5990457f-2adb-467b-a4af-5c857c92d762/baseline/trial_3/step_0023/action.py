@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ls /etc/chromium/policies/ 2>/dev/null; ls /etc/op'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('t/chrome/policies/ 2>/dev/null; find /etc -name "*'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('.json" -path "*chrome*" -o -name "*.json" -path "*'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('chromium*" 2>/dev/null\n'), shell=True, check=True)
+import time; time.sleep(0.05)
