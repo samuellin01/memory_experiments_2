@@ -1,0 +1,53 @@
+Context:
+Original task: There's an e-mail containing the AWS invoice for December saved in local "Bills" folder. Extract the invoice PDF to the my receipts folder. Follow the file name pattern of the old files and append a record at the end of my tally book.
+
+Progress so far:
+1. [DONE] Look in the 'Bills' local folder in Thunderbird Mail. Click on 'Bills' in the left sidebar to see the emails there. Find the email containing the AWS invoice for December and open it. I need to see the email contents and any PDF attachment.
+   Result: I've found the AWS invoice email. Here are the key details:
+
+- **From**: AWS (aws-receivables-support@email.amazon.com)
+- **Subject**: Amazon Web Services Invoice Available [Account: 0123456789ab] [Invoice ID: 0123456789]
+- **Date**: 3/1/2024, 15:48
+- **Billing Period**: December 1 - December 31, 2023
+- **Attachment**: `invoice0123456789.pdf` (22.8 KB)
+
+The email confirms this is the AWS invoice for December 2023. There is a PDF attachment at the bottom of the email called `invoice0123456789.pdf`. 
+
+DONE. I found the AWS invoice for December in the Bills folder of Thunderbird Mail's Local Folders. The email is from aws-receivables-support@email.amazon.com, dated 3/1/2024, with subject "Amazon Web Services Invoice Available [Account: 0123456789ab] [Invoice ID: 0123456789]". It covers the billing period December 1 - December 31, 2023. There is a PDF attachment named "invoice0123456789.pdf" (22.8 KB) at the bottom of the email.
+2. [DONE] Find the email files in the Bills folder of Thunderbird's local folders. Run: find /home/user/.thunderbird -path '*/Local Folders/Bills*' -type f 2>/dev/null; also try: find /home/user/.thunderbird -name 'Bills*' 2>/dev/null. List the contents. Write findings to /tmp/bills_info.txt
+   Result: DONE
+
+I've successfully found and documented the email files in the Bills folder of Thunderbird's local folders. The findings are saved to `/tmp/bills_info.txt`. Here's a summary:
+
+**Bills mbox location:** `/home/user/.thunderbird/t5q2a5hp.default-release/Mail/Local Folders/Bills`
+**Bills index file:** `/home/user/.thunderbird/t5q2a5hp.default-release/Mail/Local Folders/Bills.msf`
+
+**Number of emails: 2**
+
+1. **Email 1** - Subject: "Amazon Web Services Invoice Available [Account: 0123456789ab]"
+   - Attachments: `invoice0123456789.pdf` (inline), `Invoice-01234567-89ab.pdf` (attachment)
+
+2. **Email 2** - Subject: "Your receipt from X (formerly Twitter) #0123-4567"
+   - Attachments: `Receipt-0123-4567.pdf` (attachment)
+
+The AWS invoice email is Email 1, which contains the PDF attachment `Invoice-01234567-89ab.pdf` that needs to be extracted for the next steps.
+
+Subtask:
+Extract the PDF attachment from the AWS invoice email in Thunderbird's Bills mbox file. The mbox file is at /home/user/.thunderbird/t5q2a5hp.default-release/Mail/Local Folders/Bills. The attachment filename is 'Invoice-01234567-89ab.pdf'. Use a Python script to extract it. You can use the 'mailbox' and 'email' modules. Save the extracted PDF to /tmp/Invoice-01234567-89ab.pdf. Here's a rough approach:
+
+import mailbox
+import email
+import base64
+
+mbox = mailbox.mbox('/home/user/.thunderbird/t5q2a5hp.default-release/Mail/Local Folders/Bills')
+for message in mbox:
+    if 'Amazon Web Services' in message.get('subject', ''):
+        for part in message.walk():
+            if part.get_content_type() == 'application/pdf':
+                filename = part.get_filename()
+                if filename and 'Invoice' in filename:
+                    with open('/tmp/' + filename, 'wb') as f:
+                        f.write(part.get_payload(decode=True))
+                    print(f'Saved {filename}')
+
+Verify the file was saved correctly.

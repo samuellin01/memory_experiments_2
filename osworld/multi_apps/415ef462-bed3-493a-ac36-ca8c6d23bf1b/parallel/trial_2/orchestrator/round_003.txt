@@ -1,0 +1,10 @@
+Good, I now know the AWS email has an attachment called `Invoice-01234567-89ab.pdf`. Let me extract the PDF and also check the receipts folder while waiting for display 2's results.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Extract the PDF attachment from the AWS invoice email in Thunderbird's Bills mbox file. The mbox file is at /home/user/.thunderbird/t5q2a5hp.default-release/Mail/Local Folders/Bills. The attachment filename is 'Invoice-01234567-89ab.pdf'. Use a Python script to extract it. You can use the 'mailbox' and 'email' modules. Save the extracted PDF to /tmp/Invoice-01234567-89ab.pdf. Here's a rough approach:\n\nimport mailbox\nimport email\nimport base64\n\nmbox = mailbox.mbox('/home/user/.thunderbird/t5q2a5hp.default-release/Mail/Local Folders/Bills')\nfor message in mbox:\n    if 'Amazon Web Services' in message.get('subject', ''):\n        for part in message.walk():\n            if part.get_content_type() == 'application/pdf':\n                filename = part.get_filename()\n                if filename and 'Invoice' in filename:\n                    with open('/tmp/' + filename, 'wb') as f:\n                        f.write(part.get_payload(decode=True))\n                    print(f'Saved {filename}')\n\nVerify the file was saved correctly.", "display": 3}
+  ]
+}
+```

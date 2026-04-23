@@ -1,0 +1,12 @@
+I need to first gather information about the existing files and the email in the Bills folder. Let me do this in parallel.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Look in the 'Bills' local folder in Thunderbird Mail. Click on 'Bills' in the left sidebar to see the emails there. Find the email containing the AWS invoice for December and open it. I need to see the email contents and any PDF attachment.", "display": 0},
+    {"instruction": "Explore the filesystem to find: 1) The 'receipts' folder - check ~/receipts, ~/Documents/receipts, or similar locations. List all files in it to see the naming pattern. 2) Find the 'tally book' - look for spreadsheet or text files that could be a tally/ledger, check ~/Documents, home directory, etc. Run commands like: find /home/user -type d -name '*receipt*' 2>/dev/null; find /home/user -type f -name '*tally*' 2>/dev/null; find /home/user -type f -name '*ledger*' 2>/dev/null; ls -la /home/user/Documents/ 2>/dev/null; ls -la /home/user/ 2>/dev/null. Write all findings to /tmp/filesystem_info.txt", "display": 2},
+    {"instruction": "Find the email files in the Bills folder of Thunderbird's local folders. Run: find /home/user/.thunderbird -path '*/Local Folders/Bills*' -type f 2>/dev/null; also try: find /home/user/.thunderbird -name 'Bills*' 2>/dev/null. List the contents. Write findings to /tmp/bills_info.txt", "display": 3}
+  ]
+}
+```

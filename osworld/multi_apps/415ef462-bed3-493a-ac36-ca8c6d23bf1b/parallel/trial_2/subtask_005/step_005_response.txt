@@ -1,0 +1,8 @@
+Now I can see the exact structure of the tally book. The columns are:
+- **Service** (str): 'AWS' or 'X'
+- **Month** (float): e.g., 2023.8, 2023.9, 2023.1 (which is 2023.10), 2023.11, 2023.12
+- **Amount** (float): the dollar amount
+
+Wait - I notice that 2023.1 is actually 2023.10 (October) since 2023.10 as a float would be 2023.1. This is a floating point representation issue. The months go 2023.8, 2023.9, 2023.1(0), 2023.11. So the December AWS invoice should have Month = 2023.12 and Amount = 10.02.
+
+Now let me append the record:

@@ -1,0 +1,45 @@
+{
+  "final_score": 0.0,
+  "failure_reason": "metric_1_failed_early_exit",
+  "conjunction": "and",
+  "metric_details": [
+    {
+      "index": 0,
+      "func_name": "compare_table",
+      "score": 1.0,
+      "caused_early_exit": false,
+      "actual_value": "cache/415ef462-bed3-493a-ac36-ca8c6d23bf1b/tally_book.xlsx",
+      "expected_value": "cache/415ef462-bed3-493a-ac36-ca8c6d23bf1b/tally_book_gt.xlsx",
+      "evaluator_result_config": {
+        "type": "vm_file",
+        "path": "/home/user/Documents/Finance/tally_book.xlsx",
+        "dest": "tally_book.xlsx"
+      },
+      "evaluator_expected_config": {
+        "type": "cloud_file",
+        "path": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/multi_apps/415ef462-bed3-493a-ac36-ca8c6d23bf1b/tally_book_gt.xlsx",
+        "dest": "tally_book_gt.xlsx"
+      }
+    },
+    {
+      "index": 1,
+      "func_name": "check_list",
+      "score": 0.0,
+      "caused_early_exit": true,
+      "actual_value": "cache/415ef462-bed3-493a-ac36-ca8c6d23bf1b/diff.out",
+      "expected_value": "{'unexpect': ['.+']}",
+      "evaluator_result_config": {
+        "type": "cache_file",
+        "path": "diff.out"
+      },
+      "evaluator_expected_config": {
+        "type": "rule",
+        "rules": {
+          "unexpect": [
+            ".+"
+          ]
+        }
+      }
+    }
+  ]
+}
