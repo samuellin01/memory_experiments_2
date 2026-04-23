@@ -1,0 +1,11 @@
+I can see the desktop with "LibreOffice Calc" in the top bar and a dropdown menu showing "New Spreadsheet" and "Quit". The LibreOffice window seems to be off-screen or invisible. I need to take a completely fresh approach - kill LibreOffice, clean everything up, and relaunch it properly. Let me first close that menu and use a terminal to fix this.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "I see the desktop with a LibreOffice Calc dropdown menu open (showing 'New Spreadsheet' and 'Quit'). Do the following steps very efficiently:\n\n1. First, press Escape to close the dropdown menu\n2. Then press Ctrl+Alt+T to open a terminal\n3. In the terminal, run this SINGLE command (all on one line):\n   killall -9 soffice.bin 2>/dev/null; sleep 1; rm -rf ~/.config/libreoffice/user/backup/ 2>/dev/null; rm -f ~/Desktop/.~lock.output.csv# 2>/dev/null; nohup libreoffice --calc ~/Desktop/output.csv &\n4. Wait about 8 seconds for LibreOffice to start\n5. If a Document Recovery dialog appears, click 'Discard' then 'Yes'\n6. If a Text Import dialog appears, click 'OK'\n7. Once the spreadsheet is visible, use this command to move it to the front:\n   WID=$(xdotool search --class libreoffice | head -1); xdotool windowmove $WID 50 50; xdotool windowsize $WID 1000 600; xdotool windowactivate $WID; xdotool getactivewindow windowminimize\n\nThe MOST IMPORTANT thing is that LibreOffice Calc ends up visible in the foreground with the output.csv data showing.",
+      "display": 0
+    }
+  ]
+}

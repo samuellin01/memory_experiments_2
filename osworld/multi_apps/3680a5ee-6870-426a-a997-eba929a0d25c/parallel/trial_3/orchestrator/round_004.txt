@@ -1,0 +1,11 @@
+LibreOffice Calc didn't appear on display 0 (primary), likely due to a lock conflict from the LibreOffice instance running on display 3. I need to kill all existing LibreOffice processes first, then relaunch on display 0.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal on display 0, run the following commands to kill any existing LibreOffice processes, clean up lock files, and then relaunch LibreOffice Calc with output.csv:\n\nkillall soffice.bin 2>/dev/null; killall oosplash 2>/dev/null; sleep 3; rm -f ~/.config/libreoffice/.~lock* 2>/dev/null; libreoffice --calc ~/Desktop/output.csv &\n\nWait for LibreOffice to appear. If a Text Import dialog appears, click OK to accept the defaults. Make sure LibreOffice Calc window is visible with the data displayed.",
+      "display": 0
+    }
+  ]
+}

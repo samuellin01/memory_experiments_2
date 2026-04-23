@@ -1,0 +1,11 @@
+The output.csv file is created correctly and LibreOffice Calc is running (visible in the GNOME top bar). I just need to bring the LibreOffice window to the front by minimizing the terminal. Let me try a more direct approach.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "There is a terminal window in the foreground and LibreOffice Calc is running behind it. You need to bring LibreOffice Calc to the front. Do this efficiently in ONE step:\n\nIn the terminal, type this exact command and press Enter:\nWID=$(xdotool search --name 'output' | head -1) && xdotool getactivewindow windowminimize && sleep 0.3 && xdotool windowactivate $WID\n\nThis will first find the LibreOffice window ID, then minimize the terminal, then activate LibreOffice. If that doesn't work, just click the minimize button on the terminal's title bar (the dash/minus icon near the top-right of the terminal window).",
+      "display": 0
+    }
+  ]
+}

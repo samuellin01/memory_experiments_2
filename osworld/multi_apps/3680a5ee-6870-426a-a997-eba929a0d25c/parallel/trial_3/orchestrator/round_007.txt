@@ -1,0 +1,11 @@
+I see the Files manager opened instead of LibreOffice Calc. The LibreOffice process seems to have been killed or lost its window. I need to kill everything, close the Files window, open a terminal, and freshly launch LibreOffice Calc. Let me do this cleanly.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "The current screen shows a Files manager window. I need you to:\n1. Close the Files manager window (click the X button at top right, or press Alt+F4)\n2. Open a terminal - press Ctrl+Alt+T to open a new terminal\n3. In the terminal, run this command to kill any existing LibreOffice, clean up, and relaunch:\n   killall soffice.bin 2>/dev/null; killall oosplash 2>/dev/null; sleep 2; rm -f ~/.config/libreoffice/.~lock* 2>/dev/null; rm -f ~/Desktop/.~lock.output.csv*; libreoffice --calc ~/Desktop/output.csv &\n4. Wait for LibreOffice to appear (may take 5-10 seconds)\n5. If a Text Import dialog appears, click OK\n6. After LibreOffice Calc opens with the data, DO NOT do anything else - leave it in the foreground\n\nThe key thing is to end with LibreOffice Calc visible in the foreground showing the output.csv data.",
+      "display": 0
+    }
+  ]
+}

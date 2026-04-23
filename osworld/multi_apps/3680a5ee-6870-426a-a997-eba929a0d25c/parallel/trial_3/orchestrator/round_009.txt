@@ -1,0 +1,11 @@
+I can see the terminal is open and LibreOffice was accidentally minimized. The top bar shows "Terminal" not "LibreOffice Calc", so LibreOffice was killed or minimized. I need to take a very targeted approach: capture the terminal window ID first, then activate LibreOffice, or just kill and restart cleanly. Let me try a fresh, clean approach.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "There is a terminal window visible on the desktop. In this terminal, do the following steps very efficiently:\n\n1. First, run this command to completely kill LibreOffice and clean up:\n   killall -9 soffice.bin 2>/dev/null; killall -9 oosplash 2>/dev/null; rm -rf ~/.config/libreoffice/user/backup/ 2>/dev/null; rm -f ~/Desktop/.~lock.output.csv#\n\n2. Then run this command to capture the terminal window ID, launch LibreOffice, and prepare to bring it to front:\n   TWID=$(xdotool getactivewindow); libreoffice --calc ~/Desktop/output.csv &\n\n3. Wait about 8-10 seconds for LibreOffice to load\n\n4. If a Document Recovery dialog appears, click 'Discard' then 'Yes' to confirm\n\n5. If a Text Import dialog appears, click 'OK'\n\n6. Once the LibreOffice spreadsheet is loaded, run this command in the terminal to minimize the terminal and show LibreOffice:\n   xdotool windowminimize $TWID\n\nThe end result MUST be LibreOffice Calc visible in the foreground with the output.csv data displayed. Do NOT minimize LibreOffice - only minimize the terminal.",
+      "display": 0
+    }
+  ]
+}

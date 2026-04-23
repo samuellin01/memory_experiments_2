@@ -1,0 +1,3 @@
+I can see the problem clearly now. The output shows only the file2 content - "Last Name$", "Abril$", "Hashimoto$", etc. The first names from file1.csv are missing. It seems `paste -d''` with an empty delimiter isn't working correctly on this system - it's treating the empty string as no delimiter and only outputting the second file's content.
+
+Let me use a different approach - `paste` with a tab delimiter and then `awk` to concatenate, or just use `awk` directly to read both files:

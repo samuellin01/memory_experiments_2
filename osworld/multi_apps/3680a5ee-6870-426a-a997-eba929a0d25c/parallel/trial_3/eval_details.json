@@ -1,0 +1,63 @@
+{
+  "final_score": 1.0,
+  "failure_reason": "all_metrics_passed",
+  "conjunction": "and",
+  "metric_details": [
+    {
+      "index": 0,
+      "func_name": "check_include_exclude",
+      "score": 1.0,
+      "caused_early_exit": false,
+      "actual_value": "use terminal\n",
+      "expected_value": "{'include': ['use terminal']}",
+      "evaluator_result_config": {
+        "type": "vm_command_line",
+        "command": [
+          "/bin/bash",
+          "-c",
+          "output=$(ps aux | grep \"[s]office\" | awk '{print $7}' | grep -E \"pts/|tty\"); if [ -z \"$output\" ]; then echo \"use no terminal\"; else echo \"use terminal\"; fi;"
+        ]
+      },
+      "evaluator_expected_config": {
+        "type": "rule",
+        "rules": {
+          "include": [
+            "use terminal"
+          ]
+        }
+      }
+    },
+    {
+      "index": 1,
+      "func_name": "compare_csv",
+      "score": 1.0,
+      "caused_early_exit": false,
+      "actual_value": "cache/3680a5ee-6870-426a-a997-eba929a0d25c/output.csv",
+      "expected_value": "['cache/3680a5ee-6870-426a-a997-eba929a0d25c/output_gold.csv', 'cache/3680a5ee-6870-426a-a997-eba929a0d25c/output_gold2.csv', 'cache/3680a5ee-6870-426a-a997-eba929a0d25c/output_gold3.csv']",
+      "evaluator_result_config": {
+        "type": "vm_file",
+        "path": "/home/user/Desktop/output.csv",
+        "dest": "output.csv"
+      },
+      "evaluator_expected_config": {
+        "type": "cloud_file",
+        "multi": true,
+        "path": [
+          "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/multi_apps/3680a5ee-6870-426a-a997-eba929a0d25c/output.csv",
+          "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/multi_apps/3680a5ee-6870-426a-a997-eba929a0d25c/output_gold2.csv",
+          "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache/resolve/main/multi_apps/3680a5ee-6870-426a-a997-eba929a0d25c/output_gold3.csv"
+        ],
+        "dest": [
+          "output_gold.csv",
+          "output_gold2.csv",
+          "output_gold3.csv"
+        ],
+        "gives": [
+          0,
+          1,
+          2
+        ]
+      }
+    }
+  ]
+}
