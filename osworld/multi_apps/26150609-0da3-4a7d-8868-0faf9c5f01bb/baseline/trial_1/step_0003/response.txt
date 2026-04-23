@@ -1,0 +1,8 @@
+
+
+Now I can see the issue! In `food.py`:
+
+- **`__init__`** (line 8): Food position is set using `random.randint(0, WIDTH-SNAKE_SIZE)` — this gives a random pixel position, NOT aligned to the grid.
+- **`respawn`** (line 16): Food position is set using `random.randint(0, (WIDTH - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE` — this IS aligned to the grid.
+
+The snake positions are likely grid-aligned (multiples of SNAKE_SIZE), so the initial food position in `__init__` won't align to the grid, making it impossible for the snake to eat it initially. Let me also check `snake.py` and `settings.py` to confirm.

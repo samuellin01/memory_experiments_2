@@ -1,0 +1,22 @@
+
+
+The file has been saved (the dot on the tab is gone, showing "food.py ×" instead of "food.py ●"). The fix is complete.
+
+**Summary of the bug and fix:**
+
+The problem was in `food.py` in the `__init__` method. The original code was:
+```python
+self.position = (random.randint(0, WIDTH-SNAKE_SIZE), random.randint(0, HEIGHT-SNAKE_SIZE))
+```
+
+This generated random pixel positions that were NOT aligned to the snake's grid (multiples of `SNAKE_SIZE`). Since the snake moves in steps of `SNAKE_SIZE` and its positions are always grid-aligned, the snake's head position could never exactly equal the food's position, making it impossible to eat the food.
+
+The fix changes the initialization to use grid-aligned positions (same formula as the `respawn` method):
+```python
+self.position = (random.randint(0, (WIDTH - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE,
+                     random.randint(0, (HEIGHT - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE)
+```
+
+Now the food will always spawn at positions that are multiples of `SNAKE_SIZE`, allowing the snake to eat it.
+
+DONE
