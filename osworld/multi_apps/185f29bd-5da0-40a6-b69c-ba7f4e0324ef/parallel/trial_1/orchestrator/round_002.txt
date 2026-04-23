@@ -1,0 +1,17 @@
+Good, I now have a clear picture of the PDF template structure. Let me use display 3 to extract the Excel data programmatically and analyze the PDF template while display 0 is still working on reading the spreadsheet visually.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Open a terminal and run the following Python script to extract all data from the Excel file:\n\npython3 << 'PYEOF'\nimport openpyxl\nwb = openpyxl.load_workbook('/home/user/Desktop/Employee Performance Evaluation Summary.xlsx')\nws = wb.active\nprint('=== ALL CELLS ===')\nfor row in ws.iter_rows(min_row=1, max_row=ws.max_row, max_col=ws.max_column, values_only=False):\n    for cell in row:\n        if cell.value is not None:\n            print(f'  ({cell.row},{cell.column}) [{cell.coordinate}]: {repr(cell.value)}')\nprint(f'\\nMax row: {ws.max_row}, Max col: {ws.max_column}')\nPYEOF\n\nSave the complete output to /tmp/excel_data.txt",
+      "display": 3
+    },
+    {
+      "instruction": "Open a terminal and run the following commands to analyze the PDF template:\n\n1. Run: pdftotext -layout /home/user/Desktop/review_template.pdf /tmp/pdf_text.txt && cat /tmp/pdf_text.txt\n2. Run: python3 -c \"\nimport subprocess\ntry:\n    result = subprocess.run(['pdftk', '/home/user/Desktop/review_template.pdf', 'dump_data_fields'], capture_output=True, text=True)\n    print('PDFTK fields:', result.stdout)\n    print('PDFTK stderr:', result.stderr)\nexcept: print('pdftk not available')\n\"\n3. Run: python3 -c \"\ntry:\n    from PyPDF2 import PdfReader\n    reader = PdfReader('/home/user/Desktop/review_template.pdf')\n    for i, page in enumerate(reader.pages):\n        if '/Annots' in page:\n            print(f'Page {i} has annotations/form fields')\n            for annot in page['/Annots']:\n                obj = annot.get_object()\n                print(f'  Field: {obj}')\n        else:\n            print(f'Page {i}: no form fields')\nexcept Exception as e: print(f'PyPDF2 error: {e}')\n\"\n\nSave all output to /tmp/pdf_analysis.txt",
+      "display": 2
+    }
+  ]
+}
+```

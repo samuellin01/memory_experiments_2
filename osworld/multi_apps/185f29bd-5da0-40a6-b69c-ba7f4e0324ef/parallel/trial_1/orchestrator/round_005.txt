@@ -1,0 +1,13 @@
+Good, now I need to get the PDF form field details. Let me use display 2 to analyze the PDF form fields with PyPDF2 (which is now installed), while display 3 continues its work.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run this single Python script to dump all PDF form field names and details:\n\npython3 << 'PYEOF'\nfrom PyPDF2 import PdfReader\nimport json\n\nreader = PdfReader('/home/user/Desktop/review_template.pdf')\n\nprint('=== DOCUMENT LEVEL ===')\nif '/AcroForm' in reader.trailer['/Root']:\n    print('Has AcroForm')\n    form = reader.trailer['/Root']['/AcroForm']\n    if '/Fields' in form:\n        print(f'Number of fields: {len(form[\"/Fields\"])}')\nelse:\n    print('No AcroForm')\n\nprint('\\n=== PAGE ANNOTATIONS ===')\nfor i, page in enumerate(reader.pages):\n    if '/Annots' in page:\n        annots = page['/Annots']\n        print(f'Page {i}: {len(annots)} annotations')\n        for j, annot in enumerate(annots):\n            obj = annot.get_object()\n            field_name = str(obj.get('/T', 'NO_NAME'))\n            field_type = str(obj.get('/FT', 'NO_TYPE'))\n            field_value = str(obj.get('/V', ''))\n            rect = str(obj.get('/Rect', ''))\n            print(f'  [{j}] Name={field_name}, Type={field_type}, Value={field_value}, Rect={rect}')\n    else:\n        print(f'Page {i}: no annotations')\nPYEOF\n\nSave the output to /tmp/pdf_fields.txt by running: python3 << 'PYEOF' > /tmp/pdf_fields.txt 2>&1\n... (same script)\n\nOr just redirect. Make sure the output is captured.",
+      "display": 2
+    }
+  ]
+}
+```

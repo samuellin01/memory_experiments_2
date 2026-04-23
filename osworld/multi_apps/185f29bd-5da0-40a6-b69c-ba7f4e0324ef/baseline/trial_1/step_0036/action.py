@@ -1,1 +1,0 @@
-pyautogui.hscroll(5, 570, 600)

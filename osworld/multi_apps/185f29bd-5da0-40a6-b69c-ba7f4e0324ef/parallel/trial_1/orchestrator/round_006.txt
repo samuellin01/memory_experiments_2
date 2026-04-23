@@ -1,0 +1,13 @@
+Now I have the Excel data extracted. I need the PDF form field names to proceed. Let me wait for display 2 to finish the PDF field analysis, and meanwhile use display 0 to start preparing. Let me also get the complete data from the excel file on display 0.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal on this display, run this comprehensive Python script that reads the Excel data and the PDF form fields, then generates filled PDFs for each employee. Run it as a single script:\n\npython3 << 'PYEOF'\nimport openpyxl\nfrom PyPDF2 import PdfReader\nimport json\n\n# First, dump all PDF form fields\nreader = PdfReader('/home/user/Desktop/review_template.pdf')\nprint('=== PDF FORM FIELDS ===')\nall_fields = []\nfor i, page in enumerate(reader.pages):\n    if '/Annots' in page:\n        annots = page['/Annots']\n        print(f'Page {i}: {len(annots)} annotations')\n        for j, annot in enumerate(annots):\n            obj = annot.get_object()\n            field_name = str(obj.get('/T', 'NO_NAME'))\n            field_type = str(obj.get('/FT', 'NO_TYPE'))\n            rect = obj.get('/Rect', '')\n            all_fields.append(field_name)\n            print(f'  [{j}] Name={field_name}, Type={field_type}, Rect={rect}')\n    else:\n        print(f'Page {i}: no annotations')\n\nprint(f'\\nTotal fields: {len(all_fields)}')\nprint('\\nAll field names:')\nfor f in sorted(all_fields):\n    print(f'  {f}')\n\n# Now dump Excel data\nprint('\\n=== EXCEL DATA ===')\nwb = openpyxl.load_workbook('/home/user/Desktop/Employee Performance Evaluation Summary.xlsx')\nws = wb.active\nheaders = []\nfor cell in next(ws.iter_rows(min_row=1, max_row=1, max_col=ws.max_column)):\n    headers.append(str(cell.value) if cell.value else '')\nprint(f'Headers: {headers}')\n\nfor row in ws.iter_rows(min_row=2, max_row=ws.max_row, max_col=ws.max_column, values_only=True):\n    emp = dict(zip(headers, row))\n    print(f\"\\nEmployee: {emp.get('EMPLOYEE NAME')}\")\n    for k, v in emp.items():\n        print(f'  {k}: {repr(v)}')\n\nPYEOF",
+      "display": 0
+    }
+  ]
+}
+```

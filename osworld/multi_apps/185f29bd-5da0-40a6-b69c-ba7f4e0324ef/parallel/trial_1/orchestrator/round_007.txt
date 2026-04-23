@@ -1,0 +1,13 @@
+Now I know the PDF has AcroForm fields. I need to get the exact field names. Let me use display 3 to enumerate all form fields quickly, while display 0 is still running its analysis.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run this Python script immediately to enumerate all PDF form fields:\n\npython3 << 'PYEOF'\nimport pikepdf\npdf = pikepdf.open('/home/user/Desktop/review_template.pdf')\nprint(f'Number of annotations: {len(pdf.pages[0][\"/Annots\"])}')\nfor i, annot in enumerate(pdf.pages[0]['/Annots']):\n    name = str(annot.get('/T', 'NO_NAME'))\n    ftype = str(annot.get('/FT', 'NO_TYPE'))\n    rect = str(annot.get('/Rect', ''))\n    value = str(annot.get('/V', ''))\n    print(f'[{i}] Name={name} Type={ftype} Value={value} Rect={rect}')\nPYEOF\n\nMake sure all output is visible. Save to /tmp/pdf_fields.txt",
+      "display": 3
+    }
+  ]
+}
+```

@@ -1,0 +1,21 @@
+Now I have enough information. I can see the field naming pattern clearly:
+- Employee info fields like `EMPLOYEE NAMERow1`, `POSITION HELDRow1`, etc.
+- Rating fields like `GOODGroup Work`, `EXCELLENTIndependent Work`, `SATISFACTORYProductivity`, etc.
+
+I need to see the first few fields to confirm the employee info field names. Let me now write the complete PDF generation script. I have enough data to proceed.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run: head -25 /tmp/pdf_fields.txt && echo '---' && grep -n 'Name=' /tmp/pdf_fields.txt | head -15\n\nThis will show the first employee info field names. Then save the output.",
+      "display": 0
+    },
+    {
+      "instruction": "In the terminal, write the following Python script to /tmp/fill_pdfs.py and then execute it. The script reads Excel data and fills PDF forms for each employee.\n\nFirst, run: grep 'Name=' /tmp/pdf_fields.txt | sed 's/.*Name=//' | sed 's/,.*//' | sort > /tmp/field_names_only.txt && cat /tmp/field_names_only.txt\n\nThis will give us a clean list of all field names to use in the script.",
+      "display": 3
+    }
+  ]
+}
+```

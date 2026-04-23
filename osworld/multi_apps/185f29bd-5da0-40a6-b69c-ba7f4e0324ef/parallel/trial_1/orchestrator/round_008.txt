@@ -1,0 +1,17 @@
+Excellent! Now I can see the field naming pattern clearly from the screenshot. The fields are named like:
+- `UNSATISFACTORYIntegrity`, `SATISFACTORYIntegrity`, `GOODIntegrity`, `EXCELLENTIntegrity`
+- `UNSATISFACTORYCoworker Relations`, `SATISFACTORYCoworker Relations`, etc.
+
+I need to see the first few fields (employee info fields) and then build the complete PDF filling script. Let me get the head of the fields file and then write the complete generation script.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run these commands:\n\nhead -30 /tmp/pdf_fields.txt\necho '==='\ntail -30 /tmp/pdf_fields.txt\n\nThen also run: grep '^  \\[' /tmp/pdf_fields.txt | head -15\n\nThis will show the first and last fields to confirm the naming pattern.",
+      "display": 2
+    }
+  ]
+}
+```
