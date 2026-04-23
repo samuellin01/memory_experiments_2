@@ -1,0 +1,13 @@
+Looking at the screenshot, I can see the latest email in the Bills folder is open. The email is "Your receipt from X (formerly Twitter) #0123-4567". I can see at the bottom of the email there's a visible link: `https://help.twitter.com/en/forms/paid-features/general`. The "Download invoice" link pointed to a Stripe URL that gave a 400 error.
+
+Let me use a secondary display to extract the actual first hyperlink from the email source to be sure, and then open it in Chrome on the primary display.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Find the Thunderbird local mail files for the Bills folder. Look in directories like /home/user/.thunderbird/*/Mail/Local Folders/ for a file named 'Bills' (without extension). Use grep or similar to extract all URLs/hyperlinks (href attributes) from the latest email in that file. Save the list of URLs found to /tmp/email_links.txt. The latest email is the X (formerly Twitter) receipt email.",
+      "display": 2
+    }
+  ]
+}
