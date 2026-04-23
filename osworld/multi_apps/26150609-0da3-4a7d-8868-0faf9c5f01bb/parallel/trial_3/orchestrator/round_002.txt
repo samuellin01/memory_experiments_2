@@ -1,0 +1,10 @@
+I've identified the bug. The issue is in `food.py`: the `__init__` method generates food position using `random.randint(0, WIDTH-SNAKE_SIZE)` which is NOT aligned to the snake's grid (multiples of SNAKE_SIZE), while the `respawn` method correctly aligns to the grid. The snake moves in SNAKE_SIZE increments, so the collision check `snake.positions[0] == food.position` will almost never be true for the initial food position.
+
+The fix is to make the `__init__` method use the same grid-aligned positioning as `respawn`. Let me fix this in VS Code on the primary display.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Open the file food.py in VS Code (click on it in the explorer sidebar). The file is at /home/user/Desktop/snake/food.py. Find the __init__ method where the position is set. The current buggy line is:\n\nself.position = (random.randint(0, WIDTH-SNAKE_SIZE), random.randint(0, HEIGHT-SNAKE_SIZE))\n\nReplace it with the grid-aligned version:\n\nself.position = (random.randint(0, (WIDTH - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE, random.randint(0, (HEIGHT - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE)\n\nThis makes the initial food position align to the snake's grid, matching what the respawn method already does. Save the file after making the change.", "display": 0}
+  ]
+}
