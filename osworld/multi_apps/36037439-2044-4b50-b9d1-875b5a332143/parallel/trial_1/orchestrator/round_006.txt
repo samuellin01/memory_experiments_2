@@ -1,0 +1,8 @@
+We know the profile URL is `https://scholar.google.com/citations?user=qRAQ5BsAAAAJ&hl=en` but Google Scholar is blocking due to IP-based rate limiting. I need to wait longer before retrying. Let me use a secondary display to wait and test when the block lifts, then make a single attempt on display 0.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, run the following command to wait 2 minutes and then test if Google Scholar is accessible: sleep 120 && curl -s -o /tmp/scholar_test.html -w '%{http_code}' 'https://scholar.google.com/citations?user=qRAQ5BsAAAAJ&hl=en' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' && echo '' && head -c 500 /tmp/scholar_test.html", "display": 2}
+  ]
+}
