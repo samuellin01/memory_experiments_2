@@ -1,0 +1,11 @@
+The image was likely saved to /tmp/original_image.png. Now I need to verify it exists and then enhance its brightness. Let me do both in parallel - verify on one display and prepare the enhancement script on another.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run the following commands to check if the image exists and enhance its brightness using Python:\n\n1. First check: ls -la /tmp/original_image.png\n2. Then run this Python script:\npython3 -c \"\nfrom PIL import Image, ImageEnhance\nimg = Image.open('/tmp/original_image.png')\nenhancer = ImageEnhance.Brightness(img)\nimg_bright = enhancer.enhance(1.5)\nimg_bright.save('/home/user/Desktop/background.png')\nprint('Done - saved to Desktop/background.png')\n\"\n3. Verify: ls -la /home/user/Desktop/background.png",
+      "display": 2
+    }
+  ]
+}
