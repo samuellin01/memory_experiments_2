@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('cd "/home/user/Documents/Novels/Pass Through/" && '), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('txt2epub -o "Pass Through.epub" --title "Pass Thro'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ugh" Chapter0.txt Chapter1.txt Chapter2.txt Chapte'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('r3.txt Chapter4.txt\n'), shell=True, check=True)
+import time; time.sleep(0.05)
