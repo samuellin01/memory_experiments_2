@@ -1,0 +1,14 @@
+Now I have a clear picture. I need to:
+1. Unmerge D6:D7 (currently merged and empty)
+2. Merge D5:D6 for the new 2-hour lecture
+3. Write "Lec 2 (12:00-14:00)" in D5
+4. Copy formatting from B2 (Lec 1) to match the style
+
+Let me write a Python script to do this, and also wait for the display 2 task to finish to see the formatting details.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this Python script in the terminal to add the lecture entry to the timetable:\n\npython3 << 'PYEOF'\nimport openpyxl\nfrom copy import copy\n\nfp = '/home/user/Desktop/Course Timetable.xlsx'\nwb = openpyxl.load_workbook(fp)\nws = wb.active\n\n# Step 1: Unmerge D6:D7 (currently merged, empty)\nws.unmerge_cells('D6:D7')\nprint('Unmerged D6:D7')\n\n# Step 2: Merge D5:D6 for the 2-hour lecture slot\nws.merge_cells('D5:D6')\nprint('Merged D5:D6')\n\n# Step 3: Write the lecture text\nws['D5'] = 'Lec 2 (12:00-14:00)'\nprint('Wrote Lec 2 text')\n\n# Step 4: Copy formatting from B2 (Lec 1)\nsrc = ws['B2']\ndst = ws['D5']\nif src.font:\n    dst.font = copy(src.font)\nif src.fill:\n    dst.fill = copy(src.fill)\nif src.alignment:\n    dst.alignment = copy(src.alignment)\nif src.border:\n    dst.border = copy(src.border)\nprint('Copied formatting from B2')\n\n# Step 5: Also set D7 to keep it consistent (it was part of D6:D7 merge, now standalone)\n# Merge D7 with nothing - just leave it. But we should check if D7 needs any treatment.\n# Actually D7 was just the bottom of the empty merge. Now D6 is part of D5:D6 merge.\n# D7 is now a standalone empty cell, which is fine.\n\n# Save\nwb.save(fp)\nprint('Saved successfully!')\n\n# Verify\nwb2 = openpyxl.load_workbook(fp)\nws2 = wb2.active\nprint(f'\\nVerification: D5 = {ws2[\"D5\"].value}')\nprint(f'Merged cells involving D: {[str(mc) for mc in ws2.merged_cells.ranges if \"D\" in str(mc)]}')\nPYEOF", "display": 3}
+  ]
+}

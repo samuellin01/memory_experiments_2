@@ -1,0 +1,25 @@
+Now I can see the full picture clearly:
+
+**Pattern for each column:** Every column has merges spanning 2 rows for each time slot block:
+- Rows 3:4, 6:7, 8:9, 10:11, 12:13
+
+**D column merges:** D3:D4, D6:D7, D8:D9, D10:D11, D12:D13
+
+**Key observation:** There is NO merge for D5 — D5 is a standalone row. But there IS a merge for D6:D7. 
+
+Looking at the time structure:
+- Row 2: 08:00 (A2)
+- Row 3: 10:00 (A3) — merged with row 4
+- Row 5: 12:00 (A5) — standalone
+- Row 6: 14:00 (A6) — merged with row 7 (D6:D7)
+
+For a 2-hour lecture at 12:00-14:00, it should span rows 5 and 6. But D6:D7 is already merged. I need to:
+1. Unmerge D6:D7
+2. Merge D5:D6 for the new lecture
+3. Re-merge D7 if needed (or leave it)
+
+Wait, let me reconsider. Looking at B2 (Lec 1, 8:00-10:00) — B2 is NOT in the merged cells list. So B2 is a single cell (row 2 only). But 8:00-10:00 is 2 hours. Let me check if the pattern is that each row represents a 2-hour block.
+
+Let me look at the time slots more carefully: A2=08:00, A3=10:00, A5=12:00, A6=14:00, A8=16:00, A10=18:00, A12=20:00. Each time slot already represents a 2-hour block. So the lecture just needs to go in D5 as a single cell entry (like B2 has Lec 1).
+
+But I need to handle the fact that D6:D7 is merged (that's the 14:00 slot). D5 is free and not part of any merge. Let me just add the value to D5 with matching formatting.

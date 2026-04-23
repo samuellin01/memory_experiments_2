@@ -1,0 +1,29 @@
+I can now see the full output. Here's a summary of what the script revealed:
+
+**Merged cell ranges (all columns A-H):**
+- **Column A:** A3:A4, A6:A7, A8:A9, A10:A11, A12:A13
+- **Column B:** B6:B7, B8:B9, B10:B11, B12:B13
+- **Column C:** C3:C4, C8:C9, C12:C13
+- **Column D:** D3:D4, D6:D7, D8:D9, D10:D11, D12:D13
+- **Column E:** E3:E4, E6:E7, E8:E9, E10:E11, E12:E13
+- **Column F:** F3:F4, F6:F7, F8:F9, F10:F11, F12:F13
+- **Column G:** G3:G4, G6:G7, G10:G11
+- **Column H:** H3:H4, H6:H7, H8:H9, H10:H11, H12:H13
+
+**Row details for rows 1-7:**
+- **Row 1:** Headers - Mon, Tue, Wed, Thu, Fri, Sat, Sun
+- **Row 2:** A2=08:00, B2=Lec 1 (8:00-10:00), rest None
+- **Row 3:** A3=10:00, B3=Tutorial 1 (10:00-11:00), rest None
+- **Row 4:** All None (merged with row 3 in many columns)
+- **Row 5:** A5=12:00, all other columns None — **D5 is where we need to add the lecture**
+- **Row 6:** A6=14:00, C6=Tutorial 2 (14:00-15:00), rest None
+- **Row 7:** All None
+
+Key finding: **D3:D4 is merged** (rows 3-4 in Wednesday column), but **D5 is NOT part of any merge**. There's also **D6:D7 merged**. So to add a two-hour lecture at 12:00-14:00 on Wednesday, we need to handle D5 (12:00 row) and D6 (14:00 row). Since D6:D7 is already merged (and empty), we may need to unmerge D6:D7 first, then merge D5:D6 for the new 2-hour lecture slot.
+
+DONE. The script successfully ran and revealed the merged cell structure and row details. Key findings:
+- All merged ranges are listed (each column has various 2-row merges for empty time slots)
+- D5 (Wednesday 12:00) is currently empty and NOT merged
+- D6:D7 is merged (empty) — D6 corresponds to the 14:00 row
+- To add a 2-hour lecture (12:00-14:00) on Wednesday, D5:D6 would need to be merged, requiring D6:D7 to be unmerged first
+- The existing "Lec 1" entry at B2 shows the naming format: "Lec 1 (8:00-10:00)"
