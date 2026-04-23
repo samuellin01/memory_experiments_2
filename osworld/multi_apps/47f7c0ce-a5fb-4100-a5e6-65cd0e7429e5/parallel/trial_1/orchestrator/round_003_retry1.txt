@@ -1,0 +1,9 @@
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write a Python script at /tmp/set_bg.py that uses python-pptx to set an image as the background of the second slide in a PowerPoint file. First install python-pptx with: pip install python-pptx\n\nThen create /tmp/set_bg.py with this content:\n\nimport sys\nfrom pptx import Presentation\n\npptx_path = sys.argv[1]\nimg_path = '/tmp/frame_0008.png'\n\nprs = Presentation(pptx_path)\nslide = prs.slides[1]\n\nslide_width = prs.slide_width\nslide_height = prs.slide_height\n\npic = slide.shapes.add_picture(img_path, 0, 0, slide_width, slide_height)\n\nsp_tree = slide.shapes._spTree\npic_element = pic._element\nsp_tree.remove(pic_element)\nsp_tree.insert(2, pic_element)\n\nprs.save(pptx_path)\nprint('Background set successfully')\n\nJust create the script and install python-pptx. Don't run it yet.",
+      "display": 3
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+The frame has been extracted successfully. Now let me wait for the display 0 task to complete to see which presentation is open. Meanwhile, let me prepare by writing a Python script to set the background image on a secondary display, since I'll need it regardless of which file it is.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write a Python script at /tmp/set_bg.py that uses python-pptx to set an image as the background of the second slide in a PowerPoint file. The script should:\n1. Take the pptx file path as the first argument\n2. Use /tmp/frame_0008.png as the background image\n3. Set it as the background of slide 2 (index 1)\n4. Save the file back to the same path\n\nHere's the approach: use python-pptx to open the file, access slide 2, and add the image as a background. The way to set a slide background image in python-pptx is to manipulate the slide's background XML directly or add a full-slide-size image behind all other elements.\n\nUse this approach:\n```python\nimport sys\nfrom pptx import Presentation\nfrom pptx.util import Emu\n\npptx_path = sys.argv[1]\nimg_path = '/tmp/frame_0008.png'\n\nprs = Presentation(pptx_path)\nslide = prs.slides[1]  # second slide (0-indexed)\n\n# Get slide dimensions\nslide_width = prs.slide_width\nslide_height = prs.slide_height\n\n# Add picture as background (at position 0,0 with full slide dimensions)\n# We need to add it behind existing content\nfrom pptx.oxml.ns import qn\nimport copy\n\npic = slide.shapes.add_picture(img_path, 0, 0, slide_width, slide_height)\n\n# Move the picture to the back (first element in spTree)\nsp_tree = slide.shapes._spTree\npic_element = pic._element\nsp_tree.remove(pic_element)\n# Insert after the first two default elements (cNvGrpSpPr and grpSpPr)\nsp_tree.insert(2, pic_element)\n\nprs.save(pptx_path)\nprint('Background set successfully')\n```\n\nFirst install python-pptx: pip install python-pptx\nThen create and test the script. Don't run it yet - just create it and make sure python-pptx is installed.",
+      "display": 3
+    }
+  ]
+}
