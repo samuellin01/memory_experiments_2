@@ -1,0 +1,11 @@
+I need to fix the "conda: command not found" issue. First, let me investigate whether conda/miniconda/anaconda is already installed somewhere on the system, or if it needs to be installed from scratch.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, check if conda is installed anywhere on the system. Run these commands one by one:\n1. `which conda`\n2. `find /home /opt /root -name 'conda' -type f 2>/dev/null`\n3. `ls -la /home/user/miniconda* /home/user/anaconda* /opt/conda* /opt/miniconda* /opt/anaconda* 2>/dev/null`\n4. `find / -name 'conda' -type f 2>/dev/null | head -20`\n5. `cat ~/.bashrc | grep -i conda`\nReport all the output so I can determine the next steps.",
+      "display": 2
+    }
+  ]
+}
