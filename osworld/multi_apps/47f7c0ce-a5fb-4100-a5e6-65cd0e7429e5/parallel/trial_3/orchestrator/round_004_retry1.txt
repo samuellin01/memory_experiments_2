@@ -1,0 +1,11 @@
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write and run a Python script to set the image /tmp/frame_0008.png as the background of the second slide (index 1) of the PowerPoint file /home/user/Desktop/Robotic_Workshop_Infographics.pptx. Install python-pptx first if needed with: pip install python-pptx. Then create and run a script /tmp/set_bg.py with this content:\n\nfrom pptx import Presentation\nfrom pptx.util import Emu\n\nprs = Presentation('/home/user/Desktop/Robotic_Workshop_Infographics.pptx')\nslide = prs.slides[1]\nslide_width = prs.slide_width\nslide_height = prs.slide_height\npic = slide.shapes.add_picture('/tmp/frame_0008.png', 0, 0, slide_width, slide_height)\nsp = pic._element\nspTree = sp.getparent()\nspTree.remove(sp)\nspTree.insert(2, sp)\nprs.save('/home/user/Desktop/Robotic_Workshop_Infographics.pptx')\nprint('Done!')\n\nRun: python3 /tmp/set_bg.py",
+      "display": 2
+    }
+  ]
+}
+```

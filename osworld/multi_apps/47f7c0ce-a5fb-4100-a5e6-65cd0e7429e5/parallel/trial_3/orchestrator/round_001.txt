@@ -1,0 +1,22 @@
+I can see VLC is playing "landscape.mp4" and is currently at 00:08. I need to:
+1. Extract the frame at 00:08 from the video
+2. Find the opened slides file
+3. Set the extracted frame as the background of the second page
+
+Let me start by extracting the frame and finding the slides file in parallel.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Find the video file landscape.mp4 on the system and extract the frame at exactly 00:08 (8 seconds) as a PNG image. Use ffmpeg to extract it. Try common locations like /home/user/, /home/user/Videos/, /home/user/Desktop/, etc. Save the extracted frame to /tmp/frame_0008.png. Command example: ffmpeg -ss 00:00:08 -i <path_to_video> -frames:v 1 /tmp/frame_0008.png",
+      "display": 2
+    },
+    {
+      "instruction": "Find any presentation/slides files (like .pptx, .odp, .ppt) in the home directory and common locations. Run: find /home/user -name '*.pptx' -o -name '*.odp' -o -name '*.ppt' -o -name '*.key' 2>/dev/null. Also check if LibreOffice Impress is running with: ps aux | grep -i impress. Write the results to /tmp/slides_info.txt",
+      "display": 3
+    }
+  ]
+}
+```

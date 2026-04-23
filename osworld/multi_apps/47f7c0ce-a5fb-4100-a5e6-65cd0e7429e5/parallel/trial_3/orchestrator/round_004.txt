@@ -1,0 +1,13 @@
+Now I have the extracted frame at `/tmp/frame_0008.png` and I know the presentation is `/home/user/Desktop/Robotic_Workshop_Infographics.pptx` open in LibreOffice Impress. I need to use python-pptx to set this image as the background of the second slide, then save the file. I'll do this via a script on a secondary display, and then reload the file in LibreOffice Impress on the primary display.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Write and run a Python script to set the image /tmp/frame_0008.png as the background of the second slide (index 1) of the PowerPoint file /home/user/Desktop/Robotic_Workshop_Infographics.pptx. Use python-pptx library. The approach: open the pptx, get slide 2 (index 1), add the image as a background by inserting it as a picture that covers the entire slide dimensions, and send it to the back (behind all other elements). Save the file back to the same path. Here's the approach:\n\n```python\nfrom pptx import Presentation\nfrom pptx.util import Emu\nimport copy\nfrom lxml import etree\n\nprs = Presentation('/home/user/Desktop/Robotic_Workshop_Infographics.pptx')\nslide = prs.slides[1]  # second slide\n\n# Get slide dimensions\nslide_width = prs.slide_width\nslide_height = prs.slide_height\n\n# Add the image as a picture covering the full slide\npic = slide.shapes.add_picture('/tmp/frame_0008.png', 0, 0, slide_width, slide_height)\n\n# Move the picture to the back (first element in the shape tree)\nsp = pic._element\nspTree = sp.getparent()\nspTree.remove(sp)\nspTree.insert(2, sp)  # Insert after the first two default elements\n\nprs.save('/home/user/Desktop/Robotic_Workshop_Infographics.pptx')\nprint('Done!')\n```\n\nInstall python-pptx first if needed: pip install python-pptx",
+      "display": 2
+    }
+  ]
+}
+```
