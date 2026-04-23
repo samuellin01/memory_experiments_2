@@ -1,0 +1,11 @@
+Good, `character.png` is at `/home/user/Desktop/character.png`. Now I can create the Script-Fu script on display 2 while waiting for the VS Code extension installation to complete on display 0.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Create a GIMP Script-Fu script file at /home/user/Desktop/resize.scm with the following content that resizes character.png to 128x128 and saves it as resized.png. Write this exact content to the file using cat:\n\ncat > /home/user/Desktop/resize.scm << 'EOF'\n(let* (\n  (image (car (file-png-load RUN-NONINTERACTIVE\n    \"/home/user/Desktop/character.png\" \"character.png\")))\n  (drawable (car (gimp-image-flatten image)))\n)\n  (gimp-image-scale-full image 128 128 INTERPOLATION-LINEAR)\n  (file-png-save RUN-NONINTERACTIVE\n    image\n    (car (gimp-image-flatten image))\n    \"/home/user/Desktop/resized.png\"\n    \"resized.png\"\n    0 9 1 1 1 1 1)\n  (gimp-image-delete image)\n)\nEOF\n\nThen verify the file was created: cat /home/user/Desktop/resize.scm",
+      "display": 2
+    }
+  ]
+}

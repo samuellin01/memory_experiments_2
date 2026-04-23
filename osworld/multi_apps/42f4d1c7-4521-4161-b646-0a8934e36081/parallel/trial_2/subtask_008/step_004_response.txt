@@ -1,0 +1,22 @@
+The script has been successfully updated and verified. The output of `cat /home/user/Desktop/resize.scm` shows the correct content:
+
+```scheme
+(let* (
+  (image (car (gimp-file-load RUN-NONINTERACTIVE
+    "/home/user/Desktop/character.png" "character.png")))
+  (drawable (car (gimp-image-flatten image)))
+)
+  (gimp-image-scale-full image 128 128 INTERPOLATION-LINEAR)
+  (file-png-save RUN-NONINTERACTIVE
+    image
+    (car (gimp-image-flatten image))
+    "/home/user/Desktop/resized.png"
+    "resized.png"
+    0 9 1 1 1 1 1)
+  (gimp-image-delete image)
+)
+```
+
+The key change is that `file-png-load` has been replaced with `gimp-file-load`, which is a generic file loader that can handle any image format GIMP supports, including the JPEG-internally-encoded `character.png` file.
+
+DONE. Successfully updated `/home/user/Desktop/resize.scm` to use `gimp-file-load` instead of `file-png-load`. The script now uses the generic GIMP file loader which will correctly handle the `character.png` file (which is actually JPEG internally despite the .png extension). The script will load the image, scale it to 128x128, save it as `/home/user/Desktop/resized.png` in PNG format, and clean up.
