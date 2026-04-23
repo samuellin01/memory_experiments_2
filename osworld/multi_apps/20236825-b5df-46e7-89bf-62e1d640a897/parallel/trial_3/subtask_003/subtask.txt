@@ -1,0 +1,56 @@
+Context:
+Original task: I am currently working on my algorithm practice using the document "bubble_Sort_tutorial.docx." Please assist me in completing the 'bubbleSort' function within the 'bubbleSort.py' file on the Desktop and save the output as 'res.txt' on the Desktop.
+
+Progress so far:
+1. [DONE] Read the contents of the file ~/Desktop/bubbleSort.py and write them to /tmp/bubbleSort_contents.txt. Run: cat ~/Desktop/bubbleSort.py > /tmp/bubbleSort_contents.txt && cat /tmp/bubbleSort_contents.txt
+   Result: The command executed successfully. The contents of `~/Desktop/bubbleSort.py` have been read and written to `/tmp/bubbleSort_contents.txt`. The file contains:
+
+- A comment indicating it's an optimized Python program for Bubble Sort implementation
+- A `bubbleSort(arr)` function with a `#TODO` placeholder (the implementation needs to be completed)
+- A driver code section that tests the function with the array `[64, 34, 25, 12, 22, 11, 90]`
+- Code to print the sorted array
+- A credit comment by Suraj Krushna Yadav
+
+DONE. Successfully read the contents of `~/Desktop/bubbleSort.py` and wrote them to `/tmp/bubbleSort_contents.txt`. The file shows a bubble sort skeleton with a `#TODO` in the `bubbleSort` function that needs to be implemented. The test array is `[64, 34, 25, 12, 22, 11, 90]`.
+
+Subtask:
+Write the completed bubbleSort.py file to ~/Desktop/bubbleSort.py. The file should contain an optimized bubble sort implementation. Use python3 to write it:
+
+python3 -c "
+content = '''# Optimized Python program for implementation of Bubble Sort
+
+
+def bubbleSort(arr):
+    n = len(arr)
+    for i in range(n):
+        swapped = False
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swapped = True
+        if not swapped:
+            break
+    return
+
+
+# Driver code to test above
+if __name__ == \"__main__\":
+    arr = [64, 34, 25, 12, 22, 11, 90]
+
+    bubbleSort(arr)
+
+    print(\"Sorted array:\")
+    for i in range(len(arr)):
+        print(\"%d\" % arr[i], end=\" \")
+
+# This code is modified by Suraj krushna Yadav
+'''
+with open('/home/user/Desktop/bubbleSort.py', 'w') as f:
+    f.write(content)
+"
+
+Then run it and save output to ~/Desktop/res.txt:
+python3 ~/Desktop/bubbleSort.py > ~/Desktop/res.txt
+
+Finally verify both files:
+cat ~/Desktop/bubbleSort.py && echo '---' && cat ~/Desktop/res.txt
