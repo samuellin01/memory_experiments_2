@@ -1,0 +1,8 @@
+Good, python-docx is installed. Let me now use it on display 2 to get a more detailed extraction of the document content, especially the references section, while display 3 finishes the basic extraction.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this Python script to extract the full text of the case study document with paragraph details:\n\npython3 << 'PYEOF'\nfrom docx import Document\n\ndoc = Document('/home/user/Desktop/students work/case study.docx')\n\nprint('=== FULL DOCUMENT TEXT ===')\nfor i, para in enumerate(doc.paragraphs):\n    style = para.style.name if para.style else 'None'\n    text = para.text.strip()\n    if text:\n        print(f'[P{i}] Style: {style} | Text: {text}')\n    else:\n        print(f'[P{i}] Style: {style} | (empty)')\n\nprint('\\n=== REFERENCES SECTION ===')\nfound_refs = False\nfor i, para in enumerate(doc.paragraphs):\n    if 'reference' in para.text.lower() and not found_refs:\n        found_refs = True\n    if found_refs:\n        print(f'[P{i}] Style: {para.style.name} | Text: {para.text}')\n        # Show run-level formatting\n        for j, run in enumerate(para.runs):\n            italic = run.italic\n            bold = run.bold\n            print(f'  Run{j}: bold={bold}, italic={italic}, text=\"{run.text}\"')\nPYEOF", "display": 2}
+  ]
+}

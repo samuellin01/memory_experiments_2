@@ -1,0 +1,69 @@
+Context:
+Original task: Could you please take a moment to review the 'case study' file located within the 'student work' folder? I'm particularly interested in ensuring that the references section at the end of the document adheres to the APA 7th edition formatting guidelines. Making the necessary adjustments if it turns out that the current formatting does not align with APA 7 standards or exists some errors.
+
+Progress so far:
+1. [DONE] Search for any file with 'case' in its name on the desktop and home directory. Run: find /home/user/Desktop -iname '*case*' -type f 2>/dev/null; find /home/user/ -maxdepth 4 -iname '*case*' -type f 2>/dev/null
+   Result: DONE
+
+The search found the file. The 'case study' file is located at:
+
+**`/home/user/Desktop/students work/case study.docx`**
+
+Both find commands returned the same file (it appeared twice because the Desktop path is within /home/user/). The file is a `.docx` document named "case study.docx" inside the "students work" folder on the Desktop.
+2. [DONE] Find and list all files in the 'students work' folder on the desktop. Run: find '/home/user/Desktop/students work' -type f -ls 2>/dev/null || find '/home/user/Desktop/students_work' -type f -ls 2>/dev/null. Also try: ls -la '/home/user/Desktop/students work/' 2>/dev/null; ls -la '/home/user/Desktop/students_work/' 2>/dev/null
+   Result: DONE
+
+Here is the complete listing of files found in the `/home/user/Desktop/students work/` folder:
+
+| # | Filename | Size (bytes) |
+|---|----------|-------------|
+| 1 | `case study.docx` | 16,470 |
+| 2 | `cassie.docx` | 285,893 |
+| 3 | `Photo Ethics in Journalism.docx` | 76,468 |
+| 4 | `Q1&2&3.docx` | 170,816 |
+| 5 | `quiz2.docx` | 14,888 |
+| 6 | `quiz.docx` | 466,557 |
+| 7 | `The British Justice System.docx` | 15,153 |
+| 8 | `The literature reviews of weekly readings.docx` | 17,954 |
+| 9 | `Zheng He .docx` | 22,443 |
+
+All 9 files are `.docx` format, owned by user `user`, dated Apr 23 19:05. The folder path with a space (`students work`) was the correct one. The file of interest for the original task is **`case study.docx`** (16,470 bytes) located at `/home/user/Desktop/students work/case study.docx`.
+3. [DONE] Install python-docx library. Run: pip3 install python-docx 2>&1 | tail -5
+   Result: DONE
+
+The `python-docx` library has been successfully installed. The output shows:
+
+- **Version installed**: python-docx-1.2.0
+- Dependencies were already satisfied: `lxml>=3.1.0` (4.8.0) and `typing_extensions>=4.9.0` (4.12.2)
+- The installation completed successfully with the message: `Successfully installed python-docx-1.2.0`
+
+Subtask:
+Run this Python script to extract the full text of the case study document with paragraph details:
+
+python3 << 'PYEOF'
+from docx import Document
+
+doc = Document('/home/user/Desktop/students work/case study.docx')
+
+print('=== FULL DOCUMENT TEXT ===')
+for i, para in enumerate(doc.paragraphs):
+    style = para.style.name if para.style else 'None'
+    text = para.text.strip()
+    if text:
+        print(f'[P{i}] Style: {style} | Text: {text}')
+    else:
+        print(f'[P{i}] Style: {style} | (empty)')
+
+print('\n=== REFERENCES SECTION ===')
+found_refs = False
+for i, para in enumerate(doc.paragraphs):
+    if 'reference' in para.text.lower() and not found_refs:
+        found_refs = True
+    if found_refs:
+        print(f'[P{i}] Style: {para.style.name} | Text: {para.text}')
+        # Show run-level formatting
+        for j, run in enumerate(para.runs):
+            italic = run.italic
+            bold = run.bold
+            print(f'  Run{j}: bold={bold}, italic={italic}, text="{run.text}"')
+PYEOF
