@@ -1,0 +1,8 @@
+Now I can see the problem clearly:
+- The √ character in UTF-16-BE should be `221a`
+- But `Found 221a in hex dump: False` - the hex `221a` is NOT in the FDF file
+- The UTF-8 bytes for √ are `e2889a`
+
+The script encoded the √ character's hex representation incorrectly. The Python `.hex()` method on the UTF-16-BE encoded bytes produces the hex string, but the script likely had an issue with how it constructed the hex string in the FDF.
+
+Let me look at what's actually in the FDF value fields and then rewrite the script to use a simpler, working FDF approach.

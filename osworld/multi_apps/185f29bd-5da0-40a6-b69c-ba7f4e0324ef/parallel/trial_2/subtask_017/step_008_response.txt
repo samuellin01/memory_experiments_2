@@ -1,0 +1,14 @@
+The annotations ARE there with correct values:
+- [0] T=EMPLOYEE NAMERow1, V=John Doe, has_AP=False
+- [1] T=EMPLOYEE IDRow1, V=12345, has_AP=False
+- [2] T=DATE OF CURRENT REVIEWRow1, V=2023-04-01, has_AP=False
+- [3] T=POSITION HELDRow1, V=Analyst, has_AP=False
+- [4] T=DEPARTMENTRow1, V=Finance, has_AP=False
+
+The fields have values but `/AP` (appearance) is removed, and the `/NeedAppearances` flag should tell the viewer to regenerate them. However, looking at the Document Viewer preview on the right, the fields appear EMPTY - the header fields show blank cells. This means evince is NOT regenerating the appearances.
+
+The problem is: without `/AP` streams and with `/NeedAppearances=True`, some viewers (like evince) don't render the fields. The solution is to either:
+1. Use pdftk to flatten the form (which generates appearances), or
+2. Generate proper appearance streams
+
+Let me use a hybrid approach - fill with PyPDF2 then flatten with pdftk:

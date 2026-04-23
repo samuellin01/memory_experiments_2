@@ -1,0 +1,3 @@
+I can see the issue clearly now: **"checkmark count: 0"**. The √ character (chr(8730)) is not appearing in the extracted text. This means PyPDF2's `update_page_form_field_values` is setting the field values, but the √ character might not be rendering properly in the PDF, or the text extraction doesn't pick it up from form fields.
+
+The issue is that PyPDF2's `update_page_form_field_values` doesn't flatten the form, so the values are in form fields but not in the page content stream. Let me check if the form fields actually contain the √ values, and also try a different approach:

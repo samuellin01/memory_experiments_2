@@ -1,0 +1,3 @@
+I can see the FDF file uses hex-encoded UTF-16-BE strings (the `<FEFF...>` format). The issue is that the √ character (U+221A) is being encoded in UTF-16-BE hex, but it seems the encoding or the PDF rendering isn't working correctly. The character shows up as "â<" which is the UTF-8 bytes of √ (0xE2 0x88 0x9A) being misinterpreted.
+
+Let me check what hex value is being used for the √ character in the FDF, and then try a different approach - using plain ASCII FDF with the √ character directly encoded.

@@ -1,6 +1,0 @@
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('which pdftk 2>/dev/null; dpkg -l | grep pdftk 2>/d'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ev/null; apt list --installed 2>/dev/null | grep p'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('dftk\n'), shell=True, check=True)
-import time; time.sleep(0.05)

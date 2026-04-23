@@ -1,0 +1,22 @@
+I need to understand the task better. There's an Excel spreadsheet with employee performance data and a PDF template form. I need to:
+
+1. First, read all the data from the Excel file
+2. Understand the PDF template structure
+3. Fill in PDF forms for each employee
+4. Name each PDF by the employee's name
+
+Let me start by examining both files in detail on the secondary displays.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Read the Excel file 'Employee Performance Evaluation Summary.xlsx' and extract all data. First, find the file location - it's likely open in LibreOffice Calc. Look in the home directory or common locations. Run a command to find it: find /home/user -name '*.xlsx' 2>/dev/null. Then use python3 to read the Excel file with openpyxl and print ALL data including all column headers and all rows. Print every cell value. Save the complete output to /tmp/excel_data.txt",
+      "display": 2
+    },
+    {
+      "instruction": "Find the PDF template file that's open in Document Viewer. Run: find /home/user -name '*.pdf' 2>/dev/null to locate it. Then examine the PDF form fields using python3 with PyPDF2 or pdftk. Run: python3 -c \"import subprocess; result = subprocess.run(['pdftk', '/path/to/pdf', 'dump_data_fields'], capture_output=True, text=True); print(result.stdout)\" (replace path with actual path). Also try: python3 -c \"from PyPDF2 import PdfReader; r = PdfReader('/path/to/pdf'); print(r.get_fields())\". Save all field information to /tmp/pdf_fields.txt. Also copy the template PDF to /tmp/template.pdf for later use.",
+      "display": 3
+    }
+  ]
+}

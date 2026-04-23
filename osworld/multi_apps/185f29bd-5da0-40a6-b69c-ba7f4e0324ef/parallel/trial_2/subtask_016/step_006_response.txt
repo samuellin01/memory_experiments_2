@@ -1,0 +1,5 @@
+I see a problem! The `pdftotext` output shows only the form labels (DEPARTMENT, DATE OF LAST REVIEW, etc.) and category names, but **none of the actual filled values** (no "John Doe", no "12345", no "√" marks). This means the field values are stored in the annotations but are NOT being rendered visually because the `/AP` (appearance) streams were deleted and there's no AcroForm with `/NeedAppearances` flag.
+
+The issue is that fix3.py removed the appearance streams (`/AP`) and the AcroForm was lost during the PyPDF2 `writer.append()` operation. Without either appearances or `/NeedAppearances`, the values are invisible.
+
+I need to use a different approach - use pdftk with properly encoded FDF files to fill and flatten the forms. Let me create a new script:

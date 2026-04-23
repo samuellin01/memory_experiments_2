@@ -1,0 +1,19 @@
+The PDFs have been successfully created on display 2. Now I need to verify they look correct and also check the mapping issue. The summary mentions that the script on display 2 used UTF-16-BE encoding which may have caused issues. But the key concern is whether the "√" marks and the category mapping (especially Productivity and Creativity which might map to Row18-22) are correct.
+
+Let me now verify the PDFs and check if the mapping was done correctly. I also need to check if the script properly mapped all 17 categories. Looking at the PDF template, there are 17 named categories PLUS Row18-22. But the Excel has exactly 17 rating columns (J-Z). The issue is that the PDF has named fields for: Works to Full Potential, Quality of Work, Work Consistency, Communication, Independent Work, Takes Initiative, Group Work, Honesty, Integrity, Coworker Relations, Client Relations, Technical Skills, Dependability, Punctuality, Attendance (15 named) + Row18-Row22 (5 numbered) = 20 total rating rows. But Excel has 17 columns.
+
+Wait - looking more carefully at the summary from display 2, it says the script used "FDF generation with hex-encoded UTF-16-BE strings" which is different from the simpler FDF approach. The script that ran on display 2 might have been a different version. Let me verify the output and potentially re-run with the correct approach if needed.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Verify the generated PDFs are correct. Run these commands in the terminal:\n\n1. ls -la /home/user/Desktop/*.pdf\n2. python3 -c \"from PyPDF2 import PdfReader; r=PdfReader('/home/user/Desktop/John Doe.pdf'); print(r.pages[0].extract_text()[:2000])\"\n3. Check if the √ character appears: python3 -c \"from PyPDF2 import PdfReader; r=PdfReader('/home/user/Desktop/John Doe.pdf'); t=r.pages[0].extract_text(); print('√ count:', t.count('√')); print('checkmark count:', t.count(chr(8730)))\"\n4. Also check what script was actually used: head -20 /tmp/fill_pdfs.py",
+      "display": 2
+    },
+    {
+      "instruction": "Open one of the generated PDF files in Document Viewer on the primary display to visually verify it looks correct. Use the terminal that's already open on this display. Click on the terminal and type:\n\nevince '/home/user/Desktop/John Doe.pdf' &\n\nThen check if the PDF shows the employee information and √ checkmarks in the correct rating columns.",
+      "display": 0
+    }
+  ]
+}

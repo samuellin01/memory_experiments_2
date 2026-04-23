@@ -1,0 +1,7 @@
+I see two issues:
+1. The PDF is flattened (no editable fields) - this means `update_page_form_field_values` flattened the form
+2. The √ count is 0 - the checkmarks are not appearing in the extracted text
+
+The problem is that PyPDF2's `update_page_form_field_values` may not be properly setting the field values, or the fields are getting flattened without the values being rendered. Also, I notice the employee data (name, ID, etc.) doesn't appear in the extracted text either, which suggests the form fields aren't being filled properly.
+
+Let me check if the fields are actually filled but just not extracted as text, and also try a different approach:

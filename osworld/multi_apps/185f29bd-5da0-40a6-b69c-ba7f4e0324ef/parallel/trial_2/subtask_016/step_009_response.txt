@@ -1,0 +1,14 @@
+Now I can see the verification results clearly:
+
+- **All 7 employees processed successfully** with OK status
+- **Verification for John Doe:**
+  - Text length: 617
+  - Contains "John Doe": **True** ✅
+  - Contains √: **False** ❌
+  - √ count: **0** ❌
+
+So the header fields (name, dates, department, etc.) are rendering correctly, but the **√ checkmarks are NOT appearing** in the extracted text. This means pdftk is not properly rendering the √ character (U+221A) from the UTF-16BE encoded FDF into the flattened PDF.
+
+The issue is likely that the PDF's embedded fonts don't include the √ glyph. When pdftk flattens, it tries to render the character but the font doesn't support it. I need to try a different approach - either use a simpler character or use a different method to place the checkmarks.
+
+Let me try using the actual checkmark character "√" as literal UTF-8 in a simple parenthesized FDF string instead of hex-encoded UTF-16BE:

@@ -1,8 +1,0 @@
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('python3 -c "\nfrom fillpdf import fillpdfs\nfields ='), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote(" fillpdfs.get_form_fields('/home/user/Desktop/revi"), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("ew_template.pdf')\nfor k, v in fields.items():\n    "), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('print(f\'{k}: {v}\')\n"\n'), shell=True, check=True)
-import time; time.sleep(0.05)

@@ -1,0 +1,5 @@
+Now I see the issue clearly:
+- **John Doe.pdf**: Fields: True, count: **0** — The fields exist but are empty (0 filled fields)
+- **Template**: Fields: True, count: **109** — Template has 109 fields
+
+The problem is that `update_page_form_field_values` with `writer.append(reader)` is not working correctly. The fields are present but not being filled. I need to use a different approach - directly manipulate the PDF annotations. Let me write a new script:

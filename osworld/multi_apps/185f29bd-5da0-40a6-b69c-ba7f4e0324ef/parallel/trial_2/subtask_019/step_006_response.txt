@@ -1,0 +1,9 @@
+Now I can see the problem clearly. The √ character (U+221A) is being split into individual UTF-8 bytes and rendered as separate characters:
+- U+00E2 = 'â' 
+- U+2039 = '‹' (or similar)
+
+These are the UTF-8 bytes of √ (E2 88 9A) being misinterpreted as individual characters. The pdftk flatten is treating the UTF-8 bytes as separate Latin-1 characters instead of a single Unicode character.
+
+Looking at the Document Viewer on the right, I can actually see small "â" marks appearing in the GOOD and EXCELLENT columns - so the data IS there but garbled.
+
+I need to regenerate the PDFs with a different approach. Let me use PyPDF2 directly with proper appearance streams, or use a simpler ASCII character. Let me try a completely different approach - write the script to use PyPDF2 and set the field values properly with appearance generation.

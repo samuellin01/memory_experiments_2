@@ -1,0 +1,9 @@
+Now I can see critical information:
+
+1. **Syntax Error: Unknown font tag 'CenturyGothic'** - The PDF uses CenturyGothic font
+2. **Syntax Error: AnnotWidget::layoutText, cannot convert U+221A** - This confirms the √ character (U+221A) CANNOT be rendered because the CenturyGothic font doesn't support it!
+3. **Syntax Error (71): No font in show** - Font rendering issues
+
+The text extraction shows only the template labels (EMPLOYEE NAME, EMPLOYEE ID, etc.) but NO actual filled data values are visible. This means the form fields with the data are NOT being rendered properly.
+
+This is a critical issue - the √ character can't be converted with the CenturyGothic font. I need to check the actual script that was used and see what approach was taken. Let me look at the script and also try opening the PDF visually:

@@ -1,0 +1,8 @@
+Excellent! The data is correct in the PDF annotations:
+- **17 checkmark fields** with '√' properly set
+- All ratings match John Doe's data (GOOD for Works to Full Potential, GOOD for Quality of Work, EXCELLENT for Work Consistency, etc.)
+- Header fields (name, ID, dates, etc.) are also filled
+
+However, the Document Viewer on the right shows EMPTY fields because the `/AP` (appearance) streams were removed and evince doesn't regenerate them from `/NeedAppearances`. 
+
+The solution is to use **pdftk flatten** on the PyPDF2-generated files. pdftk will generate the appearance streams and flatten the form. Let me do that:

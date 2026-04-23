@@ -1,0 +1,5 @@
+I can see the issue. The √ character (U+221A) count is 0, and the ✓ (U+2713) count is also 0. Instead, there are 17 "â" characters, which suggests the √ character was encoded incorrectly in the FDF - the UTF-16-BE hex encoding approach seems to have caused a problem where the √ character was not properly rendered in the PDF.
+
+The "â<" appearing 17 times corresponds to the 17 rating categories for John Doe, so the marks are being placed in the right fields, but the character encoding is wrong.
+
+Let me look at the FDF file to understand the issue and then fix the script.

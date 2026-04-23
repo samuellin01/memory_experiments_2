@@ -1,0 +1,7 @@
+I can see the script uses UTF-16BE hex-encoded FDF. The key issue from the pdftotext output was: **"AnnotWidget::layoutText, cannot convert U+221A"** - this means the CenturyGothic font in the PDF template doesn't contain the √ glyph (U+221A).
+
+The problem is not the encoding - it's that the **font in the PDF doesn't support the √ character**. I need to use a different approach. Let me create a new script that either:
+1. Uses a different character that CenturyGothic supports, OR
+2. Uses PyPDF2 with NeedAppearances flag so the viewer generates appearances with its own fonts
+
+Let me first check what the task actually requires - it says to use "√" as mark. Let me try a different approach - using PyPDF2 with NeedAppearances=True so the PDF viewer will use its own font to render the √:
