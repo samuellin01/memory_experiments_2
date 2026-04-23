@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('cd ~/Music && for f in *.mp3; do name="${f%.mp3}";'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote(' artist="${name%% - *}"; title="${name#* - }"; ech'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('o "Setting: artist=\'$artist\' title=\'$title\' for \'$'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('f\'"; id3v2 -a "$artist" -t "$title" "$f"; done\n'), shell=True, check=True)
+import time; time.sleep(0.05)
