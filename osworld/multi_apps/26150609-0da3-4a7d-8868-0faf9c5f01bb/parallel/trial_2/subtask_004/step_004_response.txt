@@ -1,0 +1,12 @@
+The fix has been verified successfully. The `cat /home/user/Desktop/snake/food.py` output shows that the `__init__` method in the `Food` class now has the corrected grid-aligned food position generation:
+
+```python
+def __init__(self):
+    self.position = (random.randint(0, (WIDTH - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE,
+                    random.randint(0, (HEIGHT - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE)
+    self.color = RED
+```
+
+This matches the same formula used in the `respawn()` method, ensuring that both the initial food position and respawned food positions are aligned to the grid (multiples of `SNAKE_SIZE`). The snake moves in `SNAKE_SIZE` increments, so now it can actually land on and eat the food.
+
+DONE. Verified the fix by running `cat /home/user/Desktop/snake/food.py`. The file at `/home/user/Desktop/snake/food.py` has been correctly updated — the `__init__` method now generates grid-aligned food positions using `(random.randint(0, (WIDTH - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE, random.randint(0, (HEIGHT - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE)` instead of the old buggy `(random.randint(0, WIDTH-SNAKE_SIZE), random.randint(0, HEIGHT-SNAKE_SIZE))`. Both `__init__` and `respawn` methods now use the same correct grid-aligned formula.

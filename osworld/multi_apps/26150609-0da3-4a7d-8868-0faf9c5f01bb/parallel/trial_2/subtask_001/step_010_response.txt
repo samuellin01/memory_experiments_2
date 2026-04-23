@@ -1,0 +1,118 @@
+Now I can see all the file contents. The output has been successfully displayed. Let me compile the complete contents of all four files that were output:
+
+**main.py:**
+```python
+# main.py
+import pygame
+import sys
+from settings import *
+from snake import Snake
+from food import Food
+
+def main():
+    pygame.init()
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    clock = pygame.time.Clock()
+
+    snake = Snake()
+    food = Food()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key in [pygame.K_UP, pygame.K_DOWN, pygame.K_LEFT, pygame.K_RIGHT]:
+                    snake.direction = event.key
+
+        snake.move()
+        if snake.positions[0] == food.position:
+            snake.grow()
+            food.respawn()
+
+        screen.fill(BLACK)
+        snake.draw(screen)
+        food.draw(screen)
+        pygame.display.flip()
+        clock.tick(FPS)
+
+if __name__ == "__main__":
+    main()
+```
+
+**snake.py:**
+```python
+# snake.py
+import pygame
+from settings import *
+
+class Snake:
+    def __init__(self):
+        self.length = 1
+        self.positions = [((WIDTH // 2), (HEIGHT // 2))]
+        self.direction = pygame.K_RIGHT
+        self.color = GREEN
+
+    def draw(self, surface):
+        for pos in self.positions:
+            rect = pygame.Rect((pos[0], pos[1]), (SNAKE_SIZE, SNAKE_SIZE))
+            pygame.draw.rect(surface, self.color, rect)
+
+    def move(self):
+        x, y = self.positions[0]
+        if self.direction == pygame.K_UP:
+            y -= SNAKE_SIZE
+        elif self.direction == pygame.K_DOWN:
+            y += SNAKE_SIZE
+        elif self.direction == pygame.K_LEFT:
+            x -= SNAKE_SIZE
+        elif self.direction == pygame.K_RIGHT:
+            x += SNAKE_SIZE
+        new_head = (x, y)
+        self.positions = [new_head] + self.positions[:-1]
+
+    def grow(self):
+        self.length += 1
+        self.positions.append(self.positions[-1])
+```
+
+**food.py:**
+```python
+# food.py
+import pygame
+import random
+from settings import *
+
+class Food:
+    def __init__(self):
+        self.position = (random.randint(0, WIDTH-SNAKE_SIZE), random.randint(0, HEIGHT-SNAKE_SIZE))
+        self.color = RED
+
+    def draw(self, surface):
+        rect = pygame.Rect((self.position[0], self.position[1]), (SNAKE_SIZE, SNAKE_SIZE))
+        pygame.draw.rect(surface, self.color, rect)
+
+    def respawn(self):
+        self.position = (random.randint(0, (WIDTH - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE,
+                        random.randint(0, (HEIGHT - SNAKE_SIZE) // SNAKE_SIZE) * SNAKE_SIZE)
+```
+
+**settings.py:**
+```python
+# settings.py
+
+# Game window settings
+WIDTH, HEIGHT = 600, 400
+FPS = 10  # Game speed
+
+# Colors (R, G, B)
+BLACK = (0, 0, 0)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+
+# Snake settings
+SNAKE_SIZE = 10
+```
+
+DONE. I have successfully read and output the contents of all four Python files in the snake project located at `/home/user/Desktop/snake/`. The files are: `main.py`, `snake.py`, `food.py`, and `settings.py`. The key bug is visible: in `food.py`, the `__init__` method uses `random.randint(0, WIDTH-SNAKE_SIZE)` which generates positions not aligned to the grid, while `respawn()` correctly aligns to the grid using `// SNAKE_SIZE * SNAKE_SIZE`. The snake moves in `SNAKE_SIZE` increments, so the initial food position will almost never align with the snake's position, preventing eating.
