@@ -1,0 +1,32 @@
+{
+  "final_score": 1.0,
+  "failure_reason": "all_metrics_passed",
+  "conjunction": "single",
+  "metric_details": [
+    {
+      "index": 0,
+      "func_name": "check_include_exclude",
+      "score": 1.0,
+      "caused_early_exit": false,
+      "actual_value": "daily update\nrepo is synchronous\n",
+      "expected_value": "{'include': ['daily update', 'repo is synchronous']}",
+      "evaluator_result_config": {
+        "type": "vm_command_line",
+        "command": [
+          "/bin/bash",
+          "-c",
+          "cd /home/user/projects/remote_project; git log --oneline | head -n 1 | awk '{for (i=2; i<=NF; i++) {printf \"%s%s\", $i, (i==NF ? \"\" : \" \")}; print \"\"}'; remote_id=$(git log --oneline | head -n 1 | awk '{print $1}'); cd /home/user/projects/binder; local_id=$(git log --oneline | head -n 1 | awk '{print $1}'); if [ \"${local_id}\" = \"${remote_id}\" ]; then echo \"repo is synchronous\"; else echo \"repo is not synchronous\"; fi"
+        ]
+      },
+      "evaluator_expected_config": {
+        "type": "rule",
+        "rules": {
+          "include": [
+            "daily update",
+            "repo is synchronous"
+          ]
+        }
+      }
+    }
+  ]
+}
