@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('curl -s -L -A "Mozilla/5.0 (X11; Linux x86_64) App'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('leWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('.0 Safari/537.36" "https://scholar.google.com/cita'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('tions?user=qRAQ5BsAAAAJ&hl=en" | head -50\n'), shell=True, check=True)
+import time; time.sleep(0.05)

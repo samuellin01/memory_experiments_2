@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('pkill chrome; sleep 2; google-chrome --remote-debu'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('gging-port=1337 --proxy-server="socks5://127.0.0.1'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote(':9050" "https://scholar.google.com/citations?user='), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('qRAQ5BsAAAAJ&hl=en" &\n'), shell=True, check=True)
+import time; time.sleep(0.05)

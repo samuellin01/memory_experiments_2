@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('pkill chrome; sleep 2; google-chrome --remote-debu'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('gging-port=1337 "https://scholar.google.com/citati'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ons?user=qRAQ5BsAAAAJ&hl=en" &\n'), shell=True, check=True)
+import time; time.sleep(0.05)

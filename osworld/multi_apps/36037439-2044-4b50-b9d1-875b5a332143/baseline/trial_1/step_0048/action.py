@@ -1,0 +1,6 @@
+pyautogui.keyDown('ctrl')
+pyautogui.keyDown('shift')
+pyautogui.keyDown('delete')
+pyautogui.keyUp('delete')
+pyautogui.keyUp('shift')
+pyautogui.keyUp('ctrl')
