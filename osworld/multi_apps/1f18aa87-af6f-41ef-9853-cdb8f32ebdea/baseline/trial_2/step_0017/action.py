@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('python3 -c "from docx import Document; doc = Docum'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("ent('/home/user/Desktop/Grammer test 3.docx'); [pr"), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('int(p.text) for p in doc.paragraphs]"\n'), shell=True, check=True)
+import time; time.sleep(0.05)
