@@ -1,0 +1,10 @@
+Good, the PDF has been extracted. Now I need to extract the amount from the PDF. Display 3 is free, and I already dispatched the PDF text extraction and file copy tasks. Let me now extract the PDF text on display 3 since the earlier dispatch for that task hasn't started yet (it was dispatched to display 3 which was busy).
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this command to extract text from the AWS invoice PDF and find the total amount:\n\npython3 << 'PYEOF'\nimport subprocess\n\n# Try pdftotext first\ntry:\n    result = subprocess.run(['pdftotext', '/tmp/invoice0123456789.pdf', '-'], capture_output=True, text=True)\n    if result.returncode == 0:\n        text = result.stdout\n        print('=== PDF TEXT ===')\n        print(text)\n        print('=== END ===')\n    else:\n        print('pdftotext failed:', result.stderr)\nexcept FileNotFoundError:\n    print('pdftotext not found, trying alternative')\n\n# Also try strings\nimport subprocess\nresult2 = subprocess.run(['strings', '/tmp/invoice0123456789.pdf'], capture_output=True, text=True)\nprint('=== STRINGS OUTPUT ===')\nprint(result2.stdout)\nprint('=== END STRINGS ===')\nPYEOF", "display": 3}
+  ]
+}
+```

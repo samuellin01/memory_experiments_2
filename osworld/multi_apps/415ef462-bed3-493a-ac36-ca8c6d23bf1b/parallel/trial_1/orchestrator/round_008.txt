@@ -1,0 +1,16 @@
+The PDF file exists at `/tmp/invoice0123456789.pdf`. Now I need to:
+1. Extract the amount from the PDF invoice
+2. Copy the PDF to the receipts folder as `aws-invoice-2312.pdf`
+3. Update the tally book with the new row
+
+Let me do these in parallel:
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this command in the terminal to copy the invoice PDF to the receipts folder with the correct name: cp /tmp/invoice0123456789.pdf /home/user/Documents/Finance/receipts/aws-invoice-2312.pdf && ls -la /home/user/Documents/Finance/receipts/aws-invoice-2312.pdf && echo 'Copy successful'", "display": 0},
+    {"instruction": "Run this Python script to extract the total amount from the AWS invoice PDF at /tmp/invoice0123456789.pdf. Try multiple approaches:\n\npython3 << 'PYEOF'\nimport subprocess\n\n# Try pdftotext first\ntry:\n    result = subprocess.run(['pdftotext', '/tmp/invoice0123456789.pdf', '-'], capture_output=True, text=True)\n    if result.returncode == 0:\n        text = result.stdout\n        print('=== PDF TEXT ===')\n        print(text)\n        print('=== END ===')\n    else:\n        print('pdftotext failed:', result.stderr)\nexcept FileNotFoundError:\n    print('pdftotext not found')\n\n# Also try with Python\ntry:\n    import PyPDF2\n    with open('/tmp/invoice0123456789.pdf', 'rb') as f:\n        reader = PyPDF2.PdfReader(f)\n        for i, page in enumerate(reader.pages):\n            text = page.extract_text()\n            print(f'=== Page {i} ===')\n            print(text)\nexcept ImportError:\n    print('PyPDF2 not available')\nexcept Exception as e:\n    print(f'PyPDF2 error: {e}')\nPYEOF", "display": 3}
+  ]
+}
+```

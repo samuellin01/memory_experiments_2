@@ -1,0 +1,16 @@
+I need to gather information from multiple sources. Let me start by:
+1. Exploring the "Bills" folder in Thunderbird to find the AWS invoice email
+2. Finding the "receipts" folder and "tally book" to understand the naming pattern
+
+Let me dispatch parallel tasks to gather this information.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In Thunderbird Mail, click on the 'Bills' folder under Local Folders in the left sidebar to open it. Then open the email that contains an AWS invoice for December. I need to see the email content and any PDF attachment.", "display": 0},
+    {"instruction": "Explore the home directory /home/user to find: 1) A 'receipts' folder (search for it with `find /home/user -type d -name '*receipt*' -o -type d -name '*Receipt*' 2>/dev/null`), 2) A 'tally book' file (search with `find /home/user -type f -name '*tally*' -o -type f -name '*Tally*' 2>/dev/null`). Then list the contents of the receipts folder and display the tally book file contents. Output everything to the terminal.", "display": 2},
+    {"instruction": "Run the following commands in terminal to find relevant files: `find /home/user -type d -iname '*receipt*' 2>/dev/null && echo '---' && find /home/user -type f -iname '*tally*' 2>/dev/null && echo '---' && find /home/user/Bills -type f 2>/dev/null && echo '---' && ls -la /home/user/Bills/ 2>/dev/null`", "display": 3}
+  ]
+}
+```

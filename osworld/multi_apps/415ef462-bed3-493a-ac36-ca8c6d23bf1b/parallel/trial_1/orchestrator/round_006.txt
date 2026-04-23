@@ -1,0 +1,10 @@
+Now I have all the tally book format details. I need to extract the PDF from the email and read the invoice amount. Let me try to extract it from Thunderbird's mail storage directly on display 3, since display 0 is still working on saving the attachment.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this Python script to find and extract the PDF attachment from Thunderbird's local mail storage:\n\npython3 << 'EOF'\nimport os, email, base64, glob\n\n# Find the Bills mbox file in Thunderbird profile\nfor root, dirs, files in os.walk('/home/user/.thunderbird'):\n    for f in files:\n        if f == 'Bills':\n            filepath = os.path.join(root, f)\n            print(f'Found: {filepath}')\n            with open(filepath, 'rb') as fh:\n                content = fh.read()\n            # Parse as mbox\n            import mailbox\n            mbox = mailbox.mbox(filepath)\n            for i, msg in enumerate(mbox):\n                subject = msg.get('Subject', '')\n                print(f'Message {i}: {subject}')\n                for part in msg.walk():\n                    if part.get_content_type() == 'application/pdf':\n                        filename = part.get_filename()\n                        print(f'  Found PDF: {filename}')\n                        pdf_data = part.get_payload(decode=True)\n                        outpath = '/tmp/invoice0123456789.pdf'\n                        with open(outpath, 'wb') as out:\n                            out.write(pdf_data)\n                        print(f'  Saved to {outpath} ({len(pdf_data)} bytes)')\nEOF", "display": 3}
+  ]
+}
+```

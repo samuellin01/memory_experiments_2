@@ -1,0 +1,16 @@
+Now I have all the information I need. I need to:
+
+1. Save the PDF attachment from the email and rename it to `aws-invoice-2312.pdf` (following the pattern `aws-invoice-YYMM.pdf`)
+2. Extract the invoice amount from the PDF to add to the tally book
+3. Append a row to the tally book: `AWS`, `2023.12`, `<amount>`
+
+But first I need to know the amount from the invoice. Let me extract the PDF and read it. The attachment saving on display 0 is still in progress. Let me also check the B4 value - it shows 2023.1 which is likely stored as a number (2023.1 = 2023.10).
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this Python script to check the exact types and values in the tally book: python3 -c \"\nimport openpyxl\nwb=openpyxl.load_workbook('/home/user/Documents/Finance/tally_book.xlsx')\nws=wb.active\nfor row in ws.iter_rows(min_row=1, max_row=ws.max_row):\n    for cell in row:\n        print(f'{cell.coordinate}: value={cell.value!r}, type={type(cell.value).__name__}, number_format={cell.number_format!r}')\n    print()\n\"", "display": 3}
+  ]
+}
+```
