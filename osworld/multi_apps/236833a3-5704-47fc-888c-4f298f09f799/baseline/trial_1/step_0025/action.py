@@ -1,0 +1,1 @@
+pyautogui.middleClick(1480, 919)
