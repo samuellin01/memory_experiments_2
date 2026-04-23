@@ -1,0 +1,1 @@
+pyautogui.scroll(-500, 480, 300)
