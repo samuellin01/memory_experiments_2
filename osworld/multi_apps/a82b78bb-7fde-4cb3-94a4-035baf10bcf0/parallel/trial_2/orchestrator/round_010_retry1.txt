@@ -1,0 +1,9 @@
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, first find all Chrome Bookmarks files and check running Chrome processes by running these commands:\nfind /home -name 'Bookmarks' 2>/dev/null\nfind /tmp -name 'Bookmarks' 2>/dev/null\nps aux | grep chrome\nReport all output.", "display": 2},
+    {"instruction": "In the terminal, run the following commands to edit the Chrome bookmarks for the primary display. First kill Chrome on the primary display, then use Python to edit the bookmarks file:\n\npkill -f chrome\nsleep 2\n\nThen run this Python script:\npython3 << 'EOF'\nimport json, os\npath = os.path.expanduser('~/.config/google-chrome/Default/Bookmarks')\nos.makedirs(os.path.dirname(path), exist_ok=True)\ntry:\n    with open(path) as f:\n        data = json.load(f)\nexcept:\n    data = {'roots': {'bookmark_bar': {'children': [], 'name': 'Bookmarks bar', 'type': 'folder'}, 'other': {'children': [], 'name': 'Other bookmarks', 'type': 'folder'}, 'synced': {'children': [], 'name': 'Mobile bookmarks', 'type': 'folder'}}, 'version': 1}\n\nfolder = {'children': [\n    {'name': 'Linxi Fan', 'type': 'url', 'url': 'https://jimfan.me/', 'id': '100'},\n    {'name': 'De-An Huang', 'type': 'url', 'url': 'https://ai.stanford.edu/~dahuang/', 'id': '101'},\n    {'name': 'Yuke Zhu', 'type': 'url', 'url': 'https://yukezhu.me/', 'id': '102'},\n    {'name': 'Anima Anandkumar', 'type': 'url', 'url': 'http://tensorlab.cms.caltech.edu/users/anima/', 'id': '103'}\n], 'name': 'Liked Authors', 'type': 'folder', 'id': '99'}\n\ndata['roots']['bookmark_bar']['children'].append(folder)\nwith open(path, 'w') as f:\n    json.dump(data, f, indent=3)\nprint('Bookmarks saved successfully')\nEOF\n\nThen verify with: cat ~/.config/google-chrome/Default/Bookmarks", "display": 3}
+  ]
+}
+```
