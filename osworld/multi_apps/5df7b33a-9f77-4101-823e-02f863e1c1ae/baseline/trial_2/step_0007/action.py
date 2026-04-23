@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("pdftk '/home/user/Desktop/book/Spectral Graph Theo"), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("ry.pdf' dump_data | grep -A2 'BookmarkTitle\\|Bookm"), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("arkLevel\\|BookmarkPageNumber'\n"), shell=True, check=True)
+import time; time.sleep(0.05)

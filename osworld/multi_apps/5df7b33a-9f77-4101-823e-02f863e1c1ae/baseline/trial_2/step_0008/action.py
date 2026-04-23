@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('python3 -c "import PyPDF2; print(\'PyPDF2 available'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('\')" 2>&1 || python3 -c "import pikepdf; print(\'pik'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('epdf available\')" 2>&1\n'), shell=True, check=True)
+import time; time.sleep(0.05)
