@@ -1,0 +1,13 @@
+Display 2 is still working on the GIMP approach. Let me use display 3 with a more reliable approach - I'll write the GIMP Python-Fu script to a file and use the `--batch-interpreter` flag, using the smaller frames from `/tmp/frames_small/`.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, kill any running GIMP processes first:\nkillall -9 gimp-2.10 2>/dev/null; killall -9 gimp 2>/dev/null\nsleep 3\n\nNow write a Python script to a file and execute it with GIMP's Python-Fu batch interpreter. Run these commands exactly:\n\ncat > /tmp/gifscript.py << 'ENDSCRIPT'\nimport glob\nfrom gimpfu import *\nfrom gimp import pdb\n\nframes = sorted(glob.glob('/tmp/frames_small/frame*.png'))\nimg = pdb.gimp_file_load(frames[0], frames[0])\nfor f in frames[1:]:\n    layer = pdb.gimp_file_load_layer(img, f)\n    pdb.gimp_image_insert_layer(img, layer, None, -1)\npdb.gimp_image_convert_indexed(img, 0, 0, 255, False, False, '')\ndrw = pdb.gimp_image_get_active_drawable(img)\npdb.file_gif_save(img, drw, '/home/user/Desktop/src_clip.gif', 'src_clip.gif', 0, 1, 100, 2)\npdb.gimp_image_delete(img)\npdb.gimp_quit(0)\nENDSCRIPT\n\nThen run:\ngimp -i --batch-interpreter python-fu-eval -b 'execfile(\"/tmp/gifscript.py\")' 2>&1 &\n\nWait for GIMP to finish by monitoring the process. Check every 30 seconds with:\nps aux | grep gimp\n\nOnce GIMP finishes, verify the file exists:\nls -la /home/user/Desktop/src_clip.gif\n\nIf GIMP is still running after 3 minutes, let it continue - the smaller frames should process faster. Report whether the file was created.",
+      "display": 3
+    }
+  ]
+}
+```
