@@ -1,0 +1,36 @@
+{
+  "final_score": 1.0,
+  "failure_reason": "all_metrics_passed",
+  "conjunction": "single",
+  "metric_details": [
+    {
+      "index": 0,
+      "func_name": "check_include_exclude",
+      "score": 1.0,
+      "caused_early_exit": false,
+      "actual_value": "no libreoffice is running\nkilled from terminal\n",
+      "expected_value": "{'include': ['no libreoffice is running', 'killed from terminal'], 'exclude': ['libreoffice is still running', 'not killed from terminal']}",
+      "evaluator_result_config": {
+        "type": "vm_command_line",
+        "command": [
+          "/bin/bash",
+          "-c",
+          "output=$(ps aux | grep \"[s]office\"]); if [ -z \"$output\" ]; then echo \"no libreoffice is running\"; else echo \"libreoffice is still running\"; fi; output=$(cat ~/.bash_history | grep \"[k]ill\"); if [ -z \"$output\" ]; then echo \"not killed from terminal\"; else echo \"killed from terminal\"; fi"
+        ]
+      },
+      "evaluator_expected_config": {
+        "type": "rule",
+        "rules": {
+          "include": [
+            "no libreoffice is running",
+            "killed from terminal"
+          ],
+          "exclude": [
+            "libreoffice is still running",
+            "not killed from terminal"
+          ]
+        }
+      }
+    }
+  ]
+}
