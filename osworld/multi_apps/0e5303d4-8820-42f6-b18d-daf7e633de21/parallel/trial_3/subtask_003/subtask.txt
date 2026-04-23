@@ -1,0 +1,25 @@
+Context:
+Original task: I want to learn python programming and my friend recommends me this course website. I have grabbed the lecture slide for week 0. Please download the PDFs for other weeks into the opened folder and leave the file name as-it-is.
+
+Progress so far:
+1. [DONE] Open a terminal and run: file ~/lecture_slides/lecture0.pdf && exiftool ~/lecture_slides/lecture0.pdf 2>/dev/null || pdfinfo ~/lecture_slides/lecture0.pdf 2>/dev/null || strings ~/lecture_slides/lecture0.pdf | head -100
+   Result: The command has been executed successfully. Here's a summary of the output:
+
+**File information for `~/lecture_slides/lecture0.pdf`:**
+
+- **File type:** PDF document, version 1.4, 32 pages
+- **Title:** CS50P 2022 - Lecture 0 - Functions, Variables
+- **Creator:** Google
+- **Pages:** 32
+- **Page size:** 720 x 405 pts
+- **File size:** 60576 bytes
+- **PDF version:** 1.4
+- **Encrypted:** no
+- **Optimized:** no
+
+This tells us the existing PDF is from **CS50P 2022** (CS50's Introduction to Programming with Python), and this is **Lecture 0 - Functions, Variables**. The file was created by Google (likely Google Slides exported to PDF). The `pdfinfo` tool provided the metadata since `exiftool` was not available.
+
+DONE. The command was run successfully in the terminal. The output reveals that the existing lecture0.pdf is from the CS50P 2022 course (CS50's Introduction to Programming with Python), specifically "Lecture 0 - Functions, Variables", a 32-page PDF created by Google, stored at ~/lecture_slides/lecture0.pdf.
+
+Subtask:
+Open a terminal and check the Google Chrome browser history to find what course website URL was used to download lecture0.pdf. Run: sqlite3 ~/.config/google-chrome/Default/History "SELECT url, title FROM urls WHERE url LIKE '%cs50%' OR url LIKE '%lecture%' OR title LIKE '%cs50%' ORDER BY last_visit_time DESC LIMIT 20;" 2>/dev/null; echo '---'; sqlite3 ~/.config/google-chrome/Default/History "SELECT url FROM downloads WHERE target_path LIKE '%lecture0%' LIMIT 5;" 2>/dev/null

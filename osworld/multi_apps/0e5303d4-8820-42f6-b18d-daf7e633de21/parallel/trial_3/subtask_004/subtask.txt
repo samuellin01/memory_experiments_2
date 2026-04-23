@@ -1,0 +1,48 @@
+Context:
+Original task: I want to learn python programming and my friend recommends me this course website. I have grabbed the lecture slide for week 0. Please download the PDFs for other weeks into the opened folder and leave the file name as-it-is.
+
+Progress so far:
+1. [DONE] Open a terminal and run: file ~/lecture_slides/lecture0.pdf && exiftool ~/lecture_slides/lecture0.pdf 2>/dev/null || pdfinfo ~/lecture_slides/lecture0.pdf 2>/dev/null || strings ~/lecture_slides/lecture0.pdf | head -100
+   Result: The command has been executed successfully. Here's a summary of the output:
+
+**File information for `~/lecture_slides/lecture0.pdf`:**
+
+- **File type:** PDF document, version 1.4, 32 pages
+- **Title:** CS50P 2022 - Lecture 0 - Functions, Variables
+- **Creator:** Google
+- **Pages:** 32
+- **Page size:** 720 x 405 pts
+- **File size:** 60576 bytes
+- **PDF version:** 1.4
+- **Encrypted:** no
+- **Optimized:** no
+
+This tells us the existing PDF is from **CS50P 2022** (CS50's Introduction to Programming with Python), and this is **Lecture 0 - Functions, Variables**. The file was created by Google (likely Google Slides exported to PDF). The `pdfinfo` tool provided the metadata since `exiftool` was not available.
+
+DONE. The command was run successfully in the terminal. The output reveals that the existing lecture0.pdf is from the CS50P 2022 course (CS50's Introduction to Programming with Python), specifically "Lecture 0 - Functions, Variables", a 32-page PDF created by Google, stored at ~/lecture_slides/lecture0.pdf.
+2. [DONE] Open a terminal and check the URL/source of lecture0.pdf. Run: xdg-mime query default application/pdf && ls -la ~/lecture_slides/ && strings ~/lecture_slides/lecture0.pdf | grep -i 'http\|url\|cs50\|harvard\|course' | head -20
+   Result: The command has been executed successfully. Here's a summary of the output:
+
+1. **Default PDF application**: `google-chrome.desktop` - Chrome is set as the default PDF viewer.
+
+2. **Directory listing of ~/lecture_slides/**:
+   - Contains one file: `lecture0.pdf` (60,576 bytes, dated Apr 23 14:35)
+   - The file is read-only (`-rw-r--r--`)
+
+3. **Strings/URL analysis of lecture0.pdf** - The PDF contains references to Python documentation URLs:
+   - `https://docs.python.org/`
+   - `https://docs.python.org/3/library/functions.html`
+   - `https://docs.python.org/3/library/functions.html#print`
+   - `https://docs.python.org/3/library/stdtypes.html#string-methods`
+   - `https://docs.python.org/3/library/functions.html#round`
+
+This indicates the lecture0.pdf is from a **Python programming course** (likely CS50's Introduction to Programming with Python - CS50P from Harvard), as the PDF contains links to Python documentation. The lecture slides reference Python built-in functions and string methods, which aligns with an introductory Python course. The URLs point to `docs.python.org` but no direct course URL (like `cs50.harvard.edu`) was found in the strings output.
+
+DONE - The command was executed successfully. The results show:
+- The `~/lecture_slides/` folder contains `lecture0.pdf` (60,576 bytes)
+- The PDF contains Python documentation URLs (docs.python.org) referencing functions, print, string-methods, and round
+- No direct CS50/Harvard URLs were found in the PDF strings, but the content suggests this is a Python programming course (likely CS50P based on the context)
+- Default PDF handler is Google Chrome
+
+Subtask:
+Open a terminal and use curl to fetch the CS50P 2022 course page and extract lecture slide PDF links. Run: curl -s https://cs50.harvard.edu/python/2022/ | grep -i 'lecture\|slide\|pdf\|week' | head -40
