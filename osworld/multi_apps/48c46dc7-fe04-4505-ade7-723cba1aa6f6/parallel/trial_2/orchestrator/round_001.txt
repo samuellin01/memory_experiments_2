@@ -1,0 +1,14 @@
+I need to set up a workspace on the primary display with:
+1. A terminal opened to the OSWorld project directory
+2. A file manager opened to the OSWorld project directory
+3. Chrome with GitHub homepage and Python documentation
+
+First, let me find the OSWorld project directory, then open everything on display 0. Let me start by finding the directory and doing the GUI tasks in parallel.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Find the OSWorld project directory by running: find /home/user -maxdepth 5 -type d -name 'OSWorld' 2>/dev/null > /tmp/osworld_path.txt && cat /tmp/osworld_path.txt", "display": 2},
+    {"instruction": "Open Google Chrome browser with two tabs: first tab should be https://github.com and second tab should be https://docs.python.org. You can do this by running: google-chrome https://github.com https://docs.python.org", "display": 0}
+  ]
+}
