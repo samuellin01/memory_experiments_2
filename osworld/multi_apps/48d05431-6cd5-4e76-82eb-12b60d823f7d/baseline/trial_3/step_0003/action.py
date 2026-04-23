@@ -1,8 +1,0 @@
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('which conda 2>/dev/null; find /home /opt /root -na'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('me "conda" -type f 2>/dev/null; ls ~/miniconda3/bi'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('n/conda 2>/dev/null; ls ~/anaconda3/bin/conda 2>/d'), shell=True, check=True)
-import time; time.sleep(0.05)
-import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ev/null\n'), shell=True, check=True)
-import time; time.sleep(0.05)
