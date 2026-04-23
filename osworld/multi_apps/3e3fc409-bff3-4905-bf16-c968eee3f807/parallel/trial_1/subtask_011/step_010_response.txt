@@ -1,0 +1,6 @@
+Now I can see the data clearly. The extraction works! Looking at the raw data:
+
+- Title: "The Shawshank Redemption", Rating: "9.3"
+- FullText: "#1The Shawshank Redemption19942h 22m159.3\u00a0(3.2M)RateMark as watched"
+
+The year "1994" appears right after the title in the fullText. The issue with my previous script was that the regex `\b(19\d{2}|20[0-2]\d)\b` wasn't matching because there are no word boundaries - the year runs into the duration text like "19942h". Let me fix the extraction:

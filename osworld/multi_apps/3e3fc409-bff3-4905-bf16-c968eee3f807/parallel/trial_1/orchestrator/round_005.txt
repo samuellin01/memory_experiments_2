@@ -1,0 +1,10 @@
+I can see the seen movies include titles like "The Shawshank Redemption", "The Godfather Part II", "The Dark Knight", "Inception", "Schindler's List", "Pulp Fiction", etc. While waiting for display 3, let me prepare a backup approach - I'll use curl to fetch the IMDB page on display 2 in case display 3 fails.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run the following command to fetch and parse the IMDB Top 250 page. Execute this single combined command:\n\ncurl -s -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' -H 'Accept-Language: en-US,en;q=0.9' 'https://www.imdb.com/chart/top/' -o /tmp/imdb_page.html && wc -c /tmp/imdb_page.html && python3 -c \"\nimport re, json\nwith open('/tmp/imdb_page.html', 'r', encoding='utf-8') as f:\n    html = f.read()\nprint('HTML length:', len(html))\n# Look for JSON-LD\nm = re.search(r'<script type=.application/ld.json.>(.*?)</script>', html, re.DOTALL)\nif m:\n    data = json.loads(m.group(1))\n    items = data.get('itemListElement', [])\n    print(f'Found {len(items)} items')\n    for item in items[:3]:\n        print(json.dumps(item, indent=2)[:500])\nelse:\n    print('No JSON-LD found')\n    # Check for __NEXT_DATA__\n    m2 = re.search(r'__NEXT_DATA__.*?>(.*?)</script>', html, re.DOTALL)\n    if m2:\n        print('Found NEXT_DATA, length:', len(m2.group(1)))\n    else:\n        print('No structured data')\n        # Show some HTML around movie titles\n        idx = html.find('Shawshank')\n        if idx > 0:\n            print('Context around Shawshank:')\n            print(html[max(0,idx-500):idx+500])\n        else:\n            print('First 5000 chars:')\n            print(html[:5000])\n\"", "display": 2}
+  ]
+}
+```

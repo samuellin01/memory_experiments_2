@@ -1,0 +1,16 @@
+I need to:
+1. First, read the full list of seen movies from the Excel file
+2. Get the IMDB Top 30 list
+3. Compare them and create the 'unseen_movies' sheet
+
+Let me start by reading the Excel file and fetching the IMDB Top 30 list in parallel.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Read the file /home/user/movies.xlsx and output all movie titles from the 'seen_movies' sheet. Write the complete list of titles (one per line) to /tmp/seen_movies.txt. Also note the headers (column names) and write them to /tmp/headers.txt. Use Python with openpyxl to read the file.", "display": 2},
+    {"instruction": "Open Google Chrome and go to https://www.imdb.com/chart/top/ to find the current IMDB Top 250 list. I need the top 30 movies. For each movie, record: title, release year, rating, and IMDB rank. Write this information to /tmp/imdb_top30.txt. Note: I only need movies released before 2024. Format each line as: rank|title|year|rating", "display": 3}
+  ]
+}
+```

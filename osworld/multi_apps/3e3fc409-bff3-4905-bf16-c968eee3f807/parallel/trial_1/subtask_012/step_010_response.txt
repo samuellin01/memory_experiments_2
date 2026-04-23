@@ -1,0 +1,10 @@
+Now I can see the structure clearly:
+
+- **h3**: Contains just the title without rank number (e.g., "The Shawshank Redemption")
+- **rating**: Contains the rating value (e.g., "9.3")
+- **meta**: Empty array `[]` - the `.cli-title-metadata-item` selector doesn't work
+- **text**: Contains everything concatenated, like `#1The Shawshank Redemption19942h 22m159.3...`
+
+The year is embedded in the text. I can see patterns like `Redemption1994`, `Godfather1972`, `Knight2008`, `Part II1974`, `Men1957`. The year follows the title in the text. Since h3 gives us the clean title and rating is clean, I just need to extract the year from the text.
+
+Let me write the final extraction script:
