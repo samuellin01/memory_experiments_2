@@ -1,0 +1,10 @@
+
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, first install python-docx if needed, then write and run a script to update the docx file. Run these commands:\n\npip3 install python-docx\n\nThen find the docx file:\nfind /home -name 'paper_reading_2024_03_01.docx' 2>/dev/null\n\nThen write the update script and run it:\ncat > /tmp/update_docx.py << 'SCRIPTEOF'\nimport json\nimport subprocess\nfrom docx import Document\n\nresult = subprocess.run(['find', '/home', '-name', 'paper_reading_2024_03_01.docx'], capture_output=True, text=True)\ndocx_path = result.stdout.strip().split('\\n')[0]\nprint(f'Found docx at: {docx_path}')\n\nwith open('/tmp/hf_papers_march1.json') as f:\n    papers = json.load(f)\n\nskip_titles = [\n    'StarCoder 2 and The Stack v2: The Next Generation',\n    'Beyond Language Models: Byte Models are Digital World Simulators'\n]\n\ndoc = Document(docx_path)\nadded = 0\nfor p in papers:\n    paper = p.get('paper', {})\n    title = paper.get('title', 'N/A')\n    if title in skip_titles:\n        continue\n    authors = ', '.join([a.get('name', '') for a in paper.get('authors', [])])\n    abstract = paper.get('summary', 'N/A')\n    arxiv_id = paper.get('id', '')\n    pdf_url = f'https://arxiv.org/pdf/{arxiv_id}.pdf'\n    doc.add_paragraph('')\n    doc.add_paragraph(f'Title: {title}')\n    doc.add_paragraph(f'Authors: {authors}')\n    doc.add_paragraph(f'Abstract: {abstract}')\n    doc.add_paragraph(f'Arxiv PDF: {pdf_url}')\n    added += 1\n    print(f'Added: {title}')\n\ndoc.save(docx_path)\nprint(f'Done. Added {added} papers to {docx_path}')\nSCRIPTEOF\n\npython3 /tmp/update_docx.py", "display": 2}
+  ]
+}
+```

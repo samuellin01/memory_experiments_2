@@ -1,0 +1,17 @@
+Now I have all the data. I know:
+- 11 papers total from the API
+- Papers 1 (StarCoder 2) and 3 (Beyond Language Models) are already in the doc
+- Need to add papers 2, 4, 5, 6, 7, 8, 9, 10, 11
+
+The document format uses: `Title:`, `Authors:`, `Abstract:`, `Arxiv PDF:` with the labels as part of the text (italic style based on the document appearance).
+
+Now I need to write a Python script to modify the .docx file. Let me use display 2 to write and execute the script.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, write a Python script to /tmp/update_docx.py and then execute it. The script should:\n1. Read the JSON data from /tmp/hf_papers_march1.json\n2. Open the existing docx file (find it first with: find /home -name 'paper_reading_2024_03_01.docx' 2>/dev/null)\n3. Append the remaining 9 papers (skip papers with titles 'StarCoder 2 and The Stack v2: The Next Generation' and 'Beyond Language Models: Byte Models are Digital World Simulators' since those are already in the doc)\n4. Match the existing format: each paper has lines like 'Title: ...', 'Authors: ...', 'Abstract: ...', 'Arxiv PDF: https://arxiv.org/pdf/XXXX.pdf'\n5. Save the file\n\nHere is the exact script to write to /tmp/update_docx.py:\n\n```python\nimport json\nimport subprocess\n\n# Find the docx file\nresult = subprocess.run(['find', '/home', '-name', 'paper_reading_2024_03_01.docx'], capture_output=True, text=True)\ndocx_path = result.stdout.strip().split('\\n')[0]\nprint(f'Found docx at: {docx_path}')\n\n# Read JSON data\nwith open('/tmp/hf_papers_march1.json') as f:\n    papers = json.load(f)\n\n# Already recorded titles\nskip_titles = [\n    'StarCoder 2 and The Stack v2: The Next Generation',\n    'Beyond Language Models: Byte Models are Digital World Simulators'\n]\n\n# Try python-docx first\ntry:\n    from docx import Document\n    from docx.shared import Pt\n    from docx.enum.text import WD_ALIGN_PARAGRAPH\n    \n    doc = Document(docx_path)\n    \n    for p in papers:\n        paper = p.get('paper', {})\n        title = paper.get('title', 'N/A')\n        if title in skip_titles:\n            continue\n        authors = ', '.join([a.get('name', '') for a in paper.get('authors', [])])\n        abstract = paper.get('summary', 'N/A')\n        arxiv_id = paper.get('id', '')\n        pdf_url = f'https://arxiv.org/pdf/{arxiv_id}.pdf'\n        \n        # Add a blank paragraph as separator\n        doc.add_paragraph('')\n        \n        # Add Title line\n        doc.add_paragraph(f'Title: {title}')\n        # Add Authors line  \n        doc.add_paragraph(f'Authors: {authors}')\n        # Add Abstract line\n        doc.add_paragraph(f'Abstract: {abstract}')\n        # Add Arxiv PDF line\n        doc.add_paragraph(f'Arxiv PDF: {pdf_url}')\n    \n    doc.save(docx_path)\n    print(f'Successfully saved {docx_path}')\n    print(f'Added {len(papers) - len(skip_titles)} papers')\n    \nexcept ImportError:\n    print('python-docx not available, installing...')\n    import os\n    os.system('pip3 install python-docx')\n    print('Installed python-docx. Please run this script again.')\n```\n\nFirst write this script, then run it. If python-docx is not installed, install it first with `pip3 install python-docx` and then run the script.", "display": 2}
+  ]
+}
+```

@@ -1,0 +1,83 @@
+Context:
+Original task: Find the daily paper list on Huggingface and take down the meta information of papers on 1st March, 2024 in the opened .docx file. I have recorded two papers. Please conform to the format and complete others.
+
+Progress so far:
+1. [DONE] In the LibreOffice Writer document that is currently open (paper_reading_2024_03_01.docx), scroll down to read the ENTIRE document content. I need to know all papers already recorded, their format (Title, Authors, Abstract), and how many papers are already there. Please report back the complete text content of the document.
+   Result: Now I can see the end of the second paper. It ends with "Arxiv PDF: https://arxiv.org/pdf/2402.19155.pdf". The document ends here with no more papers after this. 
+
+I have now read the complete document. Let me summarize what I found:
+
+DONE
+
+The document **paper_reading_2024_03_01.docx** contains **2 papers** already recorded. Here is the complete content:
+
+---
+
+**Paper 1:**
+- **Title:** StarCoder 2 and The Stack v2: The Next Generation
+- **Authors:** Anton Lozhkov, Raymond Li, Loubna Ben Allal, Federico Cassano, Joel Lamy-Poirier, Nouamane Tazi, Ao Tang, Dmytro Pykhtar, Jiawei Liu, Yuxiang Wei, Tianyang Liu, Max Tian, Denis Kocetkov, Arthur Zucker, Younes Belkada, Zijian Wang, Qian Liu, Dmitry Abulkhanov, Indraneil Paul, Zhuang Li, Wen-Ding Li, Megan Risdal, Jia Li, Jian Zhu, Terry Yue Zhuo, Evgenii Zheltonozhskii, Nii Osae Osae Dade, Wenhao Yu, Lucas Krauß, Naman Jain, Yixuan Su, Xuanli He, Manan Dey, Edoardo Abati, Yekun Chai, Niklas Muennighoff, Xiangru Tang, Muhtasham Oblokulov, Christopher Akiki, Marc Marone, Chenghao Mou, Mayank Mishra, Alex Gu, Binyuan Hui, Tri Dao, Armel Zebaze, Olivier Dehaene, Nicolas Patry, Canwen Xu, Julian McAuley, Han Hu, Torsten Scholak, Sebastien Paquet, Jennifer Robinson, Carolyn Jane Anderson, Nicolas Chapados, Mostofa Patwary, Nima Tajbakhsh, Yacine Jernite, Carlos Muñoz Ferrandis, Lingming Zhang, Sean Hughes, Thomas Wolf, Arjun Guha, Leandro von Werra, Harm de Vries
+- **Abstract:** The BigCode project, an open-scientific collaboration focused on the responsible development of Large Language Models for Code (Code LLMs), introduces StarCoder2. In partnership with Software Heritage (SWH), we build The Stack v2 on top of the digital commons of their source code archive. Alongside the SWH repositories spanning 619 programming languages, we carefully select other high-quality data sources, such as GitHub pull requests, Kaggle notebooks, and code documentation. This results in a training set that is 4x larger than the first StarCoder dataset. We train StarCoder2 models with 3B, 7B, and 15B parameters on 3.3 to 4.3 trillion tokens and thoroughly evaluate them on a comprehensive set of Code LLM benchmarks. We find that our small model, StarCoder2-3B, outperforms other Code LLMs of similar size on most benchmarks, and also outperforms StarCoderBase-15B. Our large model, StarCoder2-15B, significantly outperforms other models of comparable size. In addition, it matches or outperforms CodeLlama-34B, a model more than twice its size. Although DeepSeekCoder-33B is the best-performing model at code completion for high-resource languages, we find that StarCoder2-15B outperforms it on math and code reasoning benchmarks, as well as several low-resource languages. We make the model weights available under an OpenRAIL license and ensure full transparency regarding the training data by releasing the SoftWare Heritage persistent IDentifiers (SWHIDs) of the source code data.
+- **Arxiv PDF:** https://arxiv.org/pdf/2402.19173.pdf
+
+**Paper 2:**
+- **Title:** Beyond Language Models: Byte Models are Digital World Simulators
+- **Authors:** Shangda Wu, Xu Tan, Zili Wang, Rui Wang, Xiaobing Li, Maosong Sun
+- **Abstract:** Traditional deep learning often overlooks bytes, the basic units of the digital world, where all forms of information and operations are encoded and manipulated in binary format. Inspired by the success of next token prediction in natural language processing, we introduce bGPT, a model with next byte prediction to simulate the digital world. bGPT matches specialized models in performance across various modalities, including text, audio, and images, and offers new possibilities for predicting, simulating, and diagnosing algorithm or hardware behaviour. It has almost flawlessly replicated the process of converting symbolic music data, achieving a low error rate of 0.0011 bits per byte in converting ABC notation to MIDI format. In addition, bGPT demonstrates exceptional capabilities in simulating CPU behaviour, with an accuracy exceeding 99.99% in executing various operations. Leveraging next byte prediction, models like bGPT can directly learn from vast binary data, effectively simulating the intricate patterns of the digital world.
+- **Arxiv PDF:** https://arxiv.org/pdf/2402.19155.pdf
+
+---
+
+**Format used:** Each paper has 4 fields: Title, Authors, Abstract, and Arxiv PDF. Papers are separated by a blank line. The document is 2 pages, 553 words, 3,840 characters.
+2. [MAX_STEPS] Open Google Chrome and navigate to https://huggingface.co/papers?date=2024-03-01 to find the daily paper list for March 1, 2024. List ALL papers shown on that page with their titles, authors, and abstracts. Write the complete information to /tmp/hf_papers_march1.txt
+   Result: ## Summary
+
+### 1) What was successfully completed
+- Google Chrome was launched and navigated to `https://huggingface.co/papers?date=2024-03-01`
+- The Daily Papers page for March 1, 2024 loaded successfully, confirming the URL works
+- I could see at least two papers on the page:
+  - "StarCoder 2 and The Stack v2: The Next Generation" (156 upvotes, 66 authors)
+  - "Griffin: Mixing Gated Linear Recurrences with Local Attention for Efficient Language Models"
+- A Python scraping script was partially written to `/tmp/scrape_papers.py` but was not executed
+
+### 2) Approaches tried and what worked vs didn't
+- **Opening Chrome**: Worked, though the "Welcome to Google Chrome" dialog required multiple clicks to dismiss
+- **Writing a Python websocket-based scraper**: The approach of using Chrome DevTools Protocol via websocket was conceptually sound but the script was complex and took too many steps just to write the heredoc to a file. The script never got executed.
+- **Time wasted**: Multiple steps were spent clicking the OK button on Chrome's welcome dialog, and the heredoc script creation consumed many steps due to its length
+
+### 3) What is still incomplete
+- The Python script was never fully written or executed
+- No paper data was extracted (titles, authors, abstracts)
+- The output file `/tmp/hf_papers_march1.txt` was never created
+- Individual paper pages were never visited to collect abstracts
+
+### 4) Recommended approach for a future agent
+1. **Use `curl` + API directly**: Instead of browser scraping, use `curl` to fetch the HuggingFace papers page HTML, then parse it with Python/BeautifulSoup. This avoids Chrome entirely: `curl -s "https://huggingface.co/papers?date=2024-03-01" > /tmp/page.html`
+2. **Or use the HuggingFace API**: HuggingFace has an API endpoint like `https://huggingface.co/api/daily_papers?date=2024-03-01` that returns JSON with all paper metadata including titles, authors, and abstracts - much simpler to parse.
+3. **Keep scripts short**: If using Chrome DevTools, write a minimal script first to just get paper links, then a second script for details. Or better yet, use `python3 -c "import requests; ..."` one-liners.
+4. **Minimize dialog interactions**: Dismiss Chrome dialogs quickly or use flags like `--no-first-run` to avoid them.
+5. **Prioritize the API approach**: `curl "https://huggingface.co/api/daily_papers?date=2024-03-01" | python3 -m json.tool > /tmp/hf_papers_march1.txt` would likely get all needed data in 1-2 steps.
+
+Subtask:
+In the terminal, run the following command to fetch paper data from the HuggingFace API and save it:
+
+curl -s 'https://huggingface.co/api/daily_papers?date=2024-03-01' | python3 -m json.tool > /tmp/hf_papers_march1.json
+
+Then run: python3 -c "
+import json
+with open('/tmp/hf_papers_march1.json') as f:
+    papers = json.load(f)
+for i, p in enumerate(papers):
+    paper = p.get('paper', {})
+    title = paper.get('title', 'N/A')
+    authors = ', '.join([a.get('name', '') for a in paper.get('authors', [])])
+    abstract = paper.get('summary', 'N/A')
+    arxiv_id = paper.get('id', '')
+    print(f'Paper {i+1}:')
+    print(f'Title: {title}')
+    print(f'Authors: {authors}')
+    print(f'Abstract: {abstract}')
+    print(f'Arxiv PDF: https://arxiv.org/pdf/{arxiv_id}.pdf')
+    print()
+" > /tmp/hf_papers_formatted.txt
+
+Then display the contents with: cat /tmp/hf_papers_formatted.txt

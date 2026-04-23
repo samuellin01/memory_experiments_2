@@ -1,0 +1,10 @@
+Good, the browser approach was too slow. The recommendation to use the HuggingFace API is excellent. Let me use curl + API approach on display 2 to get the paper data efficiently.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "In the terminal, run the following command to fetch paper data from the HuggingFace API and save it:\n\ncurl -s 'https://huggingface.co/api/daily_papers?date=2024-03-01' | python3 -m json.tool > /tmp/hf_papers_march1.json\n\nThen run: python3 -c \"\nimport json\nwith open('/tmp/hf_papers_march1.json') as f:\n    papers = json.load(f)\nfor i, p in enumerate(papers):\n    paper = p.get('paper', {})\n    title = paper.get('title', 'N/A')\n    authors = ', '.join([a.get('name', '') for a in paper.get('authors', [])])\n    abstract = paper.get('summary', 'N/A')\n    arxiv_id = paper.get('id', '')\n    print(f'Paper {i+1}:')\n    print(f'Title: {title}')\n    print(f'Authors: {authors}')\n    print(f'Abstract: {abstract}')\n    print(f'Arxiv PDF: https://arxiv.org/pdf/{arxiv_id}.pdf')\n    print()\n\" > /tmp/hf_papers_formatted.txt\n\nThen display the contents with: cat /tmp/hf_papers_formatted.txt", "display": 2}
+  ]
+}
+```

@@ -1,0 +1,11 @@
+
+
+Both JSON files exist. I can see the document structure clearly now. The format uses "Normal" style paragraphs with runs that have `bold=None`. The labels like "Title: ", "Authors: ", "Abstract: ", "Arxiv PDF: " are separate runs from the content.
+
+Looking more carefully at the runs:
+- Title paragraph: Run "Title: " + Run with title text
+- Authors paragraph: Run "Authors:" + Run " " + Run with author names (individual authors as separate runs in paper 2)
+- Abstract paragraph: Run "Abstract: " + Run with abstract text (may be split into multiple runs)
+- Arxiv PDF paragraph: Run "Arxiv PDF: " + Run with URL (paper 1 has weird split: "A", "rxiv ", "PDF", ": ", URL)
+
+The simplest approach is to match the format by adding paragraphs with the label and content as plain text. Let me write the update script:
