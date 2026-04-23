@@ -1,0 +1,9 @@
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Create and run a Python script at /tmp/parse_ecs.py. Write the following content to the file and then execute it with python3:\n\n```\nimport re\nimport os\n\nfor year_suffix in range(15, 24):\n    filename = f'/tmp/ecs{year_suffix}_layout.txt'\n    if not os.path.exists(filename):\n        print(f'File not found: {filename}')\n        continue\n    with open(filename, 'r') as f:\n        lines = f.readlines()\n    print(f'\\n=== ecs{year_suffix} ===')\n    print(f'Total lines: {len(lines)}')\n    year_str = ''\n    for line in lines[:5]:\n        m = re.search(r'(20\\d{2})\\s*/\\s*(20\\d{2})', line)\n        if m:\n            year_str = f'{m.group(1)}/{m.group(2)}'\n            break\n    print(f'Year: {year_str}')\n    for i, line in enumerate(lines[:15]):\n        if 'CityU' in line or 'CUHK' in line:\n            print(f'Header line {i}: {line.rstrip()}')\n    total_idx = -1\n    for i, line in enumerate(lines):\n        stripped = line.strip()\n        if stripped.startswith('Total') and not stripped.startswith('Total no'):\n            total_idx = i\n    if total_idx >= 0:\n        print(f'Grand Total at line {total_idx}:')\n        for j in range(total_idx, min(total_idx + 4, len(lines))):\n            print(f'  Line {j}: {lines[j].rstrip()}')\n    else:\n        print('Grand Total line not found!')\n```\n\nRun it with: python3 /tmp/parse_ecs.py",
+      "display": 3
+    }
+  ]
+}

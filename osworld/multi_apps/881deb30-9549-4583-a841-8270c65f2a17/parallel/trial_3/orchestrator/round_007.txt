@@ -1,0 +1,15 @@
+Both displays are now free. The previous attempts to write Python scripts ran out of steps because the scripts were too long. I need a much more concise approach. Let me write a very short, focused Python script that hard-codes the known structure and just extracts the numbers.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Run this exact command in the terminal to create and execute a Python script. Copy and paste this ENTIRE block as one command:\n\npython3 -c \"\nimport re, os\n\ndef get_nums(line):\n    return [int(x) for x in re.findall(r'\\d+', line.replace(',',''))]\n\nfor ys in range(15,24):\n    fn = f'/tmp/ecs{ys}_layout.txt'\n    with open(fn) as f:\n        lines = f.readlines()\n    # Find last Total line\n    ti = -1\n    for i,l in enumerate(lines):\n        s = l.strip()\n        if re.match(r'^T\\s*o\\s*t\\s*a?l$|^Total$', s.split()[0] if s.split() else '', re.I):\n            if not any(w in s.lower() for w in ['biology','business','engineer','human','physical','science','medicine']):\n                ti = i\n    if ti < 0:\n        for i,l in enumerate(lines):\n            if re.search(r'T\\s*o\\s*t\\s*al', l) and not any(w in l.lower() for w in ['biology','business','engineer','human','physical','science','medicine','sub']):\n                ti = i\n    nums = []\n    for j in range(ti, min(ti+3, len(lines))):\n        nums.extend(get_nums(lines[j]))\n    print(f'ecs{ys}: line={ti}, nums({len(nums)})={nums}')\n\"",
+      "display": 2
+    },
+    {
+      "instruction": "Run this exact command to examine the header and total sections of each file. This will help us understand the column ordering:\n\npython3 -c \"\nimport re\nfor ys in range(15,24):\n    fn = f'/tmp/ecs{ys}_layout.txt'\n    with open(fn) as f:\n        lines = f.readlines()\n    print(f'=== ecs{ys} ===')\n    # Print first 10 lines (header)\n    for i in range(min(10, len(lines))):\n        print(f'  H{i}: {lines[i].rstrip()}')\n    # Find and print last Total section\n    ti = -1\n    for i,l in enumerate(lines):\n        s = l.strip()\n        if re.match(r'T\\\\s*o\\\\s*t\\\\s*al|^Total', s):\n            if not any(w in s.lower() for w in ['biology','business','engineer','human','physical','science','medicine']):\n                ti = i\n    if ti >= 0:\n        for j in range(ti, min(ti+4, len(lines))):\n            print(f'  T{j}: {lines[j].rstrip()}')\n    print()\n\"",
+      "display": 3
+    }
+  ]
+}

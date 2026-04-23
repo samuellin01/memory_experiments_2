@@ -1,0 +1,11 @@
+Good, I now understand the structure better. The layout-preserved text is needed, and I need to extract the layout versions for all files and then use Python to parse the data properly. Let me extract all layout texts and write a Python script to parse them.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Run the following commands to extract layout-preserved text from all ECS PDFs and examine the total/summary rows:\n\n1. Extract all with layout: `for f in ecs15 ecs16 ecs17 ecs18 ecs19 ecs20 ecs21 ecs22 ecs23; do pdftotext -layout /home/user/Documents/Fundings/ecs/${f}.pdf /tmp/${f}_layout.txt; done`\n2. Show the last 50 lines of ecs15_layout.txt to find the grand total: `tail -50 /tmp/ecs15_layout.txt`\n3. Show the last 50 lines of ecs23_layout.txt: `tail -50 /tmp/ecs23_layout.txt`\n4. Search for 'Grand Total' or 'Total' lines in all layout files: `grep -n -i 'grand total\\|^total' /tmp/ecs15_layout.txt`",
+      "display": 2
+    }
+  ]
+}

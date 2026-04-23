@@ -1,0 +1,13 @@
+Context:
+Original task: I want to find a faculty job in Hong Kong, so I am more curious about the "Early Career Scheme" of those schools is better to apply, please help me to count all the documents in the ecs pdf files in my hand, and organize the pass rate of each school by year into table!
+
+Progress so far:
+No subtasks completed yet.
+
+Subtask:
+Extract text from the ECS PDF files in /home/user/Documents/Fundings/ecs/. Run the following commands:
+
+1. First check if pdftotext is available: `which pdftotext || sudo apt-get install -y poppler-utils`
+2. For each PDF file (ecs15.pdf through ecs19.pdf), extract text: `for f in ecs15 ecs16 ecs17 ecs18 ecs19; do pdftotext /home/user/Documents/Fundings/ecs/${f}.pdf /tmp/${f}.txt; done`
+3. Then show the first 100 lines of ecs15.txt to understand the format: `head -100 /tmp/ecs15.txt`
+4. Also show the first 100 lines of ecs23.txt after extracting it: `pdftotext /home/user/Documents/Fundings/ecs/ecs23.pdf /tmp/ecs23.txt && head -100 /tmp/ecs23.txt`
