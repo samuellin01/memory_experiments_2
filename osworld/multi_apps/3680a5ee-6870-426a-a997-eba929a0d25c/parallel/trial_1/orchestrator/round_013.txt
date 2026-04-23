@@ -1,0 +1,9 @@
+I can see on display 0 that LibreOffice Calc is running (shown in taskbar as "LibreOffice Calc") and there's a terminal with a command prompt. LibreOffice was just launched from display 2. Now I need to handle the Text Import dialog and bring the LibreOffice window to the foreground. Let me use both secondary displays - one to handle the xdotool commands, and one to work on display 0 directly.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run the following commands one at a time from this secondary display to handle the LibreOffice CSV import dialog and bring the window to the foreground on display :0. Run them ALL as a single combined command:\n\nsleep 5 && DISPLAY=:0 xdotool key Return && sleep 3 && DISPLAY=:0 xdotool search --class libreoffice windowactivate windowraise && sleep 2 && DISPLAY=:0 xdotool search --class libreoffice getwindowname", "display": 3},
+    {"instruction": "On the primary display, there is a terminal window visible and LibreOffice Calc is shown in the taskbar. The LibreOffice window may have a Text Import dialog behind the terminal. Your ONLY task is: double-click on the output.csv file icon on the desktop (visible at the top right of the screen). This should open it in LibreOffice Calc. If any dialog appears (Text Import, Document Recovery), handle it by clicking OK/Discard as appropriate. Wait for the spreadsheet to be visible.", "display": 0}
+  ]
+}

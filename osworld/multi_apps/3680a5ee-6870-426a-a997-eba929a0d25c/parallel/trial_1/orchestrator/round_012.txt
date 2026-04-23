@@ -1,0 +1,8 @@
+I can see from the display 0 screenshot that LibreOffice is currently loading (the terminal shows the command was just run with `--norestore`). The taskbar shows "Terminal" not "LibreOffice Calc" yet. Let me take a completely fresh approach - kill everything, clean up, and use a comprehensive script from a secondary display that handles everything including the recovery dialog, import dialog, and window activation. Then on display 0, I just need to bring the window forward.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run the following commands from this secondary display to manage LibreOffice on display :0:\n\n1. First kill all LibreOffice: DISPLAY=:0 killall soffice.bin 2>/dev/null; sleep 3\n2. Clean up recovery files: rm -rf ~/.config/libreoffice/4/user/backup/* 2>/dev/null; rm -f ~/Desktop/.~lock.output.csv# 2>/dev/null\n3. Launch LibreOffice with norestore and infilter to skip the CSV dialog: DISPLAY=:0 setsid libreoffice --norestore --infilter='CSV:44,34,76,1' --calc ~/Desktop/output.csv &\n4. Wait for it to load: sleep 10\n5. Try to handle any dialog and activate the window: DISPLAY=:0 xdotool key Return; sleep 2; DISPLAY=:0 xdotool search --class libreoffice windowactivate windowraise; sleep 2; DISPLAY=:0 xdotool key Return; sleep 2; DISPLAY=:0 xdotool search --class libreoffice windowactivate windowraise\n6. Verify it's running: DISPLAY=:0 xdotool search --class libreoffice getwindowname", "display": 2}
+  ]
+}

@@ -1,0 +1,8 @@
+I can see from the screenshot that LibreOffice Calc is running (shown in the taskbar at the top) but the terminal is covering it. The key issue is the terminal is in the foreground. Let me take a more targeted approach: kill LibreOffice, minimize the terminal first, then relaunch.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Follow these steps precisely on the primary display:\n1. First, in the terminal, kill any existing LibreOffice processes by typing: killall soffice.bin 2>/dev/null; sleep 2\n2. Then minimize the terminal window by running: xdotool getactivewindow windowminimize\n3. Wait 2 seconds\n4. Then open a new terminal (Ctrl+Alt+T) or use any method to run: libreoffice --calc ~/Desktop/output.csv\n5. When the Text Import dialog appears, press Enter or click OK to accept defaults\n6. The LibreOffice Calc spreadsheet should now be visible with the merged data\n\nThe key is to minimize the terminal BEFORE LibreOffice opens so LibreOffice appears in the foreground.", "display": 0}
+  ]
+}

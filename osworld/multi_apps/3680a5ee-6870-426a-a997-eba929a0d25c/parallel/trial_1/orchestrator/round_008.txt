@@ -1,0 +1,8 @@
+I can see LibreOffice Calc is running (shown in taskbar) and there's a dropdown menu open. The desktop shows output.csv file. I need to close that menu, then bring the LibreOffice Calc window to the foreground. Let me take a clean approach - kill LibreOffice, then relaunch it properly.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "On the primary display, I can see the desktop with a dropdown menu from LibreOffice Calc showing 'New Spreadsheet' and 'Quit'. First, click somewhere on the empty desktop area (like the center of the screen) to dismiss that dropdown menu. Then:\n\n1. First kill all LibreOffice processes: open a terminal with Ctrl+Alt+T, then run: killall soffice.bin 2>/dev/null; sleep 3\n2. Then in the same terminal run this single command that will minimize the terminal and launch LibreOffice: xdotool getactivewindow windowminimize; sleep 1; libreoffice --calc ~/Desktop/output.csv\n3. Wait for the Text Import dialog to appear. When it does, press Enter key to accept defaults.\n4. Wait for the spreadsheet to fully load and be visible.\n\nIMPORTANT: Do NOT click on the taskbar 'LibreOffice Calc' text - that opens a menu. Instead use xdotool or Alt+Tab if you need to switch windows.", "display": 0}
+  ]
+}

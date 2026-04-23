@@ -1,0 +1,15 @@
+The output.csv file exists and contains correctly merged data:
+- First Name Last Name (header)
+- Dulce Abril
+- Mara Hashimoto
+- Philip Gent
+- Kathleen Hanner
+
+The cleanup is complete. The recovery files and lock files have been successfully removed. This will prevent the Document Recovery dialog from appearing when LibreOffice Calc is launched next time.
+
+DONE - Successfully cleaned up LibreOffice recovery files by running:
+1. `killall soffice.bin 2>/dev/null; sleep 2` - killed any existing LibreOffice processes
+2. `rm -rf ~/.config/libreoffice/4/user/backup/* 2>/dev/null` - removed backup/recovery files
+3. `rm -f ~/Desktop/.~lock.output.csv# 2>/dev/null` - removed lock file
+
+The output.csv file at ~/Desktop/output.csv is confirmed to contain correctly merged data (first names + last names concatenated with spaces). The cleanup ensures that future LibreOffice launches won't show the Document Recovery dialog.

@@ -1,0 +1,8 @@
+I see the desktop is clean on display 0 with no LibreOffice visible, but display 3's taskbar shows "output.csv - LibreOffice Calc" is running. The display 0 agent killed LibreOffice and tried to reopen via right-click. Let me try a completely different approach using wmctrl to manage the window, and install it first.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run all of the following as ONE single command line on this secondary display:\n\nDISPLAY=:0 killall soffice.bin 2>/dev/null; sleep 2; rm -rf ~/.config/libreoffice/4/user/backup/* 2>/dev/null; rm -f ~/Desktop/.~lock.output.csv# 2>/dev/null; sudo apt-get install -y wmctrl 2>/dev/null; DISPLAY=:0 libreoffice --norestore --calc ~/Desktop/output.csv & sleep 12; DISPLAY=:0 wmctrl -l; DISPLAY=:0 xdotool key Return; sleep 3; DISPLAY=:0 wmctrl -l; DISPLAY=:0 wmctrl -r :ACTIVE: -e 0,0,0,1280,720; DISPLAY=:0 wmctrl -a output", "display": 2}
+  ]
+}

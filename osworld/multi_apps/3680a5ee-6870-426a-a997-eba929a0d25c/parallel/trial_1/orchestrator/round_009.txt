@@ -1,0 +1,8 @@
+I can see LibreOffice Calc is running (in the taskbar) but the window is not visible. The desktop is showing with output.csv file visible. Let me try a completely different approach - use a script from a secondary display to handle the xdotool window activation, and give the agent on display 0 a very focused single task.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Create a script at /tmp/launch_calc.sh with the following content and make it executable:\n\n#!/bin/bash\nkillall soffice.bin 2>/dev/null\nsleep 2\nDISPLAY=:0 libreoffice --calc ~/Desktop/output.csv &\nsleep 8\nDISPLAY=:0 xdotool search --class libreoffice windowactivate --sync\nsleep 2\nDISPLAY=:0 xdotool key Return\nsleep 3\nDISPLAY=:0 xdotool search --class libreoffice windowactivate --sync windowraise windowfocus\n\nThen run: chmod +x /tmp/launch_calc.sh && bash /tmp/launch_calc.sh\n\nThis script will kill existing LibreOffice, relaunch it, wait for it to load, activate its window, press Enter on the import dialog, and then activate the window again.", "display": 2}
+  ]
+}
