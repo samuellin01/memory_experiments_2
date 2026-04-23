@@ -1,0 +1,17 @@
+I need to first understand the current state: there's a "Bills" folder in Thunderbird's Local Folders, and I need to find the AWS invoice email, extract its PDF attachment, then follow existing naming patterns in a "receipts" folder and update a "tally book." Let me start by exploring the existing files and the email simultaneously.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In Thunderbird Mail, click on the 'Bills' folder under Local Folders in the left sidebar. Find and open the email containing the AWS invoice for December. Save the PDF attachment from that email to /tmp/aws_invoice.pdf (or note the attachment filename).",
+      "display": 0
+    },
+    {
+      "instruction": "Explore the home directory /home/user to find: 1) A 'receipts' folder (check common locations like /home/user/Documents/receipts, /home/user/receipts, etc.) and list its contents to see the file naming pattern. 2) A 'tally book' file (likely a spreadsheet or text file - search for it). Run commands like: find /home/user -type d -iname '*receipt*' 2>/dev/null; find /home/user -type f \\( -iname '*tally*' -o -iname '*ledger*' \\) 2>/dev/null; ls -la /home/user/Documents/ 2>/dev/null; ls -la /home/user/ 2>/dev/null. Write all findings to /tmp/folder_info.txt",
+      "display": 2
+    }
+  ]
+}
+```

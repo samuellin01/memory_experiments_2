@@ -1,0 +1,19 @@
+Now I have detailed information about the tally book. The tally book has:
+- Sheet: 工作表1
+- Columns: Service, Month, Amount
+- Existing rows: AWS/2023.8/1.14, AWS/2023.9/1.01, AWS/2023.1/1.02, AWS/2023.11/0.99, X/2023.12/8
+- Max row: 6, so the new entry goes in row 7
+
+I need to extract the amount from the PDF. Let me read the PDF and then update the tally book. Display 3 is copying the file, so let me use display 2 to extract the amount from the PDF.
+
+```json
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Run this command to extract text from the AWS invoice PDF and find the total amount: pdftotext /tmp/aws_invoice.pdf /tmp/invoice_text.txt && cat /tmp/invoice_text.txt. If pdftotext is not available, try: python3 -c \"import subprocess; result=subprocess.run(['pdftotext', '/tmp/aws_invoice.pdf', '-'], capture_output=True, text=True); print(result.stdout)\" or use another method. The goal is to find the total/amount due on the invoice. Write the amount to /tmp/invoice_amount.txt",
+      "display": 2
+    }
+  ]
+}
+```
