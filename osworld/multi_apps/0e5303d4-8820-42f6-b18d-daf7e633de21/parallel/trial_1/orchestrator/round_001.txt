@@ -1,0 +1,9 @@
+I can see a folder `~/lecture_slides` with `lecture0.pdf` already downloaded. I need to figure out what course website this is from and download the remaining week PDFs. Let me first examine the existing PDF to identify the course, and also check browser history.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Open a terminal and check the properties of the file ~/lecture_slides/lecture0.pdf to find out where it was downloaded from. Run commands like: 1) `exiftool ~/lecture_slides/lecture0.pdf` or `pdfinfo ~/lecture_slides/lecture0.pdf` to check metadata, 2) Check Chrome browser history by looking at ~/.config/google-chrome/Default/History - copy it first then use sqlite3 to query recent URLs. Specifically run: `cp ~/.config/google-chrome/Default/History /tmp/history_copy && sqlite3 /tmp/history_copy \"SELECT url, title FROM urls ORDER BY last_visit_time DESC LIMIT 20;\"`. Write all findings to /tmp/course_info.txt", "display": 2},
+    {"instruction": "Open a terminal and run `file ~/lecture_slides/lecture0.pdf` and `strings ~/lecture_slides/lecture0.pdf | head -100` to look for any URL or course information embedded in the PDF. Write findings to /tmp/pdf_strings.txt", "display": 3}
+  ]
+}

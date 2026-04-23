@@ -1,0 +1,9 @@
+I now know this is CS50P 2022 (Harvard's CS50's Introduction to Programming with Python). I need to query the Chrome history to find the exact download URL, and also check the course website to find all lecture slide PDFs. Let me do both in parallel.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run this command in the terminal: sqlite3 /tmp/history_copy \"SELECT url, title FROM urls ORDER BY last_visit_time DESC LIMIT 30;\" > /tmp/chrome_urls.txt 2>&1 && sqlite3 /tmp/history_copy \"SELECT tab_url, current_path FROM downloads ORDER BY start_time DESC LIMIT 10;\" >> /tmp/chrome_urls.txt 2>&1 && cat /tmp/chrome_urls.txt", "display": 2},
+    {"instruction": "Open Google Chrome and navigate to https://cs50.harvard.edu/python/2022/ to find the course website. Look at the course schedule/weeks to identify all the lecture weeks and their slide PDF download links. The course is CS50P 2022 - Introduction to Programming with Python. Write down all the weeks and their lecture slide PDF URLs you find. Save the information to /tmp/lecture_urls.txt", "display": 3}
+  ]
+}
