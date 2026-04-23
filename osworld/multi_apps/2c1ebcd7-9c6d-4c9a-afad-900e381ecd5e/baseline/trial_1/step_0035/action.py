@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('python3 -c "\nimport docx\ndoc = docx.Document(\'/hom'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote("e/user/Desktop/students work/case study.docx')\nfor"), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote(' i in [123, 129]:\n    p = doc.paragraphs[i]\n    pr'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('int(f\'Para {i}: {repr(p.text)}\')\n    print()\n"\n'), shell=True, check=True)
+import time; time.sleep(0.05)
