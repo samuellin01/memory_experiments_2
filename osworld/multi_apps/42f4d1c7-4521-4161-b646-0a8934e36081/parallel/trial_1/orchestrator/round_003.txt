@@ -1,0 +1,11 @@
+Good, the character.png is at `/home/user/Desktop/character.png`. Now I need to create the Script-Fu script file and open it in VS Code. Let me write the script file on a secondary display and then open it in VS Code on the primary display.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, create a Script-Fu script file at /home/user/Desktop/resize_image.scm with the following content. Use cat with heredoc:\n\ncat > /home/user/Desktop/resize_image.scm << 'EOF'\n(let* (\n  (image (car (gimp-file-load RUN-NONINTERACTIVE \"/home/user/Desktop/character.png\" \"character.png\")))\n  (drawable (car (gimp-image-get-active-drawable image)))\n)\n  (gimp-image-scale-full image 128 128 INTERPOLATION-LINEAR)\n  (file-png-save RUN-NONINTERACTIVE image (car (gimp-image-flatten image)) \"/home/user/Desktop/resized.png\" \"resized.png\" 0 9 1 1 1 1 1)\n  (gimp-image-delete image)\n)\nEOF\n\nThen verify the file was created: cat /home/user/Desktop/resize_image.scm",
+      "display": 2
+    }
+  ]
+}
