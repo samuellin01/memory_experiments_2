@@ -1,0 +1,11 @@
+Now I need to write and run a Python script to extract the speaker notes from the .pptx file and save them as a .docx file. Let me first install the required libraries and then run the script.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, run the following commands:\n\n1. First install required packages:\npip install python-pptx python-docx\n\n2. Then create and run a Python script:\ncat << 'EOF' > /tmp/extract_notes.py\nfrom pptx import Presentation\nfrom docx import Document\n\npptx_path = '/home/user/Desktop/Dickinson_Slides.pptx'\noutput_path = '/home/user/Desktop/notes.docx'\n\nprs = Presentation(pptx_path)\ndoc = Document()\n\nfor slide in prs.slides:\n    if slide.has_notes_slide:\n        notes_slide = slide.notes_slide\n        notes_text = notes_slide.notes_text_frame.text.strip()\n        if notes_text:\n            doc.add_paragraph(notes_text)\n\ndoc.save(output_path)\nprint('Done! notes.docx saved to Desktop.')\nEOF\npython3 /tmp/extract_notes.py",
+      "display": 2
+    }
+  ]
+}

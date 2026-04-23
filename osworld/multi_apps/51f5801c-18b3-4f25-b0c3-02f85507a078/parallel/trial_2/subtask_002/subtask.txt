@@ -1,0 +1,37 @@
+Context:
+Original task: I've been working on this presentation in LibreOffice Impress and I've added a bunch of speaker notes for my upcoming talk. I'd like to have those notes handy in a separate document when I rehearse. Could you assist me in extracting all the presenter notes from the Impress file and saving them as a Word document? Just keep the text of the notes, do not add any formatting or page number information. I'd like the file to be named 'notes.docx' and placed on my Desktop for easy access.
+
+Progress so far:
+1. [DONE] Open a terminal and find the file Dickinson_Slides.pptx. Run: find /home/user -name 'Dickinson_Slides.pptx' 2>/dev/null
+   Result: The file has been found at `/home/user/Desktop/Dickinson_Slides.pptx`. The `find` command completed successfully and returned the location of the file.
+
+DONE. The file `Dickinson_Slides.pptx` was located at `/home/user/Desktop/Dickinson_Slides.pptx` using the `find` command in the terminal.
+
+Subtask:
+In the terminal, run the following commands:
+
+1. First install required packages:
+pip install python-pptx python-docx
+
+2. Then create and run a Python script:
+cat << 'EOF' > /tmp/extract_notes.py
+from pptx import Presentation
+from docx import Document
+
+pptx_path = '/home/user/Desktop/Dickinson_Slides.pptx'
+output_path = '/home/user/Desktop/notes.docx'
+
+prs = Presentation(pptx_path)
+doc = Document()
+
+for slide in prs.slides:
+    if slide.has_notes_slide:
+        notes_slide = slide.notes_slide
+        notes_text = notes_slide.notes_text_frame.text.strip()
+        if notes_text:
+            doc.add_paragraph(notes_text)
+
+doc.save(output_path)
+print('Done! notes.docx saved to Desktop.')
+EOF
+python3 /tmp/extract_notes.py
