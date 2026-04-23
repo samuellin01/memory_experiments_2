@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('strings ~/Desktop/"07-cluster-kMean (1).ppt" | gre'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('p -i -E "cluster|kmean|lecture|slide|algorithm|uni'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('versity" | head -20\n'), shell=True, check=True)
+import time; time.sleep(0.05)

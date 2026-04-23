@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('# Move coding projects to Projects\nmv "2-if-for-ar'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ray" Projects/\nmv "assign1-data_python3" Projects/'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('\n\necho "Projects moved"\n'), shell=True, check=True)
+import time; time.sleep(0.05)
