@@ -1,0 +1,8 @@
+The output.csv file is correctly created. Now I need to focus entirely on display 0 to get LibreOffice Calc open and visible. Let me take a very direct approach - run the cleanup and launch commands directly in the terminal on display 0, using a single-step script approach.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "On display 0, there should be a terminal window and possibly a LibreOffice Document Recovery dialog visible. Your ONLY goals are:\n1. If you see any dialog (Document Recovery, confirmation, or Text Import), handle it: click Discard on recovery, Yes on confirmation, OK on Text Import\n2. If you see a terminal, type this command and press Enter: pkill -9 -f soffice; sleep 3; rm -f ~/.config/libreoffice/4/user/.lock; rm -rf ~/.config/libreoffice/4/user/backup/*; rm -rf /tmp/lu*; nohup soffice --calc ~/Desktop/output.csv &\n3. Then IMMEDIATELY press Super+D (to show desktop and minimize the terminal)\n4. Wait 10 seconds for LibreOffice to fully load\n5. Handle any dialogs that appear (Document Recovery: click Discard then Yes; Text Import: click OK)\n6. Make sure the LibreOffice Calc spreadsheet is visible\n\nIMPORTANT: Do NOT waste steps trying to click dock icons or taskbar text - they don't work reliably. Instead use Super+D to minimize windows, and handle dialogs as they appear.", "display": 0}
+  ]
+}

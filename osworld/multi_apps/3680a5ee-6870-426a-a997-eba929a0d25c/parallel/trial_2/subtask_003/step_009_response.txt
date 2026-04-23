@@ -1,0 +1,3 @@
+I can see that file1.csv lines end with just `$` (no `^M`), so there are no carriage returns. The issue is that `paste -d''` with an empty string delimiter doesn't work as expected in some versions of `paste`. The empty delimiter is being treated as the default tab delimiter or is causing issues.
+
+Let me check what's actually in the output file more carefully, and then use a different approach:

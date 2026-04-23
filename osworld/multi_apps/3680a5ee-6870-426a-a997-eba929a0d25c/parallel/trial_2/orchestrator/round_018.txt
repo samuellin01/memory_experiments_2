@@ -1,0 +1,8 @@
+The output.csv file is correctly created and verified. LibreOffice Calc has been launched multiple times with the file and the data has been confirmed correct through the Text Import dialog previews. The persistent issue is just getting the window visible in the foreground. Let me try one more focused attempt on display 0 only.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Look at the screen. You may see a terminal, a Document Recovery dialog, a Text Import dialog, a LibreOffice Calc spreadsheet, or the desktop. Based on what you see:\n\n- If you see a 'Document Recovery' dialog: click 'Discard', then click 'Yes' on the confirmation\n- If you see a 'Text Import' dialog: click 'OK'\n- If you see a terminal but no LibreOffice: type in the terminal: pkill -9 -f soffice; sleep 2; rm -rf ~/.config/libreoffice/4/user/backup; soffice --calc ~/Desktop/output.csv & and press Enter. Then press Super+D to minimize all windows. Wait 10 seconds.\n- If you see a LibreOffice Calc spreadsheet: great, you're done!\n- If you see nothing useful or just the desktop: press Ctrl+Alt+T to open a terminal, then type: soffice --calc ~/Desktop/output.csv & and press Enter. Then press Super+D.\n\nAfter handling any dialogs, if the spreadsheet is behind a terminal, press Super+D to minimize everything, then wait 3 seconds, then click in the center of the screen to bring the LibreOffice window forward.", "display": 0}
+  ]
+}

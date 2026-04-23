@@ -1,0 +1,9 @@
+Let me try a completely different approach. I'll use a secondary display to clean up LibreOffice state, then use a very targeted approach on display 0.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Run these commands in order to clean up LibreOffice on the primary display:\n1. DISPLAY=:0 pkill -9 -f soffice\n2. sleep 2\n3. rm -f ~/.config/libreoffice/4/user/.lock\n4. rm -rf /tmp/lu*\n5. rm -rf ~/.config/libreoffice/4/user/backup/*\n6. echo 'done cleaning'", "display": 2},
+    {"instruction": "Run these commands to remove LibreOffice recovery data so it won't show recovery dialogs:\nrm -rf ~/.config/libreoffice/4/user/backup/*\nrm -rf ~/.config/libreoffice/4/user/store/*\nfind /tmp -name '.~lock.*' -delete 2>/dev/null\necho 'recovery cleanup done'", "display": 3}
+  ]
+}

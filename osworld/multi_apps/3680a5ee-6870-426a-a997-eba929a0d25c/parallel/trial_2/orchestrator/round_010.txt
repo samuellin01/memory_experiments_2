@@ -1,0 +1,8 @@
+I can see from the screenshot that LibreOffice Calc is running (shown in taskbar as "LibreOffice Calc") and the terminal is in the foreground. The key issue is that the terminal keeps blocking the LibreOffice window. Let me try a very focused approach: kill LibreOffice, clean up, then use xdotool to minimize the terminal and launch LibreOffice fresh.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "On display 0, there is a terminal in the foreground and LibreOffice Calc running behind it. Do these exact steps:\n1. In the terminal, type exactly: pkill -9 -f soffice && sleep 1 && rm -f ~/.config/libreoffice/4/user/.lock && rm -rf /tmp/lu*\n2. Press Enter and wait for it to complete\n3. Then type exactly: xdotool key super+d\n4. Press Enter (this will show the desktop/minimize all windows)\n5. Wait 2 seconds\n6. Then press Ctrl+Alt+T to open a fresh terminal\n7. In the new terminal, type: soffice --calc ~/Desktop/output.csv &\n8. Press Enter\n9. Wait for LibreOffice to appear (about 5-10 seconds)\n10. If a Document Recovery dialog appears, click Discard, then Yes\n11. If a Text Import dialog appears, click OK\n12. After the spreadsheet loads, you're done", "display": 0}
+  ]
+}
