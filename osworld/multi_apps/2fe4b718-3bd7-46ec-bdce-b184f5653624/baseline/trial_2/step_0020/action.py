@@ -1,0 +1,6 @@
+pyautogui.keyDown('ctrl')
+pyautogui.keyDown('shift')
+pyautogui.keyDown('t')
+pyautogui.keyUp('t')
+pyautogui.keyUp('shift')
+pyautogui.keyUp('ctrl')
