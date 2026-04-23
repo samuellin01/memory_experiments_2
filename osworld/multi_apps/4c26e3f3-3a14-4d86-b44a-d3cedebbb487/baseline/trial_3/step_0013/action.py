@@ -1,6 +1,0 @@
-pyautogui.keyDown('ctrl')
-pyautogui.keyDown('alt')
-pyautogui.keyDown('t')
-pyautogui.keyUp('t')
-pyautogui.keyUp('alt')
-pyautogui.keyUp('ctrl')
