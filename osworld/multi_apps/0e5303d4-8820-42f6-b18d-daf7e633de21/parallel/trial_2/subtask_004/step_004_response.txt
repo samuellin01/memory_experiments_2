@@ -1,0 +1,27 @@
+Both commands have completed successfully. Here's a summary of the findings:
+
+**From Command 1 (grep for PDF links on course pages):**
+- All weeks 0-9 have lecture PDFs available
+- Each week has two PDFs: `lectureN.pdf` and `srcN.pdf`
+- URL pattern: `https://cdn.cs50.net/python/2022/x/lectures/N/lectureN.pdf`
+
+**From Command 2 (HEAD requests to CDN):**
+- All weeks 0-9 return `HTTP/2 200` with `content-type: application/pdf`
+- All PDFs are confirmed accessible and downloadable
+- File sizes range from ~36KB to ~612KB
+
+**Confirmed lecture PDF URLs:**
+| Week | URL | Size |
+|------|-----|------|
+| 0 | `https://cdn.cs50.net/python/2022/x/lectures/0/lecture0.pdf` | 60,576 bytes |
+| 1 | `https://cdn.cs50.net/python/2022/x/lectures/1/lecture1.pdf` | 213,698 bytes |
+| 2 | `https://cdn.cs50.net/python/2022/x/lectures/2/lecture2.pdf` | 612,240 bytes |
+| 3 | `https://cdn.cs50.net/python/2022/x/lectures/3/lecture3.pdf` | 37,992 bytes |
+| 4 | `https://cdn.cs50.net/python/2022/x/lectures/4/lecture4.pdf` | 61,628 bytes |
+| 5 | `https://cdn.cs50.net/python/2022/x/lectures/5/lecture5.pdf` | 36,397 bytes |
+| 6 | `https://cdn.cs50.net/python/2022/x/lectures/6/lecture6.pdf` | 44,651 bytes |
+| 7 | `https://cdn.cs50.net/python/2022/x/lectures/7/lecture7.pdf` | 97,224 bytes |
+| 8 | `https://cdn.cs50.net/python/2022/x/lectures/8/lecture8.pdf` | 72,305 bytes |
+| 9 | `https://cdn.cs50.net/python/2022/x/lectures/9/lecture9.pdf` | 85,087 bytes |
+
+DONE. Successfully identified all lecture PDF download URLs for CS50P 2022 weeks 0-9. The CDN pattern `https://cdn.cs50.net/python/2022/x/lectures/N/lectureN.pdf` is confirmed working for all 10 weeks (0-9), with all returning HTTP 200 and content-type application/pdf. Since lecture0.pdf already exists in `/home/user/lecture_slides/`, the next step would be to download lecture1.pdf through lecture9.pdf into that folder.

@@ -1,0 +1,8 @@
+Good, I've confirmed the course is CS50P 2022. Now let me use display 3 to navigate the course website and find the exact PDF URLs for each week's lecture slides.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Open a terminal and run the following commands to find the lecture PDF links from the CS50P 2022 course website. For each week 1-9, fetch the week page and look for PDF slide links:\n\nfor i in $(seq 0 9); do echo \"=== Week $i ===\"; curl -sL \"https://cs50.harvard.edu/python/2022/weeks/$i/\" | grep -oP 'href=\"[^\"]*\\.pdf' | head -5; done\n\nAlso try the CDN pattern:\nfor i in $(seq 0 9); do echo \"=== Week $i ===\"; curl -sI \"https://cdn.cs50.net/python/2022/x/lectures/$i/lecture$i.pdf\" 2>/dev/null | head -3; done", "display": 3}
+  ]
+}

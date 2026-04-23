@@ -1,0 +1,15 @@
+Week 10 returns HTTP/2 404, so the course has weeks 0 through 9 (10 weeks total). Since week 0 is already downloaded, I need to download weeks 1 through 9. Here's a summary of what I found:
+
+**URL Pattern:** `https://cdn.cs50.net/python/2022/x/lectures/{N}/lecture{N}.pdf`
+
+**Available weeks:** 0-9 (all return HTTP 200)
+- Week 0: Already downloaded as `lecture0.pdf`
+- Weeks 1-9: Need to be downloaded
+
+**Key findings:**
+- The CS50P 2022 course website is at `https://cs50.harvard.edu/python/2022/`
+- The actual PDF files are hosted on the CDN at `https://cdn.cs50.net/python/2022/x/lectures/{N}/lecture{N}.pdf`
+- The `cs50.harvard.edu` URLs redirect (302) but ultimately lead to 404s, while the CDN URLs work directly
+- File naming pattern: `lecture{N}.pdf` (e.g., `lecture1.pdf`, `lecture2.pdf`, etc.)
+
+Let me also verify the existing file matches this pattern:

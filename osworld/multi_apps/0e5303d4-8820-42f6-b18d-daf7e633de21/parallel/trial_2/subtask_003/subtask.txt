@@ -1,0 +1,44 @@
+Context:
+Original task: I want to learn python programming and my friend recommends me this course website. I have grabbed the lecture slide for week 0. Please download the PDFs for other weeks into the opened folder and leave the file name as-it-is.
+
+Progress so far:
+1. [DONE] Open a terminal and run: exiftool /home/user/lecture_slides/lecture0.pdf | head -30; Also run: pdfinfo /home/user/lecture_slides/lecture0.pdf 2>/dev/null || echo 'pdfinfo not available'. This will help identify the source URL of the PDF.
+   Result: Both commands have been executed successfully. Here's a summary of the findings:
+
+**From `pdfinfo`:**
+- Title: CS50P 2022 - Lecture 0 - Functions, Variables
+- Creator: Google
+- Pages: 32
+- Page size: 720 x 405 pts
+- File size: 60576 bytes
+- PDF version: 1.4
+
+**From `exiftool`:**
+- File Name: lecture0.pdf
+- Directory: /home/user/lecture_slides
+- File Size: 59 KiB
+- Creator: Google
+- Title: CS50P 2022 - Lecture 0 - Functions, Variables
+- Page Count: 32
+- PDF Version: 1.4
+
+Key findings for identifying the source:
+- The PDF is from **CS50P 2022** (CS50's Introduction to Programming with Python), which is Harvard's course available at **cs50.harvard.edu/python/2022**
+- The Creator is "Google", which suggests the slides were exported from Google Slides
+- The title format is "CS50P 2022 - Lecture 0 - Functions, Variables"
+- The file is named `lecture0.pdf` in the `/home/user/lecture_slides/` directory
+
+This indicates the course website is likely **https://cs50.harvard.edu/python/2022/** and the lecture slides would be available from that site's weekly lecture pages.
+
+DONE. I ran both `exiftool` and `pdfinfo` on `/home/user/lecture_slides/lecture0.pdf`. The PDF metadata reveals it's from **CS50P 2022** (CS50's Introduction to Programming with Python) by Harvard. The title is "CS50P 2022 - Lecture 0 - Functions, Variables", the creator is "Google" (indicating Google Slides export), and the source website is likely https://cs50.harvard.edu/python/2022/.
+
+Subtask:
+Open a terminal and use curl to fetch the CS50P 2022 course page and find lecture slide PDF links. Run the following commands:
+
+curl -s https://cs50.harvard.edu/python/2022/ | grep -i 'lecture\|slides\|pdf\|week' | head -50
+
+Also try to check individual week pages to find the PDF link pattern:
+curl -s https://cs50.harvard.edu/python/2022/weeks/1/ | grep -i 'pdf\|slides\|lecture' | head -20
+
+Also try the direct URL pattern that CS50 typically uses:
+curl -sI https://cs50.harvard.edu/python/2022/lectures/1/lecture1.pdf | head -10

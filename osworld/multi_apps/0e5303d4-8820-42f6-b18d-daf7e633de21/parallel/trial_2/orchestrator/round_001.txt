@@ -1,0 +1,9 @@
+I can see a folder `~/lecture_slides` with `lecture0.pdf` already downloaded. This appears to be from CS50's Introduction to Programming with Python (CS50P). I need to first identify the course website and find all the lecture PDFs for other weeks. Let me start by examining the existing PDF to confirm the source, and also research the course website.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {"instruction": "Open a terminal and run: exiftool /home/user/lecture_slides/lecture0.pdf | head -30; Also run: pdfinfo /home/user/lecture_slides/lecture0.pdf 2>/dev/null || echo 'pdfinfo not available'. This will help identify the source URL of the PDF.", "display": 2},
+    {"instruction": "Open a terminal and check the Chrome browsing history to find the course website. Run: sqlite3 ~/.config/google-chrome/Default/History \"SELECT url, title FROM urls ORDER BY last_visit_time DESC LIMIT 30;\" 2>/dev/null; Also check Chrome's download history: sqlite3 ~/.config/google-chrome/Default/History \"SELECT url, target_path FROM downloads ORDER BY start_time DESC LIMIT 20;\" 2>/dev/null", "display": 3}
+  ]
+}
