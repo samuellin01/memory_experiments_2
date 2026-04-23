@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('wget -O ~/Desktop/kingbird.jpeg "https://huggingfa'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ce.co/datasets/xlangai/ubuntu_osworld_file_cache/r'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('esolve/main/multi_apps/3c8f201a-009d-4bbe-8b65-a6f'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('8b35bb57f/kingbird.jpeg"\n'), shell=True, check=True)
+import time; time.sleep(0.05)
