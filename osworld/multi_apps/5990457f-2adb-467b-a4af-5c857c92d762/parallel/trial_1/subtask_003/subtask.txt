@@ -1,0 +1,44 @@
+Context:
+Original task: Append one entry of AI researcher Yann LeCun from Google Scholar into an existing table researchers.xlsx.
+
+Progress so far:
+1. [DONE] Open Google Chrome and go to Google Scholar (https://scholar.google.com). Search for 'Yann LeCun'. Find his profile page and note down his key information: name, affiliation, email (if visible), citation counts (all-time citations, h-index, i10-index), and his listed research interests/areas. Take note of all visible profile details.
+   Result: I have successfully gathered all the key information from Yann LeCun's Google Scholar profile. Here is a complete summary of all visible profile details:
+
+**Name:** Yann LeCun
+
+**Affiliation:** Chief AI Scientist at Facebook & JT Schwarz Professor at the Courant Institute, New York University
+
+**Email:** Verified email at cs.nyu.edu
+
+**Research Interests/Areas:** AI, machine learning, computer vision, robotics, image compression
+
+**Citation Statistics (All-time | Since 2021):**
+- **Citations:** 465,628 | 270,903
+- **h-index:** 171 | 128
+- **i10-index:** 464 | 361
+
+**Top Publications visible:**
+1. Deep learning (2015) - 114,077 citations
+2. Gradient-based learning applied to document recognition (2002) - 85,607 citations
+3. Backpropagation applied to handwritten zip code recognition (1989) - 20,414 citations
+4. Convolutional networks for images, speech, and time series (1998) - 9,866 citations
+5. The MNIST database of handwritten digits (1998) - 9,471 citations
+
+**Co-authors:** Yoshua Bengio, Leon Bottou, Lawrence Jackel (among others)
+
+DONE. I have successfully navigated to Google Scholar, searched for Yann LeCun, and found his profile page with all key information: Name (Yann LeCun), Affiliation (Chief AI Scientist at Facebook & JT Schwarz Professor at the Courant Institute, New York University), Email (verified at cs.nyu.edu), Citations (465,628 all-time), h-index (171), i10-index (464), and research interests (AI, machine learning, computer vision, robotics, image compression). The profile page remains open in Chrome for reference.
+
+Subtask:
+Open a terminal and run this Python command to examine the structure of researchers.xlsx:
+python3 -c "
+import openpyxl
+wb = openpyxl.load_workbook('/home/user/researchers.xlsx')
+ws = wb.active
+print('Sheet name:', ws.title)
+print('Dimensions:', ws.dimensions)
+print('Max row:', ws.max_row)
+print('Max col:', ws.max_column)
+for row in ws.iter_rows(min_row=1, max_row=ws.max_row, values_only=False):
+    print([cell.value for cell in row])
+"
