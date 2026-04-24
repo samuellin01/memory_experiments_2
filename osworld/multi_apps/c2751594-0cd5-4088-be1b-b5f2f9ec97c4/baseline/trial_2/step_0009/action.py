@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('gsettings set org.gnome.desktop.background picture'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('-uri-dark "file:///home/user/Downloads/first_image'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('.png"\n'), shell=True, check=True)
+import time; time.sleep(0.05)
