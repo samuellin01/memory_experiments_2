@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('https://www.google.com/search?q=%E6%B7%B1%E5%9C%B3'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('%E7%A6%8F%E7%94%B0%E5%8C%BA24%E5%B0%8F%E6%97%B6%E8'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('%87%AA%E5%8A%A9%E7%AD%BE%E6%B3%A8%E6%9C%BA%E5%9C%B'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('0%E5%9D%80'), shell=True, check=True)
+import time; time.sleep(0.05)
