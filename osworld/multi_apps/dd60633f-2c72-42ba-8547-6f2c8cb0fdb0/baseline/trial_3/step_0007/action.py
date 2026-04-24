@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('wget -O /home/user/gpt_dev.ipynb "https://drive.go'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ogle.com/uc?export=download&id=1JMLa53HDuA-i7ZBmqV'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('7ZnA3c_fvtXnx"\n'), shell=True, check=True)
+import time; time.sleep(0.05)
