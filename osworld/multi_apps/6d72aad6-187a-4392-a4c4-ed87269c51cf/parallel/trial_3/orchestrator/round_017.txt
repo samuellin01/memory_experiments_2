@@ -1,0 +1,13 @@
+The situation is now clear. Both headless conversions failed with "Error: no export filter for /home/user/presentation.mp4 found" and "Error: no export filter for /home/user/presentation.avi found". The video export filter is genuinely not available in this LibreOffice installation because the `libreoffice-avmedia-backend-gstreamer` package couldn't be installed due to version conflicts.
+
+Let me try one last approach - search for video export filters and try with the correct filter name, or try the snap version of LibreOffice.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Search for any video-related export filters in LibreOffice's registry. Run these commands:\n\ngrep -r -l 'mp4\\|video\\|mpeg\\|avmedia' /usr/lib/libreoffice/share/registry/ 2>/dev/null\ngrep -r 'mp4\\|video_export\\|impress_video' /usr/lib/libreoffice/share/registry/ 2>/dev/null | head -20\n\nAlso check if the avmedia backend is bundled:\ndpkg -l | grep avmedia\nfind /usr/lib/libreoffice -name '*avmedia*' -o -name '*gstreamer*' 2>/dev/null\n\nAlso try the conversion with explicit filter name:\nkillall soffice.bin 2>/dev/null\nlibreoffice --headless --convert-to 'mp4:impress_mp4_Export' /home/user/presentation.pptx --outdir /home/user/ 2>&1\nls -la /home/user/presentation.mp4 2>/dev/null\n\nReport findings.",
+      "display": 3
+    }
+  ]
+}

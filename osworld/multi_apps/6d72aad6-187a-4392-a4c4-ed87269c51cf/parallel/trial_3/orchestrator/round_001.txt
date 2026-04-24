@@ -1,0 +1,17 @@
+I'll break this task into steps:
+
+1. First, create a simple presentation file (can be done on a secondary display)
+2. Then open it in LibreOffice Impress on the primary display, export as video using built-in features
+3. Finally play the video in VLC on the primary display
+
+Let me start by creating a simple presentation file and checking what's available.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "Create a simple LibreOffice Impress presentation with 2-3 slides. Open a terminal and run: python3 -c \"\nfrom pptx import Presentation\nfrom pptx.util import Inches, Pt\nprs = Presentation()\nslide1 = prs.slides.add_slide(prs.slide_layouts[0])\nslide1.shapes.title.text = 'Hello World'\nslide1.placeholders[1].text = 'This is slide 1'\nslide2 = prs.slides.add_slide(prs.slide_layouts[1])\nslide2.shapes.title.text = 'Slide 2'\nslide2.placeholders[1].text = 'This is the second slide'\nprs.save('/home/user/presentation.pptx')\nprint('Done')\n\" If python-pptx is not available, instead use LibreOffice command line to create a blank presentation: create a simple ODP file. Alternatively, just open LibreOffice Impress, create a new presentation, add some text to a couple slides, and save it as /home/user/presentation.odp",
+      "display": 2
+    }
+  ]
+}

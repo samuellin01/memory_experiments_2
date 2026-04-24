@@ -1,0 +1,15 @@
+Based on extensive investigation, the "Export as Video" feature is genuinely not available in this LibreOffice installation. Despite:
+- Upgrading to LibreOffice 26.2.2.2 (latest from PPA)
+- Installing all GStreamer multimedia packages
+- Checking all menus (File, Slide Show, Tools)
+- Trying headless command-line conversion (failed with "no export filter found")
+- Confirming the GStreamer backend library exists (`libavmediagst.so`)
+
+The video export filter is simply not registered/available in this build. The `libreoffice-avmedia-backend-gstreamer` package couldn't be installed due to version conflicts, and the PPA build apparently doesn't include the video export filter despite having the library.
+
+This task cannot be completed as specified ("using only LibreOffice Impress's built-in export features") because the built-in video export feature is not functional in this environment.
+
+{
+  "action": "fail",
+  "reason": "The 'Export as Video' feature is not available in the LibreOffice Impress installation on this system. Despite upgrading to LibreOffice 26.2.2.2 (from PPA) and installing all GStreamer multimedia packages, the video export option does not appear in any menu (File > Export As, Slide Show, Tools). The headless command-line conversion also fails with 'no export filter for .mp4 found'. The libreoffice-avmedia-backend-gstreamer package cannot be installed due to version conflicts between the Ubuntu repo (for LO 7.3.7) and the PPA version (26.2.2.2). The task requires using only LibreOffice Impress's built-in export features, which are not functional for video export in this environment."
+}
