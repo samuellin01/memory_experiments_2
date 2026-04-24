@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('curl -L -o ~/Documents/Novels/4th\\ Year\\ in\\ Tsing'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('hua/Early\\ Buildings.tex "https://raw.githubuserco'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ntent.com/liangjs333/4th-year-in-tsinghua-eng/mast'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('er/Early%20Buildings.tex"\n'), shell=True, check=True)
+import time; time.sleep(0.05)
