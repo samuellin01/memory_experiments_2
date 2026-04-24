@@ -1,0 +1,20 @@
+
+
+Now I can see the `rotate` method clearly (lines 54-57):
+
+```python
+def rotate(self):
+    if self.block is None:
+        return
+    self.block.rotate()
+```
+
+The problem is that after calling `self.block.rotate()`, it doesn't check if the rotated block would intersect with the board boundaries or existing blocks. When a block is at the edge of the board and rotates, the new shape could extend beyond the board boundaries, causing an `IndexError` when the `intersect` method or drawing code tries to access out-of-bounds indices.
+
+I need to fix this by:
+1. Saving the old rotation state
+2. Performing the rotation
+3. Checking for intersection
+4. If there's an intersection, reverting the rotation
+
+Let me click on line 57 to position my cursor there and edit the code.

@@ -1,0 +1,15 @@
+
+
+Now I can see the full picture. Let me analyze the code:
+
+**`intersect` method (lines 24-33):** Checks if a block intersects with the board boundaries or existing blocks. It checks:
+- `i + self.block.y > self.height - 1` (bottom boundary)
+- `j + self.block.x > self.width - 1` (right boundary)
+- `j + self.block.x < 0` (left boundary)
+- `self.board[i + self.block.y][j + self.block.x] != 0` (existing blocks)
+
+**`rotate` method (lines 54-57):** Simply calls `self.block.rotate()` without checking if the rotated block would intersect. After rotation, the block's shape changes dimensions, and it could go out of bounds, causing an `IndexError`.
+
+The bug is clear: The `rotate` method needs to check if the rotation would cause an intersection, and if so, undo the rotation. This is similar to how the `move` method works (saves old position, moves, checks intersection, reverts if needed).
+
+Let me fix the `rotate` method. I need to save the old rotation, perform the rotation, check for intersection, and revert if there's a collision.

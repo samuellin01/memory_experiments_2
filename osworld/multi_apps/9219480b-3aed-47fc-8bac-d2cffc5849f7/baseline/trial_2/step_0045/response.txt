@@ -1,0 +1,11 @@
+
+
+The block rotated successfully from vertical to horizontal orientation when there's enough space. The game continues to run without crashing. The fix is working correctly:
+
+1. **Normal rotation in the middle of the board**: Works fine ✓
+2. **Rotation at the edge of the board**: Properly blocked (no crash) ✓
+3. **Multiple rotation attempts**: No crashes ✓
+
+The bug was in the `rotate` method in `tetris.py`. The original code simply called `self.block.rotate()` without checking if the rotated block would fit within the board boundaries. The fix saves the old rotation state before rotating, performs the rotation, checks for intersection (out of bounds or collision with existing blocks), and reverts the rotation if there's an intersection.
+
+Let me close the game.

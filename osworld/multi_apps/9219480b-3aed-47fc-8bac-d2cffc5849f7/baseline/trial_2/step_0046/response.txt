@@ -1,0 +1,32 @@
+
+
+The game closed cleanly without any errors. The fix has been successfully applied and tested. 
+
+Here's a summary of what was done:
+
+**Bug:** The `rotate` method in `tetris.py` (line 54) would call `self.block.rotate()` without checking if the rotated block would go out of bounds or collide with existing blocks on the board. This caused the program to crash with an `IndexError` when rotating blocks near the edges of the board.
+
+**Fix:** Added boundary/collision checking to the `rotate` method, similar to how the `move` method already handles this:
+
+**Before (lines 54-57):**
+```python
+def rotate(self):
+    if self.block is None:
+        return
+    self.block.rotate()
+```
+
+**After (lines 54-60):**
+```python
+def rotate(self):
+    if self.block is None:
+        return
+    old_rotation = self.block.rotation
+    self.block.rotate()
+    if self.intersect():
+        self.block.rotation = old_rotation
+```
+
+The fix saves the current rotation state, performs the rotation, then checks if the new position intersects with the board boundaries or existing blocks. If it does, the rotation is reverted to the saved state.
+
+DONE
