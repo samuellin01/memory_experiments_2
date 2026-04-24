@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('grep -n "class Head\\|class MultiHead\\|class FeedFo'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ward\\|class Block\\|class GPTLanguageModel" /home/u'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ser/gpt_dev_pure_code.py\n'), shell=True, check=True)
+import time; time.sleep(0.05)
