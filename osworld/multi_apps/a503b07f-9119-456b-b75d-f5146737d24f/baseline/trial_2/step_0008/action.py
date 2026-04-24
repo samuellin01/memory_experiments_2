@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('sudo sed -i \'s/rights="none" pattern="PDF"/rights='), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('"read|write" pattern="PDF"/\' /etc/ImageMagick-6/po'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('licy.xml\n'), shell=True, check=True)
+import time; time.sleep(0.05)
