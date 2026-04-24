@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('wget -O /tmp/gpt_dev.ipynb "https://raw.githubuser'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('content.com/karpathy/ng-video-lecture/main/gpt-dev'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('.ipynb" 2>&1 | tail -5\n'), shell=True, check=True)
+import time; time.sleep(0.05)
