@@ -1,0 +1,17 @@
+
+
+The game is running perfectly. The rotation is working correctly - when the block is near the edge and rotation would cause it to go out of bounds, the rotation is properly rejected (reverted). No crashes!
+
+The bug has been fixed. Let me summarize what was done:
+
+**Bug Found:** In `tetris.py`, the `rotate()` method (line 54-57) was calling `self.block.rotate()` without checking if the rotated block would intersect with the board boundaries or other blocks. This caused an index out of bounds crash when a block was near the edge of the board.
+
+**Fix Applied:** Modified the `rotate()` method to:
+1. Save the old rotation state: `old_rotation = self.block.rotation`
+2. Perform the rotation: `self.block.rotate()`
+3. Check for intersection: `if self.intersect():`
+4. Revert if there's a collision: `self.block.rotation = old_rotation`
+
+This is consistent with how the `move()` method already handles boundary checking (save old position, move, check intersection, revert if needed).
+
+DONE

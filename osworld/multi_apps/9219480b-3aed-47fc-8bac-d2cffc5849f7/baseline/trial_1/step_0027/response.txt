@@ -1,0 +1,11 @@
+
+
+Now I can see the full picture. Let me analyze the code:
+
+1. **`intersect` method (lines 24-33)**: Checks if the current block position causes a collision. It checks boundaries and board collisions.
+
+2. **`rotate` method (lines 54-57)**: Just calls `self.block.rotate()` without checking if the rotation causes an intersection. This is the bug!
+
+When a block is near the edge of the board, rotating it can cause it to extend beyond the board boundaries. The `intersect` method would catch this, but `rotate` never calls it. When the game later tries to access board positions for the rotated block, it causes an index out of bounds crash.
+
+Now let me also check the `block.py` to see how `rotate` works:

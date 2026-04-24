@@ -1,0 +1,16 @@
+
+
+Now I have a clear picture of the code. Let me understand the bug:
+
+**Block class (block.py):**
+- `rotate()` (line 10-11): Simply increments rotation index: `self.rotation = (self.rotation + 1) % len(self.shapes)`
+- `shape` property (line 14-15): Returns `self.shapes[self.rotation]` - the current rotation's shape matrix
+
+**Tetris class (tetris.py):**
+- `rotate()` (lines 54-57): Calls `self.block.rotate()` WITHOUT checking if the rotated position intersects with walls/other blocks
+- `move()` has proper intersection checking - saves old position, checks intersection, reverts if needed
+- `intersect()` (lines 24-33): Checks bounds and board collisions
+
+The bug is in the `rotate` method of `tetris.py`. When a block is near the edge of the board, rotating it can make it extend beyond the board boundaries. The `rotate` method doesn't check for this, so the next time `intersect()` or the drawing code accesses board positions, it can crash with an index out of bounds error.
+
+The fix is to save the old rotation, perform the rotation, check for intersection, and revert if there's a collision. Let me fix this now:

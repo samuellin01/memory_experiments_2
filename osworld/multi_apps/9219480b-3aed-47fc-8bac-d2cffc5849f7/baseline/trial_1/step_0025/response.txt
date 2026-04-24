@@ -1,0 +1,19 @@
+
+
+The game is still running. The crash happens "under some cases" - likely when the rotated piece would go out of bounds. Let me analyze the code more carefully instead of trying to trigger the crash manually. Let me close the game and look at the code.
+
+Based on my analysis of the code, I can see the bug clearly:
+
+**In `tetris.py`, the `rotate` method (lines 54-57):**
+```python
+def rotate(self):
+    if self.block is None:
+        return
+    self.block.rotate()
+```
+
+The problem is that after rotating, the code doesn't check if the rotated block intersects with the board boundaries or other blocks. Compare this with the `move` method which properly saves old position, checks for intersection, and reverts if needed.
+
+The `intersect` method in tetris.py checks bounds, but the `rotate` method never calls it. When a block is near the edge and rotates, it could extend beyond the board, causing an index out of bounds error when accessing `self.board`.
+
+Let me close the game and fix this:
