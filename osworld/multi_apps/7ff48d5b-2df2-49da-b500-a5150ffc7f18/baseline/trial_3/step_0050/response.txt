@@ -1,0 +1,6 @@
+I can see the terminal with the previous Python session. Now I need to look at the actual content of address #2 more carefully. Looking at the document, address #2 shows "深圳市福天安数码城昌泰公寓一楼" - it seems "田区" is indeed missing. Let me check the Unicode escape I used for a2 in my original script.
+
+Looking at the original code, I used:
+`a2 = '2. \u798f\u7530\u516c\u5b89\u5206\u5c40\u5929\u5b89\u6240\u5929\u5b89\u8b66\u52a1\u5ba4\u667a\u80fd\u670d\u52a1\u70b9\uff1a\u6df1\u5733\u5e02\u798f\u7530\u533a\u5929\u5b89\u6570\u7801\u57ce\u660c\u6cf0\u516c\u5bd3\u4e00\u697c'`
+
+This should decode to "深圳市福田区天安数码城昌泰公寓一楼". But the display shows "深圳市福天安数码城昌泰公寓一楼". Let me check if there's a rendering issue or if the content is actually correct. Let me use Python to read and check the document content.
