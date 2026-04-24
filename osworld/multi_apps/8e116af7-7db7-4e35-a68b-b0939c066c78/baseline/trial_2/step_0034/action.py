@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('echo "=== RECEIPT 2 ===" && cat /tmp/r2.txt && ech'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('o "=== RECEIPT 3 ===" && cat /tmp/r3.txt && echo "'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('=== RECEIPT 4 ===" && cat /tmp/r4.txt\n'), shell=True, check=True)
+import time; time.sleep(0.05)
