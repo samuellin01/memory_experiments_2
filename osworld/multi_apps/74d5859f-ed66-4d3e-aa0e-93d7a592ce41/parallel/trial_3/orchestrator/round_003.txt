@@ -1,0 +1,15 @@
+The version field is being problematic. Let me try a smarter approach - use the browser's DevTools console to bypass the validation and set the version, or try to figure out the correct format. I notice the site has a Mozilla logo at the bottom, so this is for Firefox WebExtensions. Let me also try using the JavaScript console approach to speed things up.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In Chrome on the webext.eu page, open the browser DevTools console by pressing F12, then click on the Console tab. In the console, run this JavaScript to bypass the version validation and set the version, then programmatically advance to the next step. First try running: document.querySelector('input').value = '1.0.0' and then dispatch an input event. If that's too complex, just try typing different version formats in the input field. First try triple-clicking the version field to select all, then type '1.0' and click the arrow. If that fails, try '1.0.0'. If that also fails, try just '1'. Work very quickly - don't spend more than 2 steps per version format attempt.",
+      "display": 0
+    },
+    {
+      "instruction": "In the terminal, research the webext.eu version format requirement. Run: curl -s https://webext.eu/ | grep -i 'version' | head -20  and also  curl -s https://webext.eu/ | grep -i 'regex\\|pattern\\|valid' | head -20  to find what version format the site expects. Also try: curl -s https://webext.eu/js/app.js 2>/dev/null | grep -i version | head -20  or similar to find the JavaScript validation logic. Write findings to /tmp/version_format.txt",
+      "display": 2
+    }
+  ]
+}

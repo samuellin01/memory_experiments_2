@@ -1,0 +1,17 @@
+I can see from the screenshot that the DevTools console shows `document.querySelectorAll('input').length` returned `3` - so there are 3 input elements. The console is now docked at the top. The version field still shows "1.0.0" with the error. The problem is clearly that the validation is triggered by keyup events and the programmatic value setting doesn't trigger the right events.
+
+Let me take a completely different approach. I'll close DevTools, reload the page fresh, and try to go through the wizard cleanly. The issue might be that there are trailing spaces or the input state is corrupted from all the previous attempts. A fresh start should work.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "On Chrome which is showing webext.eu with DevTools open, do the following steps:\n1. First close DevTools by pressing F12\n2. Then reload the page by pressing F5 or clicking the refresh button\n3. Wait for the page to fully load - you should see the first step asking for 'Extension name'\n4. Clear any existing text in the name field and type exactly: happy-extension v0.0.1\n5. Click the arrow (→) to go to the next step (description)\n6. Leave description BLANK and click the arrow (→) to go to the version step\n7. IMPORTANT: When you reach the version field, it will likely have a default value. You need to clear it completely and type the version. The field should accept '0.0.1'. Clear the field by triple-clicking to select all, then type: 0.0.1\n8. Then click the arrow (→) to advance\n9. If '0.0.1' is rejected, try clearing and typing just: 1.0\n10. Continue through the wizard to select features - enable ONLY 'Background Script' and 'Browser Action', uncheck everything else\n11. Download the generated zip file\n\nBe very efficient - don't waste steps. Move quickly through each screen.",
+      "display": 0
+    },
+    {
+      "instruction": "In the terminal, use xdotool to help with the webext.eu page on display 0. Wait 15 seconds for the page to reload, then run these commands to type into the version field via xdotool on display :0:\n\nFirst wait:\nsleep 15\n\nThen check what's happening:\nDISPLAY=:0 xdotool search --name 'Webextensions' getwindowfocus\n\nWrite the window ID to /tmp/chrome_window.txt for reference. Don't actually type anything yet - just prepare.",
+      "display": 2
+    }
+  ]
+}

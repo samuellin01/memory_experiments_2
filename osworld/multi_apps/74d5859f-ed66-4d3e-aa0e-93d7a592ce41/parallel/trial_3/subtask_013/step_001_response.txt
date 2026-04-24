@@ -1,0 +1,8 @@
+Looking at the terminal output, I can see some important findings:
+
+1. The error message is "Extension version is not in correct format."
+2. The version value chars are `[48,46,48,46,49]` which is "0.0.1" - correct, no hidden characters
+3. The validation check says "matches" - the regex DOES match "0.0.1"
+4. No Vue/React/Angular framework detected - it's vanilla JS or something else
+
+So the regex matches but the validation still fails. There must be a different validation path. Let me dig deeper into the build.js to find the actual validation logic.

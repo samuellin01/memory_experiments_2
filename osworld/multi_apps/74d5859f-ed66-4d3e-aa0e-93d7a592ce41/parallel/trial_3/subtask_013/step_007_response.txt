@@ -1,0 +1,12 @@
+Now I can see the critical validation line at line 1100:
+
+```
+return!(n&&!((t,e)=>{if("version"===t)return e.match(/^(\d+\.)?(\d+\.)?(\*|\d+)$/i)})(r,i)||(e[r]=i,0)})
+```
+
+Let me also look at the `data-validate` attribute. I see on line 1099:
+```
+getAttribute("data-validate"),i=t.value||"";
+```
+
+So the validation gets a `data-validate` attribute from the input and checks the value. The input must have a `data-validate` attribute. Let me look at the HTML to understand the full flow. But more importantly, let me just try a completely different approach - use CDP to go through the entire wizard programmatically, bypassing the UI validation.

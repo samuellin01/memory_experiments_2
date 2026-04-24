@@ -1,0 +1,11 @@
+Interesting! The regex test shows that "0.0.1" SHOULD match the pattern. The problem is likely that the input events aren't firing properly when typing in the field - the validation is triggered by JavaScript events that aren't being dispatched correctly when the agent types. The approach should be to use the DevTools console to directly set the value and trigger the proper events, or to reload the page and start fresh. Let me take a more aggressive console-based approach.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In Chrome on the webext.eu page, the DevTools Console is already open. Click on the console input line (the area with the '>' prompt) and type and execute this single JavaScript command that will bypass the entire wizard and go directly to generating the extension:\n\nFirst, run this to find all inputs:\ndocument.querySelectorAll('input').forEach((el,i) => console.log(i, el.dataset.question, el.value))\n\nThen run this to set the version input value properly with events:\nlet vi = document.querySelector('input[data-question=\"version\"]'); if(vi){vi.value='0.0.1'; vi.dispatchEvent(new Event('input',{bubbles:true})); vi.dispatchEvent(new Event('keyup',{bubbles:true})); console.log('set version');} else {console.log('no version input');}\n\nThen try clicking the arrow to advance:\ndocument.querySelector('.go').click()\n\nIf the arrow click doesn't work or validation still fails, try this approach - reload the page and start completely fresh. Navigate to webext.eu, and this time when you reach the version field, instead of typing, use the console to set the value. The issue is likely that the previous typed values left the input in a bad state.\n\nAlternative: If console manipulation is too difficult, try reloading the page (click the refresh button or press F5), close DevTools first with F12, then go through the wizard again: type 'happy-extension v0.0.1' for name, skip description, and for version try typing '1.0' very carefully (character by character) and immediately click the arrow.",
+      "display": 0
+    }
+  ]
+}

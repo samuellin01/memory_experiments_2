@@ -1,0 +1,11 @@
+The zip file has been downloaded successfully! I can see the terminal is open on display 0 and the file manager shows the Projects folder is empty. Now I just need to unzip the downloaded file into ~/Projects/. Let me do this on display 0 where the terminal is already open, and also on a secondary display as backup.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal that is already open on the screen, run these commands to unzip the downloaded extension into ~/Projects/:\n\nFirst check what zip files exist:\nls ~/Downloads/*.zip\n\nThen unzip it:\nunzip ~/Downloads/happy-extension-v0-0-1.zip -d ~/Projects/\n\nThen verify the contents:\nls -la ~/Projects/\ncat ~/Projects/manifest.json\n\nIf the zip extracts into a subfolder, that's fine. If manifest.json is not directly in ~/Projects/ but in a subfolder, check with: find ~/Projects/ -name manifest.json and cat that file.",
+      "display": 0
+    }
+  ]
+}

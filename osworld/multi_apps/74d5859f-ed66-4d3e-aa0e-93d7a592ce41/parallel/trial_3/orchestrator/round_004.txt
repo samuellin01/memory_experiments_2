@@ -1,0 +1,19 @@
+Looking at the display 2 output, I can see the actual regex from the code. The last line shows: `if("version"===t)return e.match(/^(\d+\.)` and from earlier in the output I can see the full pattern is `/^(\d+\.)?(\d+\.)?(\*|\d+)$/i`. 
+
+But wait - I can also see from the code that the regex is actually checking `e.match(/^(\d+\.)` which starts with `^(\d+\.)` - meaning it requires at least one digit followed by a dot at the start. So "0.0.1" should match... unless the issue is something else.
+
+Looking more carefully at the terminal output, I see: `if("version"===t)return e.match(/^(\d+\.)` - this seems truncated. Let me test the regex and also try a different approach - use the DevTools console to bypass validation entirely.
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, test what version formats match the webext.eu regex and also check if there's a different validation. Run these commands:\n\nnode -e \"console.log(/^(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$/i.test('0.0.1'))\"\nnode -e \"console.log(/^(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$/i.test('1.0'))\"\nnode -e \"console.log(/^(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$/i.test('1.0.0'))\"\n\nAlso download and extract the full validation function:\ncurl -s https://webext.eu/build.js | grep -oP 'if\\(\"version\"===t\\)return[^;]+;' \n\nWrite all results to /tmp/version_format.txt",
+      "display": 2
+    },
+    {
+      "instruction": "In the terminal, test the regex pattern from webext.eu. Run:\npython3 -c \"import re; versions=['0.0.1','1.0','1.0.0','0.1','1','0.0.0.1']; [print(v, bool(re.match(r'^(\\d+\\.)?(\\d+\\.)?(\\*|\\d+)$', v))) for v in versions]\"\nWrite the output to /tmp/regex_test.txt",
+      "display": 3
+    }
+  ]
+}

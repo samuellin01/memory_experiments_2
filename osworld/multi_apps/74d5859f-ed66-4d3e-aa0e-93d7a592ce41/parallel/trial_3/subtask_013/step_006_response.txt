@@ -1,0 +1,7 @@
+Now I can see the actual code. Let me look at the key validation line more carefully. I can see:
+
+```
+return!{n&&!((t,e)=>{if("version"===t)return e.match(/^(\d+\.)?(\d+\.)?(\*|\d+)$/i)
+```
+
+And importantly, I see `manifest_version:2` and `version:t.version||"1.1"`. Let me look more carefully at the validation logic. I can see the `return!` which means the validation returns the NEGATION. Let me also see the full flow. Let me extract the relevant section more carefully.
