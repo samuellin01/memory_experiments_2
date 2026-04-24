@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('cd ~/Pictures && mv picture1.jpg "Mount Kilimanjar'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('o.jpg" && mv picture2.jpg "Ama Dablam.jpg" && mv p'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('icture3.jpg "Mount Hua.jpg"\n'), shell=True, check=True)
+import time; time.sleep(0.05)
