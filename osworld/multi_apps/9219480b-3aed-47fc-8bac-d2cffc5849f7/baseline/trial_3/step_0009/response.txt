@@ -1,0 +1,5 @@
+
+
+Now I can see the `rotate` method on line 54-57. It simply calls `self.block.rotate()` without checking if the rotation would cause an intersection (out of bounds or overlapping with existing blocks). This is likely the bug - when you rotate a piece near the edges or near other blocks, the new shape could go out of bounds, causing an index error.
+
+Let me first run the code to see the actual error. Let me open a terminal.

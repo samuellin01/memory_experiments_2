@@ -1,0 +1,21 @@
+
+
+Now I can see the full picture. Let me analyze the code:
+
+**`intersect` method (lines 24-33):**
+- Checks if any non-zero cell of the block shape would be out of bounds or overlap with existing blocks on the board
+- Checks: `i + self.block.y > self.height - 1` (bottom), `j + self.block.x > self.width - 1` (right), `j + self.block.x < 0` (left), and board collision
+
+**`rotate` method (lines 54-57):**
+```python
+def rotate(self):
+    if self.block is None:
+        return
+    self.block.rotate()
+```
+
+The bug is clear! The `rotate` method calls `self.block.rotate()` but **doesn't check if the rotation causes an intersection**. Unlike the `move` method which saves the old position, applies the move, checks for intersection, and reverts if needed, the `rotate` method just rotates without any validation.
+
+When a block is near an edge or near other blocks, rotating it can cause the shape to extend beyond the board boundaries, and on the next `intersect` check or drawing, it will try to access an out-of-bounds index, causing a crash.
+
+The fix is to save the old rotation, apply the rotation, check for intersection, and revert if there is one. Let me fix the `rotate` method in tetris.py.

@@ -1,0 +1,20 @@
+
+
+Now I can see the full block.py file. Let me understand the structure:
+
+1. `Block` class with `__init__`, `rotate()`, and `shape` property
+2. `rotate()` method on line 10-11 increments rotation and wraps around using modulo
+3. `shape` property returns `self.shapes[self.rotation]`
+4. Shapes are defined as a list of shape definitions
+
+Now let me look at the `rotate` method in tetris.py (line 54-57):
+```python
+def rotate(self):
+    if self.block is None:
+        return
+    self.block.rotate()
+```
+
+The problem is clear: **the `rotate` method in `tetris.py` doesn't check for intersections after rotating**. Unlike the `move` method which checks `self.intersect()` and reverts if there's a collision, the `rotate` method just rotates without checking. If the rotated shape goes out of bounds or overlaps with existing blocks, it can cause an index error.
+
+Also, I need to check the `intersect` method. Let me look at it more carefully. Let me click on tetris.py.

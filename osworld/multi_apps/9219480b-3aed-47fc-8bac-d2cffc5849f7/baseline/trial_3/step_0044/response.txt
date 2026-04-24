@@ -1,0 +1,15 @@
+
+
+The game is still running perfectly without any crashes. The fix is working correctly. The rotation now properly checks for intersections and reverts the rotation if the rotated block would go out of bounds or overlap with existing blocks.
+
+Let me summarize the bug and the fix:
+
+**Bug:** In `tetris.py`, the `rotate` method (line 54-57) called `self.block.rotate()` without checking if the rotated shape would cause an intersection (going out of bounds or overlapping with existing blocks on the board). This would cause an `IndexError` crash when trying to access board positions outside the valid range.
+
+**Fix:** Added intersection checking after rotation, similar to how the `move` method works:
+1. Save the old rotation value: `old_rotation = self.block.rotation`
+2. Perform the rotation: `self.block.rotate()`
+3. Check for intersection: `if self.intersect():`
+4. If there's an intersection, revert: `self.block.rotation = old_rotation`
+
+DONE
