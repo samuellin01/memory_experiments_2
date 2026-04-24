@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('unzip -o attached_file.docx "word/document.xml" -d'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote(' docx_extracted && grep -o \'r:embed="[^"]*"\' docx_'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('extracted/word/document.xml | head -5\n'), shell=True, check=True)
+import time; time.sleep(0.05)
