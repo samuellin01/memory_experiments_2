@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('for i in 1 2 3; do echo "Section $i:"; convert sec'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('tion$i.png -format "R=%[fx:mean.r] G=%[fx:mean.g] '), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('B=%[fx:mean.b] Warmth=%[fx:mean.r - mean.b]" info:'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('; echo ""; done\n'), shell=True, check=True)
+import time; time.sleep(0.05)
