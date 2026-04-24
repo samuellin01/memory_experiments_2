@@ -1,0 +1,1 @@
+pyautogui.hscroll(10, 525, 525)

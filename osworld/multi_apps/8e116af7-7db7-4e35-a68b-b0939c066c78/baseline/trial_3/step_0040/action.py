@@ -1,0 +1,6 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('pdftoppm ~/Desktop/receipt_3.pdf /tmp/receipt3 -pn'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('g && tesseract /tmp/receipt3-1.png stdout 2>/dev/n'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('ull\n'), shell=True, check=True)
+import time; time.sleep(0.05)
