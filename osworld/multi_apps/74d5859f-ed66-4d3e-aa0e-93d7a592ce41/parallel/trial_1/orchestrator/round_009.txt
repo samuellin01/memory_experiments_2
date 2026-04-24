@@ -1,0 +1,15 @@
+The zip file has been successfully downloaded! Now I need to:
+1. Unzip it to ~/Projects
+2. Edit the manifest.json to set the name to "happy-extension v0.0.1" and ensure description is blank
+
+Let me do this on a secondary display since it's file operations:
+
+{
+  "action": "dispatch",
+  "subtasks": [
+    {
+      "instruction": "In the terminal, do the following steps:\n\n1. First, list and inspect the downloaded zip file:\n   ls -la ~/Downloads/extensionizr_custom1684567164002.zip\n\n2. Unzip it to ~/Projects:\n   unzip ~/Downloads/extensionizr_custom1684567164002.zip -d ~/Projects/\n\n3. List what was extracted:\n   find ~/Projects/ -type f | sort\n\n4. View the current manifest.json:\n   cat ~/Projects/*/manifest.json 2>/dev/null || find ~/Projects -name manifest.json -exec cat {} \\;\n\n5. Edit the manifest.json to set the name to 'happy-extension v0.0.1' and ensure description is empty. Use sed or python to do this. The manifest.json likely has empty name and description fields. Update them:\n   - Find the manifest.json file path first\n   - Use python3 to properly edit the JSON:\n   \n   MANIFEST=$(find ~/Projects -name manifest.json -print -quit)\n   python3 -c \"\nimport json\nwith open('$MANIFEST') as f:\n    data = json.load(f)\ndata['name'] = 'happy-extension v0.0.1'\ndata['description'] = ''\nwith open('$MANIFEST', 'w') as f:\n    json.dump(data, f, indent=2)\n\"\n\n6. Verify the changes:\n   cat $MANIFEST\n\nReport the full file structure and final manifest.json contents.",
+      "display": 2
+    }
+  ]
+}
