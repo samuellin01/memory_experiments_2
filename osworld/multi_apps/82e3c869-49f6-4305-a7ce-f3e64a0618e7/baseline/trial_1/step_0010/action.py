@@ -1,0 +1,8 @@
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('cd ~/Desktop/"IDS LLM seminar" && mkdir -p present'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('er && cp DSC00495.jpg DSC00554.jpg DSC00574.jpg DS'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('C00657.jpg presenter/ && cd ~/Desktop/"IDS LLM sem'), shell=True, check=True)
+import time; time.sleep(0.05)
+import subprocess, shlex; subprocess.run(f'xdotool type --delay 12 -- ' + shlex.quote('inar" && zip -r presenter.zip presenter/\n'), shell=True, check=True)
+import time; time.sleep(0.05)
